@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "ReporteHorarios";
+}
+
+<div class="container">
+    <div class="row" style="background-color:#17a2b8; border-radius:5px; padding:3px;font-size:20px; height:60px;">
+        <div class="col-md-12" style="color:white">
+            <h1 class="text-center">Reporte de horarios</h1>
+        </div>
+    </div>
+    <br />
+    <form>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h2 class="text-center">Elija al menos un filtro para generar el reporte</h2>
+            </div>
+        </div>
+
+        <br />
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-3 form-group">
+                <label>Número de empleado</label>
+                <input class="form-control" id="NumEmpleado" />
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Área o Departamento</label>
+                <select class="form-control" id="Departamento">
+                    <!--Catalogo camapañas(Áreas)-->
+                </select>
+            </div>
+            <div class="col-md-3 form-group" style="padding-top:30px;">
+                <label>
+                    <input type="checkbox" value="1" id="todos" />
+                    Todos los empleados activos
+                </label>
+            </div>
+            <div class="row" align-items-center justify-content-center>
+                <div class="input-group col-md-1">
+
+                    <span class="input-group-append">
+                        <button class="btn btn-outline-secondary" id="Buscar2" type="button" style="background-color: aliceblue;" onclick="ReporteHorarios()">
+                            <i class="fas fa-search" style="color:cornflowerblue"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div id="tabla" class="row  justify-content-center col-md-11">
+
+        </div>
+        <br />
+    </form>
+</div>
+
+<script>
+    $(function () {
+        Session();
+        cargarDepartamento();
+    })
+</script>
+

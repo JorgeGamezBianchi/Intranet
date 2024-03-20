@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "ReportesUsuario";
+}
+
+<div class="container">
+    <div class="row" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+        <div class="col-md-12" style="color: white">
+            <h1 class="text-center">Reporte general de altas y bajas por usuario </h1>
+        </div>
+    </div>
+    <br />
+    <form>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h2 class="text-center">Elija el periodo para obtener el reporte</h2>
+            </div>
+        </div>
+
+        <br />
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-2 form-group">
+                <label >Elija tipo de reporte</label>
+                <select id="tipoReporte" class="form-control">
+                    <option value="0">Seleccione</option>
+                    <option value="1">Alta</option>
+                    <option value="2">Baja</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Usuario</label>
+                <select id="usuarioReporte" class="form-control">
+                    <!--Select de los usuarios que pueden realizar altas y bajas-->
+                </select>
+            </div>
+            <div class="col-md-2 form-group">
+                <label for="inputsm">Fecha inicial</label>
+                <input class="form-control " id="Fechainicio" type="text" maxlength="20">
+            </div>
+            <div class="col-md-2 form-group">
+                <label for="inputsm">Fecha final</label>
+                <input class="form-control " id="Fechafin" type="text">
+            </div>
+
+            <div class="row align-items-center justify-content-center" >
+                <div class="input-group col-md-1">
+                    <span class="input-group-append">
+                        <button class="btn btn-outline-secondary" id="Buscar2" type="button" style="background-color: aliceblue;" onclick="ReporteUsuario()">
+                            <i class="fas fa-search" style="color:cornflowerblue"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row  text-justify justify-content-center ">
+            <div id="tabla" class="row  justify-content-center col-md-11">
+                <!--Se crea la tabla con los datos de la consulta-->
+            </div>
+        </div>
+        <br />
+
+    </form>
+</div>
+
+<script>
+    $(function () {
+        Session();
+        cargarUsuarios();
+    })
+</script>

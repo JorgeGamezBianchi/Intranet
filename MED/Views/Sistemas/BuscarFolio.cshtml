@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "AdminBoveda";
+}
+<script type="text/javascript" src="~/Scripts/chart.js"></script>
+<div class="container" id="container">
+    <div class="row text-center">
+        <div class="col-md-12" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+            <div class="col-md-12 text-center" style="color: white;">
+                <h1 id="tituloBoveda">Busqueda de Folio</h1>
+            </div>
+        </div>
+    </div>
+    <br />
+
+
+
+       
+  
+    <div class="  row text-center justify-content-center">
+
+        <div class="col-md-3 form-group">
+            <label><srong>FOLIO</srong></label>
+            <input type="text" id="Folio" class="form-control" />
+
+        </div>
+        <div class="col-md-1 form-group" style="margin-top:40px">
+
+            <button type="button" id="Buscar" class="btn btn-dark" onclick="CargarFolio()"> <i class="fas fa-search" style="color:#fff;padding-right: 6px"></i></button>
+
+
+        </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center">
+
+
+
+            <div class="col-md-10" style="width:100% !important" id="divFolio">
+
+            </div>
+        </div>
+   
+
+
+
+    <script>
+        $(function () {
+            Session();
+        })
+
+    </script>

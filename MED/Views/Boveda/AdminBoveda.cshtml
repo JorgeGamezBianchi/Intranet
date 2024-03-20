@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "AdminBoveda";
+}
+    <script type="text/javascript" src="~/Scripts/Char.js"></script>
+    <div class="container" id="container">
+        <div class="row text-center">
+            <div class="col-md-12" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-md-12 text-center" style="color: white;">
+                    <h1 id="tituloBoveda">Bóveda de Contraseñas</h1>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-center justify-content-center" id="IniciarBoveda" hidden>
+            <div class="col-sm-9 " style="color: white;">
+                <p>
+                    El uso de la información proporcionada y los datos resultantes están protegidos y serán tratados única y exclusivamente para fines de mejora del ambiente de trabajo.
+                    <br />
+                    <br />
+                    Antes de empezar con la bóveda de contraseñas, el usuario debe ingresar una clave que sera una "LLAVE" única, con la que podrá desbloquear las contraseñas de las cuentas que tiene agregadas.
+                </p>
+            </div>
+            <div id="InsEmp" class="col-md-4">
+                <button type="button" id="btn_InsEmp" class="btn btn-info" onclick="AbrirModalFrase();">Iniciar</button>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-4" id="AgregarCuenta" hidden>
+                <button type="button" id="btn_InsEmp" class="btn btn-info" onclick="AbrirModal();"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 8px"></i>Agregar</button>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+
+            <div class="col-md-10" style="width:100% !important" id="divCuentas" hidden>
+
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade" id="modalCuenta">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header align-items-center" style="background: #4682b4; color: white; justify-content:center;">
+                <h4 class="modal-title" id="TituloCuenta"></h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="frmCrearCuenta">
+                    <div class="row text-center">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-3"> Aplicación: </label>
+                            <input type="hidden" class="form-control col-md-8" id="idFrase" name="idFrase" />
+                            <input type="hidden" class="form-control col-md-8" id="idCuenta" name="idCuenta" />
+                            <input type="text" class="form-control col-md-8" id="aplicacion" name="Aplicacion" />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="col-md-3"> Usuario: </label>
+                            <input type="text" class="form-control col-md-8" id="usuario" name="usuario" />
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="col-md-3"> Contraseña: </label>
+                            <input type="password" class="form-control col-md-8" id="pass" name="pass" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <label id="error" style="color:red" class="col-md-8 text-left"></label>
+                <button type="button" class="col-md-2" style="height:40px; padding:0px !important; background:#17a2b8 !important; border-radius:10px;" onclick="ValidarCuenta()">Guardar</button>
+                <button type="button" class="col-md-2 btn btn-danger" data-dismiss="modal" style="height: 40px; padding: 0px !important;border-radius:10px;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalFrase">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header align-items-center" style="background: #4682b4; color: white; justify-content:center;">
+                <h4 class="modal-title">Ingresar LLAVE</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="frmCrearCuenta">
+                    <div class="row text-center">
+                        <div class="form-group col-md-12">
+                            <input type="password" class="form-control col-md-8" id="frase" name="frase" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <label id="error" style="color:red" class="col-md-8 text-left"></label>
+                <button type="button" class="col-md-2" style="height:40px; padding:0px !important; background:#17a2b8 !important; border-radius:10px;" onclick="GuardarFrase();">Guardar</button>
+                <button type="button" class="col-md-2 btn btn-danger" data-dismiss="modal" style="height: 40px; padding: 0px !important;border-radius:10px;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalMostrarPass">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header align-items-center" style="background: #4682b4; color: white; justify-content:center;">
+                <h4 class="modal-title">Contraseña</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="frmCrearCuenta">
+                    <div class="row text-center">
+                        <div class="form-group col-md-12">
+                            <input type="text" class="form-control col-md-8" id="muestraPass" name="password" readonly />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <label id="error" style="color:red" class="col-md-8 text-left"></label>
+                <button type="button" class="col-md-2 btn btn-danger" data-dismiss="modal" style="height: 40px; padding: 0px !important;border-radius:10px;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        Session();
+    })
+    $(document).ready(function () {
+        ValidarBoveda();
+
+        $("#muestraPass").on('copy', function (e) {
+            e.preventDefault();
+            alertify.error("¡Error, no se puede copiar esta contraseña!");
+        });
+    });
+ 
+</script>

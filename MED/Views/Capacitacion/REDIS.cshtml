@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "REDIS";
+}
+<input id="Id_Examen" value="12" hidden />
+<input id="campania" value="50" hidden />
+
+<div class="container">
+    <div class="row" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+        <div class="col-md-12" style="color: white">
+            <h1 class="text-center">Capacitación REDIS</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <button id="btnLlenar" class="btn btn-success" onclick="LlenarTblExamen()">Iniciar exámen</button>
+        </div>
+    </div>
+</div>
+<div class="container" id="qsi" hidden>
+    <div class="contenedor">
+        <div class="row text-center justify-content-center">
+            <h3 style="color: black" id="audioTitulo">Audio 1</h3>
+            <!--ID audio--><input value="46" id="IDaudio" hidden />
+            <div class="col-md-11 ">
+                <audio id="audio1" controls style="margin-left:70px; width: 60%">
+                    <source src="~/Media/Audio/REFERIDOS/REDIS/30418296 Venta.wav" type="audio/mp3" />
+                    <!-- fallback content here -->
+                </audio>
+                <audio id="audio2" controls style="margin-left:70px; width: 60%;" hidden>
+                    <source src="~/Media/Audio/REFERIDOS/REDIS/O_30528934 Cliente no permite realizar oferta.wav" type="audio/mp3" />
+                </audio>
+                <audio id="audio3" controls style="margin-left:70px; width: 60%;" hidden>
+                    <source src="~/Media/Audio/REFERIDOS/REDIS/O_30530772 No tiene tiempo.wav" type="audio/mp3" />
+                </audio>
+                <audio id="audio4" controls style="margin-left:70px; width: 60%;" hidden>
+                    <source id="audio4" src="~/Media/Audio/REFERIDOS/REDIS/O_30531087 Ya cuenta con el producto.wav" type="audio/mp3" />
+                </audio>
+                <audio id="audio5" controls style="margin-left:70px; width: 60%;" hidden>
+                    <source src="~/Media/Audio/REFERIDOS/REDIS/O_30566806 Prefiere otro credito.wav" type="audio/mp3" />
+                </audio>
+                <br />
+                <form>
+                    <div class="form-group">
+                        <h4>
+                            Con base en el audio <br />
+                            ¿Cómo tipificas la llamada?
+                        </h4>
+                        <div class="row justify-content-center">
+                            <div id="respuestaC" class="col-lg-4" hidden>
+                                <input id="respuesta1" class="form-control" disabled />
+                            </div>
+                            <div id="respuestaU" class="col-lg-6">
+                                <select id="respuestaUser" class="form-control">
+                                    <!--Select de respuestas-->
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center">
+                            <div class="col-md-3">
+                                <button id="insertarResp" class="btn btn-info" onclick="InsertarRespuesta();"><span class="valido" style="margin-left: 70px"></span></button>
+                            </div>
+                            <div class="col-md-3">
+                                <button id="continuar" class="btn btn-secondary" onclick="siguiente2()" disabled><i class="fas fa-arrow-circle-right"></i></button>
+                                <button id="btnFinalizar" class="btn btn-secondary" hidden onclick="location.href='@Url.Action("Login", "Logueo")'" onmouseup="cerrarSesion()">Finalizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(function () {
+        Session();
+        cargarRespuestas();
+    })
+</script>

@@ -1,0 +1,186 @@
+﻿<div class="container">
+    <div class="row text-center ">
+        <div class="col-sm-12">
+            <div class="row align-items-center justify-content-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-sm-9 " style="color: white;">
+                    <h1 id="tituloEmpleado">Sueldo</h1>
+                </div>
+                @*<div class="col-sm-2">
+                    <button type="button" id="Buscar" class="btn btn-dark" onclick="BuscarCampos()"> <i class="fas fa-search" style="color:#fff;padding-right: 6px"></i>Buscar</button>
+                </div>*@
+            </div>
+        </div>
+    </div>
+    <br />
+    <!--Datos buscar empleado-->
+    <div id="datosBuscarEmp" class="row text-center justify-content-center">
+        <div class="col-md-11">
+            <div class="panel panel-info">
+
+                <div class="row align-items-center " style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                    <div class="col-md-11" style="color:white">
+                        Busqueda de empleado
+                    </div>
+                    @*<div class="col-md-1" style="color: white;">
+                        <span data-toggle="collapse" class="col-md-1" href="#collapse5" style="cursor: pointer;color: white; padding-right: 5px">&#9776;</span>
+                    </div>*@
+                </div>
+                <div class="collapse panel-collapse in show" id="collapse5">
+                    <div class="panel-body">
+                        <div class="row align-items-center">
+
+                            <div class="col-md-2 form-group">
+                                <label>No. de empleado </label>
+                                <input type="text" class="form-control" id="NumeroEmpleadob" onkeypress="return numeros(event)" maxlength="30">
+                            </div>
+
+                            <div class="col-md-2 form-group">
+                                <label>Apellido Paterno</label>
+                                <input type="text" class="form-control" id="APaternob" onkeypress="return letras(event)" maxlength="30">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label>Apellido Materno </label>
+                                <input type="text" class="form-control" id="AMaternob" onkeypress="return letras(event)" maxlength="30">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label> Primer Nombre </label>
+                                <input type="text" class="form-control" id="Nombre_1b" onkeypress="return letras(event)" maxlength="30">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label>Segundo Nombre</label>
+                                <input type="text" class="form-control" id="Nombre_2b" onkeypress="return letras(event)" maxlength="30">
+                                <input id="id_Empleadob" hidden />
+                            </div>
+
+                            <div class="col-md-1 form-group">
+
+                                <span class="input-group-append">
+                                    <button class="btn btn-outline-secondary" id="Buscar" type="button" style="background-color: aliceblue; margin-top:30px" onclick="cargarBuscarEmpleados()">
+                                        <i class="fas fa-search" style="color:cornflowerblue"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="col-md-6 form-group" style="margin-left:260px;">
+                                <label>Resultados </label>
+                                <select id="ResultadoB" class="form-control" onchange="SeleccionaEmpleadoBus_Sueldo()">
+                                    <!--Select buscar empleado-->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Termina Datos buscar empleado -->
+
+    
+
+    <div class="row text-center justify-content-center" id="Div_Sueldo" hidden>
+        <div class="col-11">
+            <div class="panel-info">
+                <div class="row align-items-center" style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                    <div class="col-md-11" style="color: white">
+                        Información del sueldo del empleado
+                    </div>
+                    @*<div class="col-md-1" style="color:white;">
+                        <span data-toggle="collapse" class="col-md-1" href="#collapse" style="cursor: pointer;color: white; padding-right: 5px">&#9776;</span>
+                    </div>*@
+                </div>
+                <input hidden id="id_Empleado" />
+                @*<input hidden id="NumeroCuenta" />
+                <input hidden id="CLABE" />
+                <input hidden id="Banco" />*@
+                <div id="collapse" name="datosp" class="collapse panel-collapse in">
+                    <div class="panel-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-3 form-group">
+                                <label>Apellido Paterno</label>
+                                <input type="text" class="form-control" id="APaterno" disabled>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Apellido Materno </label>
+                                <input type="text" class="form-control" id="AMaterno" disabled>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label> Primer Nombre </label>
+                                <input type="text" class="form-control" id="Nombre_1" disabled>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Segundo Nombre</label>
+                                <input type="text" class="form-control" id="Nombre_2" disabled>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-md-3 form-group">
+                                <label>Número de empleado</label>
+                                <input type="text" class="form-control" id="NumeroEmpleado" disabled>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Tipo de Nomina</label>
+                                <select id="TipoNomina" class="form-control" onchange="Tipo_Nomina()">
+                                    <option value="0">Seleccione</option>
+                                    <option value="IMSS">IMSS</option>
+                                    <option value="ASIMILADOS">ASIMILADOS</option>
+                                    <option value="AMBAS">AMBAS</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group" id="Div_Asimilados" hidden>
+                                <label>Sueldo de Asimilados <strong style="color:red">*</strong></label>
+                                <input type="text" class="form-control" id="Sdo_Diario_Asimilados" onkeypress="return numeros_Sueldo(event)">
+                            </div>
+                            <div class="col-md-3 form-group" id="Div_IMSS" hidden>
+                                <label> Sueldo de IMSS <strong style="color:red">*</strong></label>
+                                <input type="text" class="form-control" id="Sdo_Diario_IMSS" onkeypress="return numeros_Sueldo(event)">
+                            </div>
+                            @*<div class="col-md-3 form-group">
+                                <label>SBC Parte Variable <strong style="color:red">*</strong></label>
+                                <input type="text" class="form-control" id="Sdo_Diario_IMSS" onkeypress="return numeros_Sueldo(event)">
+                            </div>*@
+                        </div>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-sm-4">
+                                <button class="btn btn-success" onclick="Insertar_Sueldo()"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 8px"></i>Guardar</button>
+                            </div>
+                            <div class="col-sm-4">
+                                <button class="btn btn-danger" onclick="Limpiar_RegistroSueldo()"><i class="fas fa-times-circle" style="color:#fff; padding-right: 8px"></i>Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        Session();
+        Limpiar_RegistroSueldo();
+    })
+
+    function Limpiar_RegistroSueldo() {
+        document.getElementById('NumeroEmpleadob').value = "";
+        document.getElementById('APaternob').value = "";
+        document.getElementById('AMaternob').value = "";
+        document.getElementById('Nombre_2b').value = "";
+        document.getElementById('ResultadoB').innerHTML = "";
+        document.getElementById('id_Empleado').value = "";
+        //document.getElementById('NumeroCuenta').value = "";
+        //document.getElementById('CLABE').value = "";
+        //document.getElementById('Banco').value = "";
+        document.getElementById('APaterno').value = "";
+        document.getElementById('AMaterno').value = "";
+        document.getElementById('Nombre_1').value = "";
+        document.getElementById('Nombre_2').value = "";
+        document.getElementById('NumeroEmpleado').value = "";
+        document.getElementById('TipoNomina').value = 0;
+        document.getElementById('Sdo_Diario_Asimilados').value = "";
+        document.getElementById('Sdo_Diario_IMSS').value = "";
+        document.getElementById('Div_Asimilados').hidden = true;
+        document.getElementById('Div_IMSS').hidden = true;
+        document.getElementById('Div_Sueldo').hidden = true;
+        document.getElementById('datosBuscarEmp').hidden = false;
+    }
+</script>

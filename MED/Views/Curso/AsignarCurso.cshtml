@@ -1,0 +1,135 @@
+﻿@using MED.Models;
+@{
+    var programas = ViewData["Programas"] as list_Programas;
+}
+
+<style>
+    #myInput {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-sm-12" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+            <div class="col-sm-12 text-center" style="color: white;">
+                <h1>Asignación de cursos</h1>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row align-items-center justify-content-center text-center">
+        <div class="col-md-4 form-group">
+            <label>Selecciona el programa</label>
+            <select id="Id_programa" class="form-select" onchange="Cargar_Cursos_Programas()">
+                <option value="0">Seleccione</option>
+                @for (int i = 0; i < programas.Programas.Count; i++)
+                {
+                    <option value="@programas.Programas[i].Id_programa">@programas.Programas[i].Nombre</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Selecciona el curso a asignar</label>
+            <select id="Id_curso" class="form-select" disabled>
+                <option value="0">Seleccione</option>
+            </select>
+        </div>
+    </div>
+    <hr />
+    <div class="row align-items-center text-center justify-content-center">
+        <div class="col-md-3 form-group">
+            <label>Dirección </label>
+            <select class="form-select" id="Direccion" onchange="SelectDinamicoDireccion(),CargarEmp_Direccion(this.value)">
+                <!--catalogo de direccion-->
+            </select>
+        </div>
+        <div class="col-md-3 form-group">
+            <label>Departamento </label>
+            <select class="form-select" id="Departamento" onchange="SelectCampania(),Cargar_EmpDirecDepart()">
+                <option value="0">Seleccione</option>
+                <!--select dinamico dependiente de catalogo de direccions-->
+            </select>
+        </div>
+        <div class="col-md-3 form-group">
+            <label>Campaña</label>
+            <select class="form-select" id="Campania" disabled onchange="Cargar_EmpCamp()">
+                <!--Select de las campañas-->
+            </select>
+        </div>
+        <div class="col-md-3 form-group">
+            <label>Individual</label>
+            <span class="input-group-append">
+                <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="7"  id="num_emp" class="form-control" placeholder="Ingresa el Num de empleado" />
+                <button class="btn btn-outline-secondary" id="Buscar" type="button" style="background-color: aliceblue;" onclick="Buscar_Emp_Curso()">
+                    <i class="fas fa-search" style="color:cornflowerblue"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <hr />
+    
+    
+    
+    
+    <!--Creación de tabla dinamicas-->
+    <div class="container" id="Tabla_Empleados" hidden>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar por nombres..." title="Buscar usuario">
+        <table class="table table-hover table-responsive-lg text-center" id="myTable">
+            <thead>
+                <tr>
+                    <td>Num. empleado</td>
+                    <td>Puesto</td>
+                    <td>Nombre empleado</td>
+                    <td><label>Seleccionar todo</label><input type="checkbox" id="seleccionT" style="margin-left:10px;" onchange="Seleccionar_Todo()" /></td>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTabla">
+            </tbody>
+        </table>
+        <br />
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-4 form-group">
+                <button type="button" class="btn btn-success" onclick="Validar_AsignarCurso()">Asignar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        Session();
+        cargarDireccion();
+        cargarDepartamento();
+        cargarCampanias();
+        Limpiar_AsignarCurso();
+    })
+
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

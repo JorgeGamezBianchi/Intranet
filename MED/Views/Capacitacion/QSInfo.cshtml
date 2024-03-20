@@ -1,0 +1,364 @@
+﻿
+@{
+    ViewBag.Title = "QSInfo";
+}
+
+<input id="Id_Examen" value="1" hidden />
+
+<div class="container">
+    <div class="row" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+        <div class="col-md-12" style="color: white">
+            <h1 class="text-center">Capacitación</h1>
+        </div>
+    </div>
+    <br />
+    <div class="row text-center align-items-center justify-content-center">
+        <div class="col-md-3 form-group">
+            <label>DIRECCIÓN <strong style="color:red">*</strong></label>
+            <select class="form-control" id="Direccion" name="obg" onchange="SelectDinamicoDireccion()">
+                <!--catalogo de direccion-->
+            </select>
+        </div>
+        <div class="col-md-3 form-group">
+            <label>DEPARTAMENTO <strong style="color:red">*</strong></label>
+            <select class="form-control" id="Departamento" onchange="ActDesacCampania()" name="obg">
+                <option value="0">Seleccione</option>
+                <!--select dinamico dependiente de catalogo de direccions-->
+            </select>
+        </div>
+        <div class="col-sm-3 form-group">
+            <label>CAMPAÑA</label>
+            <select class="form-control" id="Campania" disabled>
+                <option value="0">Seleccione</option>
+                <!--select de Campanias-->
+            </select>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <button id="btnLlenar" class="btn btn-info" onclick="ValidarExam()" >Iniciar exámen</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="qsi" hidden>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>1. ¿Qué es seguridad de la Información?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio1" checked hidden />
+                        <label class="container">
+                            <input type="radio" id="r1" value="A" name="radio1">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> Medidas preventivas y reactivas del hombre, de las organizaciones y de los sistemas tecnológicos que permitan resguardar y proteger la información buscando mantener la confidencialidad, autenticidad, disponibilidad e Integridad de la misma.
+                        </label>
+                        <label class="container">
+                            <input type="radio" id="r2" value="B" name="radio1">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> Es todo aquello que contiene datos organizados susceptibles de tratamiento dentro de la Organización. La información, como Activo Corporativo.
+                        </label>
+                        <label class="container">
+                            <input type="radio" id="r3" value="C" name="radio1">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> Realza la propiedad de algo donde no se registran peligros, daños ni riesgos, buscando mantener la confidencialidad, autenticidad, disponibilidad e Integridad de la misma.
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro1" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>2. ¿Qué es la Confidencialidad?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio2" checked hidden />
+                        <label class="container">
+                            <input type="radio" value="A" name="radio2">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> Se refiere a que la información sea integra en su contenido (no este alterada o modificada)
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="B" name="radio2">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> Garantiza que los datos que están guardados en el sistema no se divulguen a otras entidades o individuos que no están autorizados para acceder a esa información.
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="C" name="radio2">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> Que se pueda tener acceso a la información, siempre que exista una necesidad funcional
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro2" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>3. ¿A qué se refiere la Integridad de la información?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio3" checked hidden />
+                        <label class="container">
+                            <input type="radio" value="A" name="radio3">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> La información sea integra en su contenido (no este alterada o modificada).
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="B" name="radio3">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> Que se pueda tener acceso a la información, siempre que exista una necesidad funcional.
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="C" name="radio3">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> La información debe estar protegida contra la exposición accidental o intencionada.
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro3" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>4. ¿Cómo  puede estar almacenada la información?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio4" checked hidden />
+                        <label class="container">
+                            <input type="radio" value="A" name="radio4">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> Hablada en conversación,  Mostrada en filmes, en la radio
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="B" name="radio4">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> Impresa o escrita en papel, electrónico, Trasmitida por correo o medios electrónicos
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="C" name="radio4">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> Softwares, pantallas, disco duro, celular
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro4" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>5. ¿Cuál es la información más valiosa que manejamos?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio5" checked hidden />
+                        <label class="container">
+                            <input type="radio" value="A" name="radio5">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> La información asociado a las actividades comunes
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="B" name="radio5">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> La información asociado a los gerentes.
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="C" name="radio5">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> La información asociado a CitiBanamex
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro5" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>6. ¿Cómo se clasifica la Seguridad de la Información?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio6" checked hidden />
+                        <label class="container">
+                            <input type="radio" value="A" name="radio6">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> Buena, Mala, Regular
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="B" name="radio6">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> Publica, Interna, Confidencial y Restringida.
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="C" name="radio6">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> Interna, Disponible, Integra
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro6" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>7. ¿Menciona los controles en relación a tu Usuario/contraseña?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio7" checked hidden />
+                        <label class="container">
+                            <input type="radio" value="A" name="radio7">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> Es único e intransferible, Es responsabilidad de los dueños del identificador, No debe de ser compartida o prestado
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="B" name="radio7">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> Cambiar la contraseña todos los días, cuidado para no bloquearlo, puedo prestarlo al supervisor.
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="C" name="radio7">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> Bloquear su sesión  antes de dejar su equipo desatendido, password  es alfanumérico y con un mínimo de 8 caracteres
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro7" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>8. ¿Cuál es el nombre de la ley que nos regula en la administración y protección de la información?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio8" checked hidden />
+                        <label class="container">
+                            <input type="radio" value="A" name="radio8">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> Ley  Federal del trabajo
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="B" name="radio8">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> Código de Ética
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="C" name="radio8">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> Ley Federal de Protección de Datos Personales
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro8" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>9. ¿Qué es la Ingeniería Social?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio9" checked hidden />
+                        <label class="container">
+                            <input type="radio" value="A" name="radio9">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> Se basa en el contacto personal obteniendo la confianza de las personas para que revelen información privilegiada
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="B" name="radio9">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> El trato ante la Sociedad
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="C" name="radio9">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> Es  uno de los bienes más valiosos  que una empresa pueda tener.
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro9" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div>
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content" style="width:100%; height:100%">
+                    <div id="modalHeader" class="modal-header justify-content-center" style="background-color:lightgray">
+                        <h4 class=" col-md-10 modal-title text-center" id=""><strong>10. ¿Cuáles son las recomendaciones dentro del área Operativa?</strong></h4>
+                    </div>
+                    <div name="pregunta" class="modal-body text-justify">
+                        <input type="radio" value="0" name="radio10" checked hidden />
+                        <label class="container">
+                            <input type="radio" value="A" name="radio10">
+                            <span class="checkmark"></span>
+                            <strong>A)</strong> Mantener mis objetos en paquetería, estar tranquilo en operaciones, hablar con mis compañeros
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="B" name="radio10">
+                            <span class="checkmark"></span>
+                            <strong>B)</strong> No conservar datos del cliente, Bloquear el equipo de cómputo cuando no me encuentre en mi lugar, Recordar cambiar mi contraseña cada que me solicite el sistema
+                        </label>
+                        <label class="container">
+                            <input type="radio" value="C" name="radio10">
+                            <span class="checkmark"></span>
+                            <strong>C)</strong> Limpiar mi lugar, Comer en mi lugar de trabajo, Utilizo el celular en la operación.
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="retro10" class="alert alert-success text-center" hidden>
+
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6" id="btnSig">
+                <button class="btn btn-primary" onclick="validarRadios()">Siguiente<i class="fas fa-arrow-circle-right" style="margin-left:10px"></i></button>
+            </div>
+            <div class="col-md-6" id="btnFinalizar" hidden>
+                <button class="btn btn-primary" onclick="location.href='@Url.Action("Login", "Logueo")'" onmouseup="cerrarSesion()">Finalizar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(function () {
+        Session();
+        cargarDireccion();
+        cargarCampanias();
+        cargarDepartamento();
+    })
+</script>

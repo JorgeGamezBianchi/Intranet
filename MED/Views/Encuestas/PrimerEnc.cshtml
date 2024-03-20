@@ -1,0 +1,54 @@
+﻿<div class="container">
+    <div class="row text-center ">
+        <div class="col-sm-12">
+            <div class="row align-items-center justify-content-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-sm-9 " style="color: white;">
+                    <h5 id="tituloEmpleado">CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id="Instrucciones" class="col-sm-12">
+        <div class="row align-items-center justify-content-center" style="background-color: transparent; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+            <div class="col-sm-9 " style="color: white;">
+                <p>
+                    El uso de la información proporcionada y los datos resultantes están protegidos y serán tratados única y exclusivamente para fines de mejora del ambiente de trabajo.
+                    <br />
+                    El cuestionario se debe contestar completamente. No existen respuestas correctas o incorrectas; es necesario hacer uso de su plena concentración; se deben considerar las condiciones de los últimos meses, su opinión es lo más importante por lo que se le pide contestar con sinceridad.
+                </p>
+            </div>
+
+
+        </div>
+    </div>
+    <br />
+    <input id="Id_Examen" value="13" hidden />
+    <div class="row align-items-center justify-content-center" id="btn_IniciarEnc">
+        <div class="col-md-4" style="top:150Px;">
+            <button type="button" class="btn btn-info" onclick="Iniciar_PrimerEnc1()">Iniciar</button>
+        </div>
+    </div>
+
+    <div id="Div_PrimerEnc" hidden>
+        <div id="tabla">
+            <!--Se crea la tabla dinamica-->
+        </div>
+        <div class="row align-items-center justify-content-center ">
+            <div class="col-md-4">
+                <input id="Id_cuestionario" hidden />
+                <button id="btn_PrimEnc" type="button" class="btn btn-success" onclick="ValidaRespuestas_PrimerEnc()" hidden>Guardar Respuestas</button>
+                <button id="btn_SecEnc" type="button" class="btn btn-success" onclick="ValidaRespuestas_SegundaEnc()" hidden>Guardar Respuestas</button>
+                <button id="btn_TerEnc" type="button" class="btn btn-success" onclick="ValidaRespuestas_TercerEnc()" hidden>Guardar Respuestas</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        Session();
+        //Cargar_TerceraEnc();
+    })
+
+
+</script>

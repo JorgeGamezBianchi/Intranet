@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<div id="iniciarS" class="content">
+    <div class="container">
+        <div class="row justify-content-center" >
+            <img id="imagen" src="~/Assets\softlution\images/Softlution.png" class="img-fluid" style="border-radius:10px; width:80%"/><br />
+        </div>
+        <br />
+        <span class="text-title" id="bloqueo" style="color: white;"></span>
+        <label for="uname" id="labeluser" style="color: whitesmoke; margin-left: 30px"><b>Usuario</b></label>
+        <div class="form-element">
+            <i id="iconuser" class="fas fas-user" style="color: khaki">&#xf007;</i>
+            <input id="username" name="username" onkeyup="mayus1(this);" type="text" placeholder="Ingresa tu usuario" pattern="[A-Z0-9]" maxlength="10" required>
+        </div>
+        <span class="text-title" id="errorUserName"></span>
+        <br />
+        <label for="psw" id="labelpass" style="color: whitesmoke; margin-left: 30px "><b>Contraseña</b></label>
+        <div class="form-element">
+            <i id="iconpass" class="fas fa-keyboard" style="color: khaki"></i>
+            <input id="pass" name="pass" type="password" min="8" placeholder="Ingresa tu contraseña" required>
+        </div>
+        <span class="text-title" id="errorPassword"></span>
+        <br />
+        <div class="row justify-content-center mb-2">
+            <button type="submit" class="col-md-6 btn btn-success" id="ingresar" onclick="iniciarSesion()">Login</button>
+            <button type="button" id="actualizarPass" data-bs-toggle="modal" data-bs-target="#myModal" style="display: none;">Actualiza tu contraseña</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //Función que se ejecuta cuando se termina de cargar la pagina
+    $(function () {
+        if (sessionStorage.getItem('usuario') != null) {
+            document.getElementById('spanHeader').style.display = 'block';
+            document.getElementById('mySidenav').style.display = 'block';
+            //document.getElementById('working').style.display = 'block';
+            document.getElementById('nomUsuario').style.display = 'block';
+            document.getElementById('btnCerrarS').style.display = 'block';
+            document.getElementById('nomUsuario').innerHTML = "Bienvenido: " + sessionStorage.getItem('usuario') + "-" + sessionStorage.getItem('nombreU');
+            document.getElementById('iniciarS').hidden = true;
+
+            //MUESTRA EL MENU DE BOVEDA DE CONTRASEÑAS
+            if (sessionStorage.getItem('usuario') == 53602) {
+                document.getElementById("OptMenuPass").hidden = false;
+            } else {
+                document.getElementById("OptMenuPass").hidden = true;
+            }
+        }
+        initLogueo();
+    })
+</script>

@@ -1,0 +1,150 @@
+﻿<style>
+    .example_filter{
+        display: none !important;
+    }
+</style>
+<input id="Correo" hidden/>
+<div class="container">
+    <div class="row text-center ">
+        <div class="col-sm-12">
+            <div class="row align-items-center justify-content-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-sm-9 " style="color: white;">
+                    <h1 id="tituloEmpleado">Atorización de camcio de campaña</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!--Combo para seleccionar autorización-->
+    <div id="datosBuscarEmp" class="row text-center justify-content-center">
+        <div class="col-md-11">
+            <div class="panel panel-info">
+
+                <div class="row align-items-center " style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                    <div class="col-md-11" style="color:white">
+                        Combo con autorizaciones pendientes
+                    </div>
+                </div>
+                <div class="collapse panel-collapse in show" id="collapse5">
+                    <div class="panel-body">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-6 form-group" >
+                                <br />
+                                <select id="Cambios" class="form-control" onchange="CargarRvts_CambioCampana()">
+                                    <!--Select de los cambios pendientes-->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Termina Combo para seleccionar autorización-->
+    <div id="Datos_Cambio_Camp" hidden class="container justify-content-center align-items-center text-center">
+        <!--Empiezan datos de plantilla de origen y destino -->
+        <div class="container text-center" id="datos">
+            <br />
+            <div class="row text-center justify-content-center" style="background-color: lightseagreen; border-radius:25px; height:270px; font-size:18px; color:white; margin-top:-30PX">
+                <div class="col-md-11">
+                    <div class="row justify-content-center">
+                        <div class="col-md-3">
+                            <strong>Campaña Origen: </strong><label id="CampanaOrigen"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <input id="IdCampanaDestino" hidden />
+                            <strong>Campaña Destino: </strong><label id="CampanaDestino"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Supervisor Origen: </strong><label id="SUPERVISORORIGEN"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <input id="IdSupervisorDestino" hidden />
+                            <strong>Supervisor Destino: </strong> <label id="SUPERVISORDESTINO"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-11">
+                    <div class="row justify-content-center">
+                        <div class="col-md-3">
+                            <strong>Coordinador Origen: </strong><label id="COORDINADORORIGEN"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <input id="IDCoordinadorDestino" hidden />
+                            <strong>Coordinador Destino: </strong><label id="COORDINADORDESTINO"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>Gerente Origen: </strong><label id="GERENTEORIGEN"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <input id="IDGerenteDestino" hidden />
+                            <strong>Gerente Destino: </strong><label id="GERENTEDESTINO"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-11">
+                    <div class="row justify-content-center">
+                        <div class="col-md-3">
+                            <strong>Director Origen: </strong> <label id="DIRECTORORIGEN"></label>
+                        </div>
+                        <div class="col-md-3">
+                            <input id="IDDIrectorDestino" hidden />
+                            <strong>Director Destino: </strong><label id="DIRECTORDESTINO"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Termina datos de plantilla de origen y destino-->
+        <div class="container justify-content-center align-items-center text-center">
+            <h3>RVTs que se cambiaran</h3>
+            <div id="tabla"></div>
+            <br />
+            <!--Botones-->
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-success" onclick="TraerDatos_Autorizar_Cambio(2)">Autorizar</button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-danger" onclick="TraerDatos_Autorizar_Cambio(3)">Negar</button>
+                </div>
+            </div>
+            <!--Terminan los botones-->
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        Session();
+        CargarComboCambios();
+    })
+
+    //Funcion para cargar el combo con los cambios de campaña solicitados
+    function CargarComboCambios() {
+        var xml = new XMLHttpRequest();
+        var url = hostInit + "/Operacion/CargarComboCambios";
+        var json = {
+            id_Empleado: sessionStorage.getItem('usuario')
+        }
+
+        xml.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var result = JSON.parse(this.responseText)
+                if (result != null || result != "") {
+                    var opt = '<option value="0">Selecciona</option>'
+                    for (var i = 0; i < result.length; i++) {
+                        opt += '<option value="' + result[i].Serie + '">' + formatDate(result[i].Fecha) + '  --->  ' + result[i].Campana + '</option>';
+                    }
+
+                    document.getElementById("Cambios").innerHTML = opt;
+                } else {
+                    alertify.error("No hay solicitudes pendientes");
+                }
+            }
+        };
+
+        xml.open("POST", url, true);
+        xml.setRequestHeader("Content-Type", "application/json");
+        xml.send(JSON.stringify(json));
+    }
+</script>

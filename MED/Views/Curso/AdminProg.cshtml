@@ -1,0 +1,281 @@
+﻿@using MED.Models;
+@{
+    ViewBag.Title = "AdminProg";
+}
+@{
+    var programas = ViewData["Programas"] as list_Programas;
+    var tipoCursos = ViewData["TipoCursos"] as List_tipo_curso;
+}
+<style>
+    #agregar:hover {
+        opacity: 0.8;
+    }
+</style>
+<div class="container" id="container">
+    <div class="row text-center">
+        <div class="col-md-12" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+            <div class="col-md-12 text-center" style="color: white;">
+                <h1 id="tituloProgramas">Programas</h1>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row align-items-center justify-content-center">
+        <div id="InsEmp" class="col-md-4">
+            <button type="button" id="btn_InsEmp" class="btn btn-info" onclick="mostrarModal()"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 8px"></i>Agregar</button>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+
+        <div class="col-md-10" style="width:100% !important">
+            @{
+                if (programas.Programas.Count > 0)
+                {
+                    <table class=" table table:hover table-striped text-center" style="margin-left:10px; margin-top:10px;">
+
+                        <thead class="tblHead">
+                            <tr>
+                                <td>Nombre del Programa</td>
+                                <td>Empleado</td>
+                                <td>Fecha de creación</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < programas.Programas.Count; i++)
+                            {
+                            <tr>
+                                <td >@programas.Programas[i].Nombre</td>
+                                <td >@programas.Programas[i].NombreEmpleado</td>
+                                <td >@programas.Programas[i].FechaInsercion.ToShortDateString()</td>
+                                <td ><button style="padding:7px;" title="Agregar" data-toggle="modal" data-target="#modalCurso" class="btn btn-info" onclick="MostrarModalCurso(@programas.Programas[i].Id_programa)"><i class="fas fa-folder-plus"></i></button></td>
+                                <td ><button style="padding:8px;" title="Eliminar" onclick="EliminarPrograma(@programas.Programas[i].Id_programa)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>
+                                <td ><button title="Ver Cursos" class="btn" onclick="CargarCursos(@programas.Programas[i].Id_programa)" style="background:#4682b4; color:white; padding:7px;"><i class="fas fa-eye"></i></button></td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                }
+            }
+        </div>
+    </div>
+    <div id="cursos" class="row text-center justify-content-center">
+
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="modalPrograma">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header align-items-center" style="background: #4682b4; color: white; justify-content:center;">
+                <h4 class="modal-title" id="title">Crear Programa</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="frmCrearPrograma">
+                    <div class="row text-center">
+                        <div class="form-group col-md-12">
+                            <label> Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="Nombre"/>
+                            <input type="hidden" class="form-control" id="numEmpleado" name="NumEmpleado" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer ">
+                <button type="submit" class="col-md-2" style="height:40px; padding:0px !important; background:#17b84d !important; border-radius:10px;" onclick="validarCampo()">Guardar</button>
+                <button type="button" class="col-md-2 btn btn-danger" data-dismiss="modal" style="height: 40px; padding: 0px !important;border-radius:10px;" onclick="cierraModal()">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCurso" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="@Url.Action("CrearCurso","Curso")" method="post" id="frmCrearCurso" enctype="multipart/form-data">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header align-items-center" style="background: #4682b4; color: white; justify-content:center;">
+                    <h4 class="modal-title" id="titulo"></h4>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="hidden" id="id_Programa" name="Id_programa" />
+                    <input type="hidden" id="id_Curso" name="Id_curso"/>
+                    <div class="row text-center justify-content-center">
+                        <div class="form-group col-md-7">
+                            <label> Nombre</label>
+                            <input type="text" class="form-control" id="nombreCurso" name="Nombre_Curso" placeholder="Nombre del curso"/>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label> Descripcion</label>
+                            <input type="text" class="form-control" id="descripcion" name="Descripcion" placeholder="Descripción"/>
+                        </div>
+
+                        <div class="form-group col-md-10">
+                            <label> Tipo de curso</label>
+                            <select id="id_tipo_curso" name="id_tipo_curso" class="form-control">
+                                <option value="0" selected>SELECCIONE</option>
+                                @for (int i = 0; i < tipoCursos.TipoCursos.Count; i++)
+                                {
+                                    <option value="@tipoCursos.TipoCursos[i].id_tipo_curso">@tipoCursos.TipoCursos[i].Tipo</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-10">
+                            <label>Leyenda en Certificado</label>
+                            <textarea id="Leyenda" name="Leyenda" class="form-control" placeholder="Leyenda"></textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input id="ActividadBit" name="ActividadBit" value="0" hidden/>
+                            <label style="margin-right:10px;">¿Tiene actividad?</label>
+                            <input type="radio" id="si" name="Excel" onchange="CrearActividad()" value="Si" /> Si
+                            <input type="radio" id="no" style="margin-left:15px;" name="Excel" onchange="CrearActividad()" value="No" /> No
+                            <div class="row">
+                                <div class="form-group col-md-9">
+                                    <input type="file" class="form-control" id="Actividad" name="Actividad" hidden accept=".xlsx" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input style="font-size:14px;" type="number" class="form-control" id="TiempoAct"  title="Agrega tiempo en minutos, para el término de la actividad" placeholder="Tiempo" name="TiempoAct" hidden />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-md-12" id="divActividad" hidden>
+                            
+                        </div>
+
+                        <div id="InsEmp" class="col-md-4">
+                            <button type="button" id="btn_InsEmp" title="Agregar contenido PDF" onclick="AgregaVistaContenido()" class="btn btn-info"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 5px"></i>Agregar PDF</button>
+                        </div>
+
+                        <div id="contenido" class="form-group col-md-12" style="margin-top:10px; margin-right:15px;">
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    
+                    <input type="submit" id="agregar" class="col-md-2 btn btn-succes .modal-content" style="height:40px; color:white; padding:0px !important; background:#17b84d !important; border-radius:10px;" value="Guardar" />
+                    <button id="cerrarCurso" type="button" class="col-md-2 btn btn-danger" data-dismiss="modal" onclick="LimpiarCampos()" style="height: 40px; padding: 0px !important;border-radius:10px;">Cerrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDocumento">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header align-items-center" style="background: #4682b4; color: white; justify-content:center;">
+                <h4 class="modal-title" id="TituloDocumento"></h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row text-center">
+                    <div class="form-group col-md-12" id="divDocumento">
+                           
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <label id="error" style="color:red" class="col-md-10 text-left"></label>
+                <button type="button" class="col-md-2 btn btn-danger" data-dismiss="modal" style="height: 40px; padding: 0px !important;border-radius:10px;">Cerrar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        Session();
+    })
+
+    document.getElementById('frmCrearCurso').onsubmit = function (event) {
+        event.preventDefault();
+        var vacio = 0;
+        var nombre = document.getElementById('nombreCurso').value;
+        var idPrograma = document.getElementById("id_Programa").value;
+        var actividad = document.getElementById("idActividad");
+        let id_tipo_curso = document.getElementById('id_tipo_curso');
+        let Leyenda = document.getElementById('Leyenda');
+
+        if (nombre == "") {
+            alertify.error("¡Error, debe llenar todos los campos!");
+        } else if (id_tipo_curso.value == "0") {
+            alertify.error("Se tiene que especificar el tipo de curso")
+            id_tipo_curso.focus();
+        } else if (Leyenda.value == "") {
+            alertify.error("Favor de ingresar la leyenda que aparecera en el certificado de acreditación")
+            Leyenda.focus();
+        }
+        else {
+            var inputs = document.getElementsByName('file');
+            if (inputs.length == 0) {
+                alertify.error("¡Error, el curso debe tener contenido!");
+            } else {
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].value == "") {
+                        vacio++;
+                    }
+                }
+                if (vacio > 0 || (document.getElementById("Actividad").value == "" && document.getElementById("si").checked == true && actividad == null)) {
+                    alertify.error("¡Error, los archivos no pueden ir vacios!");
+                }
+                else {
+                    var msj = "";
+                    var error = "";
+                    var post_url;
+                    var id = document.getElementById("id_Curso").value;
+                    if (id != "") {
+                        post_url = "/Curso/EditarCurso"
+                        msj = "se actualizó el curso correctamente!";
+                        error = "no se pudo actualizar el curso!";
+                    } else {
+                        post_url = $(this).attr("action");
+                        msj = "se agrego el curso correctamente";
+                        error = "no se pudo crear el curso!";
+                    }
+                    var request_method = $(this).attr("method");
+                    var formData = new FormData(this);
+
+                    $.ajax({
+                        url: post_url,
+                        type: request_method,
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    }).done(function (response) {
+                        if (response == 1) {
+                            $("#modalCurso").modal("hide");
+                            CargarCursos(idPrograma);
+                            alertify.success("¡Exitoso, " + msj);
+                            LimpiarCampos();
+                        }
+                        else {
+                            alertify.error("¡Error, " + error);
+                        }
+                    }).fail(function () {
+                        $("#modalCurso").modal("hide");
+                        alertify.error("¡Error, verifiquelo con el administrador!");
+                    });
+                }
+            }
+        }
+    }
+</script>

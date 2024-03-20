@@ -1,0 +1,860 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+}
+
+#main {
+    display: flex;
+    flex: 1;
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+    #main > article {
+        flex: 1;
+    }
+
+    #main > nav {
+        flex: 0 0 20vw;
+        background: beige;
+    }
+
+    #main > nav {
+        order: -1;
+    }
+
+
+
+#nomUsuario {
+    text-align: right;
+    color: white;
+}
+
+#spanHeader {
+    font-size: 17px;
+    cursor: pointer;
+    color: white;
+}
+
+header, article, nav {
+    padding: 1em;
+}
+
+@media screen and (max-width: 575px) {
+    #main {
+        display: block;
+    }
+}
+
+/*Menu lateral*/
+/*@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+h3 {
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 1rem;
+}
+
+.iconM {
+    font-size: 18px;
+    margin-left: 170px;
+    color: #2f89fc;
+}
+
+.icon {
+    margin-right: 8px;
+}
+
+#submenu ul {
+    margin-left: 15px;
+}
+
+
+#body1 li {
+    transition: 1s all;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    padding: 15px;
+    margin-left: -45px;
+    margin-top: 0px;
+    color: #fff;
+    list-style: none;
+    display: block;
+    border-top-right-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+}
+
+#body1 > li:hover {
+    transition: 1s all;
+    color: #2f89fc;
+    background-color: rgba(42, 56, 65, 0.82);
+    border-top-right-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+}
+
+#body1 > li {
+    float: left;
+}
+
+#body1 li ul {
+    background: #1E2B32;
+    min-width: 100%;
+    z-index: 1;
+    display: none;
+    position: absolute;
+    border-radius: 15px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+
+#body1 li:hover > ul {
+    display: block;
+}*/
+
+
+/*Menu Sidenav*/
+
+/*.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #17A2B8;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        font-size: 20px;
+    }
+
+#closeSideNav, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: aliceblue;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+    #closeSideNav:hover {
+        transition: 1s all;
+        color: white;
+        background-color: rgba(42, 56, 65, 0.82);
+        height: 55px;
+    }
+
+.sidenav a {
+    color: white;
+}
+
+    .sidenav a:hover {
+        color: white;
+    }
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+}*/
+
+.icon {
+    margin-right: 8px;
+    color: white;
+}
+
+
+
+#body1 li {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    padding: 10px;
+    margin-left: -60px;
+    color: #fff;
+    display: block;
+}
+
+    #body1 li:hover {
+        transition: 1s all;
+        color: #2f89fc;
+        width: 260px;
+        background-color: rgba(42, 56, 65, 0.82);
+    }
+
+#body1 > li {
+    float: left;
+}
+
+#body1 #OptMenu:hover {
+    transition: 1s all;
+    color: #17A2B8;
+    width: 250px;
+    background-color: rgba(42, 56, 65, 0.82);
+    border-radius: 10px;
+}
+
+#body1 a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+#body1 li:hover > ul {
+    display: block;
+}
+
+
+/*Menu Sidenav*/
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #17A2B8;
+    overflow: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+#accordion > div {
+    background-color: #17A2B8;
+}
+
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    font-size: 20px;
+}
+
+#closeSideNav, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: aliceblue;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+    #closeSideNav:hover {
+        transition: 1s all;
+        color: white;
+        background-color: rgba(42, 56, 65, 0.82);
+        height: 55px;
+    }
+
+.sidenav a {
+    color: white;
+}
+
+    .sidenav a:hover {
+        color: white;
+    }
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+}
+
+
+/*Login
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+.container {
+    padding: 10px;
+}
+
+/* Content/Box */
+.content {
+    display: flex;
+    align-items: center;
+    background-color: steelblue;
+    margin: 5% auto 15% auto;
+    border: 1px solid #888;
+    width: 40%;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px 0.5px rgba(0, 0, 0, 0.5), 7px 10px 15px 0 rgba(0, 0, 0, 0);
+}
+
+#imagen {
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5), 7px 10px 15px 0 rgba(0, 0, 0, 0);
+    transition: 1s;
+}
+
+    #imagen:hover {
+        transition: 1s;
+        box-shadow: 8px 5px 0px 1px rgba(0, 0, 0, 0.5), 7px 10px 15px 0 rgba(0, 0, 0, 0);
+    }
+
+/*Validar contra*/
+/* The message box is shown when the user clicks on the password field */
+#Mensaje {
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+    #Mensaje p {
+        padding: 10px 35px;
+        font-size: 14px;
+    }
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valido {
+    color: green;
+}
+
+    .valido:before {
+        position: relative;
+        left: -35px;
+        content: "✔";
+    }
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalido {
+    color: darkred;
+}
+
+    .invalido:before {
+        position: relative;
+        left: -35px;
+        content: "✖";
+    }
+
+
+
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: steelblue;
+}
+
+    .topnav a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+        .topnav a:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        .topnav a.active {
+            background-color: #000bd4;
+            color: white;
+        }
+
+/*Capacitacion*/
+
+.contenedor {
+    background-color: #DCDCDC;
+    border-radius: 5px;
+    padding: 10px;
+    padding-top: 20px;
+}
+
+
+
+#Buscar2 {
+    margin-top: 15px;
+}
+
+/*Drompdown Menu Hover*/
+/*.dropbtn {
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}*/
+.flexContainer {
+    display: flex;
+    height: 55px;
+}
+
+.flexItem {
+    flex: 1;
+}
+
+.flexStart {
+    justify-content: flex-start;
+}
+
+.flexEnd {
+    justify-content: flex-end;
+}
+
+.blueBackground {
+    background: steelblue;
+}
+
+.nav {
+    list-style: none;
+}
+
+    .nav a {
+        text-decoration: none;
+        display: block;
+        color: white;
+    }
+
+div.dataTables_wrapper {
+    width: 1000px;
+    margin: 0 auto;
+    overflow-x: auto;
+}
+
+/*---------------Dropdown----------------*/
+.dropdown-btn {
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: block;
+    background: gray;
+    width: 120%;
+    text-align: left;
+    cursor: pointer;
+    margin-left: -21px;
+}
+
+    /* On mouse-over */
+    .dropdown-btn:hover {
+        transition: 1s all;
+        width: 130%;
+        background-color: rgba(42, 56, 65, 0.82);
+    }
+
+.dropdown-container {
+    display: none;
+    background-color: #545f60;
+    padding-left: 20px;
+    margin-left: -21px;
+    width: 120%;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/*TABS*/
+.container ul.nav {
+    width: 390px;
+    height: 80px;
+    margin: 0 auto;
+    list-style: none;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-top: -70px;
+}
+
+    .container ul.nav li {
+        float: left;
+        width: 190px;
+    }
+
+        .container ul.nav li a {
+            position: relative;
+            display: block;
+            height: 50px;
+            margin-top: 40px;
+            padding: 10px 0 0 0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            background: dodgerblue;
+            -webkit-box-shadow: 8px 12px 25px 2px rgba(0,0,0,0.4);
+            -moz-box-shadow: 8px 12px 25px 2px rgba(0,0,0,0.4);
+            box-shadow: 8px 12px 25px 2px rgba(0,0,0,0.4);
+            border: 0px solid #000000;
+            -webkit-transition: padding 0.2s ease, margin 0.2s ease;
+            -moz-transition: padding 0.2s ease, margin 0.2s ease;
+            -o-transition: padding 0.2s ease, margin 0.2s ease;
+            -ms-transition: padding 0.2s ease, margin 0.2s ease;
+            transition: padding 0.2s ease, margin 0.2s ease;
+        }
+
+.container .nav li:first-child a {
+    z-index: 3;
+    -webkit-border-top-left-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    border-top-left-radius: 8px;
+}
+
+.container .nav li:nth-child(2) a {
+    z-index: 2;
+}
+
+.container .nav li:last-child a {
+    z-index: 1;
+    -webkit-box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topright: 8px;
+    border-top-right-radius: 8px;
+}
+
+.container ul.nav li a:hover {
+    margin: 35px 0 0 0;
+    padding: 10px 0 5px 0;
+}
+
+.container ul.nav li a.active {
+    margin: 30px 0 0 0;
+    padding: 10px 0 10px 0;
+    background-color: #545f60 !important;
+    color: white !important;
+    /*color: #ff6831;*/
+    z-index: 4;
+    outline: none;
+}
+
+.group:before,
+.group:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.group:after {
+    clear: both;
+}
+
+#content {
+    width: 1100px;
+    height: auto;
+    margin: 0 auto;
+    background: transparent;
+    -webkit-box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    -webkit-border-bottom-right-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+    padding: 30px 40px;
+    color: black;
+    line-height: 26px;
+    font-size: 18px;
+    margin: 0;
+}
+
+/*.card-body {
+    margin-bottom: -20px;
+}*/
+
+.footer {
+    margin: auto;
+    width: 100%;
+    display: block;
+    background: steelblue;
+    height: 30px;
+    color: white;
+    text-align: center;
+}
+
+
+/*Div para concluciones de Monitoreo*/
+
+.campos {
+    text-align: center;
+    position: fixed;
+    background-color: steelblue;
+    bottom: 0px;
+    padding: 5px;
+    width: 80%;
+    border-radius: 5px;
+    color: white;
+}
+
+    .campos label {
+        color: white;
+    }
+
+    .campos button {
+        margin-top: 50px;
+    }
+/*-------------- Monitoreo Calidad-------------------*/
+/*--------------Tabs Monitoreo-------------------*/
+body {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+
+.container ul.nav {
+    width: 390px;
+    height: 80px;
+    margin: 0 auto;
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+    .container ul.nav li {
+        float: left;
+        width: 130px;
+    }
+
+        .container ul.nav li a {
+            position: relative;
+            display: block;
+            height: 50px;
+            margin-top: 40px;
+            padding: 10px 0 0 0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            background: dodgerblue;
+            -webkit-box-shadow: 8px 12px 25px 2px rgba(0,0,0,0.4);
+            -moz-box-shadow: 8px 12px 25px 2px rgba(0,0,0,0.4);
+            box-shadow: 8px 12px 25px 2px rgba(0,0,0,0.4);
+            border: 0px solid #000000;
+            -webkit-transition: padding 0.2s ease, margin 0.2s ease;
+            -moz-transition: padding 0.2s ease, margin 0.2s ease;
+            -o-transition: padding 0.2s ease, margin 0.2s ease;
+            -ms-transition: padding 0.2s ease, margin 0.2s ease;
+            transition: padding 0.2s ease, margin 0.2s ease;
+        }
+
+.container .nav li:first-child a {
+    z-index: 3;
+    -webkit-border-top-left-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    border-top-left-radius: 8px;
+}
+
+.container .nav li:nth-child(2) a {
+    z-index: 2;
+}
+
+.container .nav li:last-child a {
+    z-index: 1;
+    -webkit-box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topright: 8px;
+    border-top-right-radius: 8px;
+}
+
+.container ul.nav li a:hover {
+    margin: 35px 0 0 0;
+    padding: 10px 0 5px 0;
+}
+
+.container ul.nav li a.active {
+    margin: 30px 0 0 0;
+    padding: 10px 0 10px 0;
+    background-color: #545f60 !important;
+    color: white !important;
+    /*color: #ff6831;*/
+    z-index: 4;
+    outline: none;
+}
+
+.group:before,
+.group:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.group:after {
+    clear: both;
+}
+
+#content {
+    width: 1100px;
+    height: auto;
+    margin: 0 auto;
+    background: transparent;
+    -webkit-box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    -moz-box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    -webkit-border-bottom-right-radius: 8px;
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+    -moz-border-radius-bottomleft: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+p {
+    font-family: 'Open Sans', sans-serif;
+    color: black;
+    line-height: 26px;
+    font-size: 18px;
+    margin: 0;
+}
+
+#Operacion table {
+    margin-left: 30px;
+}
+
+
+table td {
+    text-align: center;
+}
+
+#example {
+    margin-left: 30px;
+}
+
+/*Tabla*/
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: auto;
+    margin-left: 130px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 2px;
+}
+
+table select {
+    padding: 5px;
+    font-size: 12px;
+    margin-left: 40px;
+
+}
+
+
+
+
+.Monitoreo input[type=text] {
+    width: 90%;
+    padding: 12px 20px;
+   
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+   
+    text-align: center;
+}

@@ -1,0 +1,62 @@
+﻿
+<div class="container">
+    <div class="row text-center ">
+        <div class="col-lg-12">
+            <div class="row align-items-center" style="background-color: #17A2B8; border-radius:25px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-md-9 " style="color: white; margin-left:90px">
+                    <h1>Revisión de Rondines</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <form>
+        <div class="row text-center justify-content-center">
+            <div class="col-md-3 form-group">
+                <label>Número de empleado</label>
+                <input type="text" id="numEmp" class="form-control" />
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Fecha inicial (captura)</label>
+                <input type="text" id="Fechainicio" class="form-control" />
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Fecha final (captura)</label>
+                <input type="text" id="Fechafin" class="form-control" />
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Departamento </label>
+                <select class="form-control" id="Departamento">
+                    <option value="0">Seleccione</option>
+                    <!--select dinamico dependiente de catalogo de direccions-->
+                </select>
+            </div>
+        </div>
+        <div class="row text-center justify-content-center">
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-success" onclick="GenerarRevisionRondines()" style="border-radius:15px;">Generar Revision</button>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-danger" onclick="CancelarReporteRondin()" style="border-radius:15px;">Cancelar</button>
+            </div>
+        </div>
+    </form>
+    <br />
+    <div id="tablaRevision">
+
+    </div>
+    <hr />
+    <div class="row text-center justify-content-center" id="BtnGuardarRevision" hidden>
+        <div class="col-sm-4">
+            <button type="button" onclick="ValidarRevisionRondines()" class="btn btn-success" style="border-radius:15px;">Guardar Revisión</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        Session();
+        cargarDepartamento();
+        $('#Fechainicio').datepicker(dataCalendar);
+        $('#Fechafin').datepicker(dataCalendar);
+    })
+</script>

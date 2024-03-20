@@ -1,0 +1,206 @@
+﻿
+<div class="container">
+    <div class="row text-center ">
+        <div class="col-sm-12">
+            <div class="row align-items-center justify-content-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-sm-9 " style="color: white;">
+                    <h1>Encuesta Home Office</h1>
+                </div>
+                @*<div class="col-sm-2">
+                        <button type="button" id="Buscar" class="btn btn-dark" onclick="BuscarCampos()"> <i class="fas fa-search" style="color:#fff;padding-right: 6px"></i>Buscar</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <br />
+    <!--Encuesta-->
+    <div id="Encuesta" class="row text-center justify-content-center">
+        <div class="col-md-11">
+            <div class="panel panel-info">
+                <div class="row align-items-center " style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                    <div class="col-md-11" style="color:white">
+                        Preguntas
+                    </div>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-4 form-group">
+                        <label>CAMPAÑA</label>
+                        <select class="form-control" id="Campania">
+                            <option value="0">Seleccione</option>
+                            <!--select de Campanias-->
+                        </select>
+                    </div>
+                </div>
+                <div class="collapse panel-collapse in show" id="collapse5">
+                    <div class="panel-body">
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-4 form-group">
+                                <input type="radio" value="0" name="radio1" checked hidden />
+                                <label>¿Cuentas con una computadora o Laptop?</label>
+                                <label class="container">
+                                    <input type="radio" value="SI" name="radio1">
+                                    <span class="checkmark"></span>
+                                    <strong>SI</strong>
+                                </label>
+                                <label class="container">
+                                    <input type="radio" value="NO" name="radio1">
+                                    <span class="checkmark"></span>
+                                    <strong>NO</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-4 form-group">
+                                <input type="radio" value="0" name="radio2" checked hidden />
+                                <label>¿Cuentas con conexión a Internet?</label>
+                                <label class="container">
+                                    <input type="radio" value="SI" name="radio2">
+                                    <span class="checkmark"></span>
+                                    <strong>SI</strong>
+                                </label>
+                                <label class="container">
+                                    <input type="radio" value="NO" name="radio2">
+                                    <span class="checkmark"></span>
+                                    <strong>NO</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-4 form-group">
+                                <input type="radio" value="0" name="radio3" checked hidden />
+                                <label>¿Cuentas con un espacio adecuado para trabajar?</label>
+                                <label class="container">
+                                    <input type="radio" value="SI" name="radio3">
+                                    <span class="checkmark"></span>
+                                    <strong>SI</strong>
+                                </label>
+                                <label class="container">
+                                    <input type="radio" value="NO" name="radio3">
+                                    <span class="checkmark"></span>
+                                    <strong>NO</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-4 form-group">
+                                <input type="radio" value="0" name="radio4" checked hidden />
+                                <label>¿Cuentas con teléfono celular o fijo en donde puedas recibir las llamadas?</label>
+                                <label class="container">
+                                    <input type="radio" value="SI" name="radio4" onclick="Contar_Telefono(this.value)">
+                                    <span class="checkmark"></span>
+                                    <strong>SI</strong>
+                                </label>
+                                <label class="container">
+                                    <input type="radio" value="NO" name="radio4" onclick="Contar_Telefono(this.value)">
+                                    <span class="checkmark"></span>
+                                    <strong>NO</strong>
+                                </label>
+                                <div id="Div_Telefono" hidden>
+                                    <label>Favor de ingresar su número de teléfono</label>
+                                    <input class="form-control" id="Telefono" onkeypress="return numeros(event)" maxlength="10" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-success" onclick="ValidaRadios_HommeOffice()">Guardar</button>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!--Termina encuesta-->
+</div>
+
+<script>
+    $(function () {
+        Session();
+        cargarCampanias();
+    })
+    function Contar_Telefono(valor) {
+        if (valor == "SI") {
+            document.getElementById('Div_Telefono').hidden = false;
+        } else {
+            document.getElementById('Div_Telefono').hidden = true;
+        }
+        //if (document.querySelector('input[name="radio4"]:checked').value) {
+
+        //}
+    }
+
+    //Valida encuesta
+    function ValidaRadios_HommeOffice() {
+        var p1 = document.querySelector('input[name="radio1"]:checked').value;
+        var p2 = document.querySelector('input[name="radio2"]:checked').value;
+        var p3 = document.querySelector('input[name="radio3"]:checked').value;
+        var p4 = document.querySelector('input[name="radio4"]:checked').value;
+        var tel = document.getElementById('Telefono').value;
+        var campana = document.getElementById('Campania').value;
+        //if (campana != 0) {//Valida que se haya seleccionado la campaña
+        if ((p1 == 0 || p2 == 0 || p3 == 0 || p4 == 0) || campana == 0) { //Valida las preguntas
+            alertify.alert("Favor de contestar todas las preguntas y/o seleccionar la campaña");
+        } else {
+            if (p4 == "SI" && tel == "") { //valida si esta seleccionado el radio del telefono como SI y si esta vacio el teledono
+                alertify.alert("Facor de ingresar número de teléfono");
+            }
+            //else if (p4 == "NO" && tel == "") {
+            //    Insertar_HommeOffice(p1, p2, p3, p4, tel, campana)
+            //}
+            else {
+                Insertar_HommeOffice(p1, p2, p3, p4, tel, campana)
+            }
+        }
+        //} else {
+        //    alertify.alert("Favor de seleccionar la campaña");
+        //    document.getElementById('Campania').focus();
+        //}
+    }
+
+    //Manda los datos de la cuensta
+    function Insertar_HommeOffice(p1, p2, p3, p4, tel, campana) {
+        var xml = new XMLHttpRequest();
+        var url = hostInit + "/ServiciosGenerales/Inserta_HommeOffice";
+        var json = {
+            Id_Empleado: sessionStorage.getItem('usuario'),
+            P1: p1, 
+            P2: p2,
+            P3: p3,
+            P4: p4,
+            Telefono: tel,
+            Id_campana: campana
+        }
+        xml.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var result = JSON.parse(this.responseText);
+                if (result == 1) {
+                    alertify.alert("Información guardada");
+                    setTimeout(function () {
+                         cerrarSesion()
+                        location.href = hostInit + "/Logueo/Login"; 
+                    }, 3000);
+                    Limpiar_HomeOffice();
+                } else {
+                    alertify.alert("Información ya existente en la base de datos");
+                }
+            }
+        };
+        xml.open("POST", url, true);
+        xml.setRequestHeader("Content-Type", "application/json");
+        xml.send(JSON.stringify(json));
+    }
+
+    //Funcion Limpiar
+    function Limpiar_HomeOffice() {
+         document.querySelector('input[name="radio1"]').checked = true;
+         document.querySelector('input[name="radio2"]').checked = true;
+         document.querySelector('input[name="radio3"]').checked = true;
+         document.querySelector('input[name="radio4"]').checked = true;
+        document.getElementById('Telefono').value = "";
+    }
+</script>

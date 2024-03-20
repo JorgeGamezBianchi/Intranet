@@ -1,0 +1,205 @@
+﻿
+@{
+    ViewBag.Title = "ControlPlantillaOpe";
+}
+<style>
+     /*.dataTables_info {
+        display: none !important;
+    }
+    .dataTables_length{
+        display: block !important;
+    }*/
+    .dataTables_paginate {
+        float: left !important;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/Assets/datatables.min.css" />
+<script type="text/javascript" src="~/Scripts/datatables.min.js"></script>
+<input id="Correo" hidden value="1" />
+<div class="container">
+    <div class="row text-center ">
+        <div class="col-lg-12">
+            <div class="row align-items-center" style="background-color: #17A2B8; border-radius:25px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-md-9 " style="color: white; margin-left:90px">
+                    <h1 id="tituloEmpleado">Control Plantilla Operativa</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form>
+        <!--Empiezan datos de plantilla de origen-->
+        <div class="container text-center" id="datos">
+            <br />
+            <div class="row text-center justify-content-center" style="background-color: lightseagreen; border-radius:25px; height:170px; font-size:18px; color:white; margin-top:-30PX">
+                <div class="col-md-11">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 form-group">
+                            <label>CAMPAÑA</label>
+                            <select class="form-control" id="Campania" onchange="CargarSupervisoresCamapana()">
+                                <option value="0">Seleccione</option>
+                                <!--select de Campanias-->
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>SUPERVISOR</label>
+                            <select class="form-control" id="Supervisor" onchange="CargarRVTs()">
+                                <!--Select de supervisor-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row text-center align-items-center">
+                        <div class="col-sm-6 form-group">
+                            <label id="Coordinador" style="font-size:14px">COORDINADOR: </label>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label id="Gerente" style="font-size:14px">GERENTE: </label>
+                        </div>
+                    </div>
+                    <div class="row text-center align-items-center justify-content-sm-center">
+                        <div class="col-sm-6 form-group">
+                            <label id="Director" style="font-size:14px">DIRECTOR: </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Termina datos de plantilla de origen-->
+        <!--Empieza asignacion de staf-->
+        <div id="staff">
+            <div class="container mt-3">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a id="TabRVT" class="nav-link active" data-toggle="tab" href="#home">RVTs ASIGNADOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="TabVali" class="nav-link" data-toggle="tab" href="#menu1">RVTs SIN ASIGNAR</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" id="content">
+                    <div id="home" class="container tab-pane active">
+                        <!--Empiezan datos de plantilla de destino-->
+                        <div class="container text-center">
+                            <div class="row text-center justify-content-center" style="background-color: lightseagreen; border-radius:25px; height:170px; font-size:18px; color:white">
+                                <div class="col-md-11">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-4 form-group">
+                                            <label>CAMPAÑA</label>
+                                            <select class="form-control" id="CampaniaAsignar" onchange="CargarSupervisoresCamapanaDestino()">
+                                                <option value="0">Seleccione</option>
+                                                <!--select de Campanias-->
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>SUPERVISOR</label>
+                                            <select class="form-control" id="SupervisorAsignar" onchange="CargarCGD()">
+                                                <!--Select de supervisor-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center align-items-center">
+                                        <div class="col-sm-6 form-group">
+                                            <input id="IDCoordinador" hidden/>
+                                            <label id="CoordinadorDestino" style="font-size:14px">COORDINADOR: </label>
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <input id="IDGerente" hidden />
+                                            <label id="GerenteDestino" style="font-size:14px">GERENTE: </label>
+                                        </div>
+                                    </div>
+                                    <div class="row text-center align-content-center justify-content-center">
+                                        <div class="col-sm-6 form-group">
+                                            <input id="IDDirector" hidden />
+                                            <label id="DirectorDestino" style="font-size:14px">DIRECTOR: </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Termina datos de plantilla destino-->
+                        <!--EMPIEZA ASIGNACION RVTs ASIGNADOS-->
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="panel-body justify-content-center" id="RVTs">
+                                    <!--se crea tabla dinamica-->
+                                    <table class="table">
+                                        <thead>
+                                            <tr style="color:steelblue; font-weight:700">
+                                                <td>No. DE EMPLEADO</td>
+                                                <td>NOMBRE DEL RVT</td>
+                                                <td>CAMBIO</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <button id="btnAsignar1" type="button" class="btn btn-info" style="border-radius:20px" onclick="AsignarRVTs()" disabled><i class="fas fa-angle-double-right"></i></button>
+                            </div>
+                            <div class="col-5">
+                                <div class="panel-body justify-content-center">
+                                    <table class="table table-hover table-striped" style="text-align:center; width:100%">
+                                        <thead>
+                                            <tr style="color:steelblue; font-weight:700">
+                                                <td colspan="2">RVTs ASIGNADOS</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="RVTsAsignados">
+                                            <!--Se crea la tabla dinamicamente con los agentes seleccionados-->
+                                        </tbody>
+                                    </table>
+                                    <button type="button" id="Cambiarcampana" class="btn btn-success" onclick="ValidarCambioCampana()" hidden>Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--TERMINA ASIGNACION RVTs ASIGNADOS-->
+                    </div>
+                    <div id="menu1" class="container tab-pane fade">
+                        <!--EMPIEZA ASIGNACION RVTs SIN CAMPAÑA-->
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="panel-body" >
+                                    <div class="container"id="SinAsignar">
+
+                                    </div>
+                                    <!--se crea tabla dinamica-->
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <button id="btnAsignar2" type="button" class="btn btn-info" style="border-radius:20px" onclick="AsignarRVTsSinCampana()" disabled><i class="fas fa-angle-double-right"></i></button>
+                            </div>
+                            <div class="col-5">
+                                <div class="panel-body justify-content-center">
+                                    <table class="table table-hover table-striped" style="text-align:center; width:100%">
+                                        <thead>
+                                            <tr style="color:steelblue; font-weight:700">
+                                                <td colspan="2">RVTs ASIGNADOS</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="RVTsSinCampanaAsignados">
+                                            <!--Se crea la tabla dinamicamente con los agentes seleccionados-->
+                                        </tbody>
+                                    </table>
+                                    <button type="button" id="Asignarcampana" class="btn btn-success" hidden onclick="ValidarAsignacionCampana()">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--TERMINA ASIGNACION RVTs SIN CAMPAÑA-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Termina asignacion de staf-->
+    </form>
+</div>
+
+<script>
+    $(function () {
+        Session();
+        cargarCampanias();
+        CargarRVTsSinAsignar();
+        
+    })
+</script>

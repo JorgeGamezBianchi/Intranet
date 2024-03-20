@@ -1,0 +1,170 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MED intranet</title>
+    <link href="~/Assets/fontawesome/css/all.css" rel="stylesheet" />
+    <link href="~/Assets/CssMed.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/pdf.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Assets/datatables.min.css" />
+    <script type="text/javascript" src="~/Scripts/datatables.min.js"></script>
+    <style>
+        .imagenn {
+            position: relative;
+            width: 100%; /* for IE 6 */
+        }
+
+        b {
+            position: absolute;
+            
+            left: 0;
+            width: 100%;
+            
+        }
+        label {
+            position: absolute;
+            color: #002060;
+            left: 0;
+            width: 100%;
+        }
+        .DivCert {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            word-wrap:break-word;
+            font-family:Calibri;
+        }
+    </style>
+</head>
+
+<body >
+    <div id="cert">
+        <div style="text-align:center; " class="imagenn container">
+
+            @*<div class="row justify-content-center align-content-center">
+                <img src="~/Media/NCertificado.jpg" style="width:100%; height:100%;" />
+                <div class="col-lg-10 DivCert" style="margin-top: -400px;">
+                    <label id="nombrece" style="font-size:60px;"><strong>GERMAN GARCIA GARCIA</strong></label>
+                </div>
+                <div class="col-lg-10 DivCert" style="margin-top: -200px;">
+                    <b style=" font-size:40px;">ha concluido con exito:</b>
+                </div>
+                <div class="col-lg-9 DivCert" style="margin-top: -70px;">
+                    <label id="cursoce" style=" font-size:35px; ">Reforzamiento y evaluación mensual de conocimiento de Producto, Script y Leyendas Normativas en llamadas de venta de productos financieros para call center</label>
+                </div>
+                <div class="col-lg-10 DivCert" style="margin-top:350px; margin-left:-250px">
+                    <b id="fechace" style="font-size:25px">Fecha: 22/12/2021</b><br /><br />
+                    <b id="scorece" style="font-size: 25px;margin-left:-15px">Calificación: 100</b>
+                    <br />
+                </div>
+                <div class="col-lg-9 justify-content-center DivCert" style="margin-top:550px; ">
+                    <p id="Leyendace" style="font-size:20px; padding-top:100px">Este certificado certifica el conocimiento del producto por parte del colaborador, acreditando las evaluaciones correspondientes con un puntaje mínimo de 80 puntos, por lo tanto, puede participar en las campañas asignadas para Citibanamex.</p><br />
+                </div>
+            </div>*@
+
+            <div class="row justify-content-center align-content-center">
+                <img src="~/Media/NCertificado.jpg" style="width:100%; height:100%;" />
+
+                <div class="col-lg-10 DivCert" style="margin-top:40px; margin-left:200px">
+                    <b id="fechace" style="font-size:25px"></b><br /><br />
+                    <br />
+                </div>
+
+                <div class="col-lg-9 DivCert" style="margin-top: 100px;">
+                    <label id="cursoce" style=" font-size:35px; "></label>
+                </div>
+
+                <div class="col-lg-10 DivCert" style="margin-top: 170px;">
+                    <label id="nombrece" style="font-size:40px; color:orangered"><strong></strong></label>
+                </div>
+
+                <div class="col-lg-10 DivCert" style="margin-top: 300px;">
+                    <b style=" font-size:40px;">Ha concluido con exito:</b>
+                </div>
+
+                <div class="col-lg-9 justify-content-center DivCert" style="margin-top:280px; ">
+                    <p id="Leyendace" style="font-size:25px; padding-top:100px"></p><br />
+                </div>
+
+                <div class="col-lg-9 DivCert" style="margin-top: 450px;">
+                    <p id="descripcion" style=" font-size:30px; font-family:'Times New Roman', Times, serif">Reforzamiento y evaluación mensual de conocimiento de Producto, Script y Leyendas Normativas en llamadas de venta de productos financieros para call center</p>
+                </div>
+
+                <div class="col-lg-9 justify-content-center DivCert" style="margin-top:580px; margin-left:100px">
+                    <p id="scorece" style="font-size:50px; font-family:Calibri; padding-top:100px"></p><br />
+                </div>
+            </div>
+
+        </div>
+            @*<div class="padre" style="margin-top:-24px; height:385px; background-color:#f2f2f2; margin-right:40px; font-family:sans-serif; font-size:18px;">
+                <img src="~/Media/Certificado2.jpg" style="width:46%; float:left; height:422px; margin-left:-41px;" />
+               
+            </div>*@
+    </div>
+    @*<div class="" style="background-image:url(../Media/NCertificado.jpg); background-repeat:no-repeat; width:100%;height:100%">
+        <div id="Divnombrece" class="text-center">
+            <p style="color:midnightblue; font-size:60px; font-family:Calibri; margin-top:200px" id="nombrece">GERMAN GARCIA GARCIA</p>
+        </div>
+        <div class="text-center">
+            <h1 style="font-family: Calibri;">ha concluido con éxito</h1>
+        </div>
+        <div id="DivTituloCurso" class="text-center">
+            <p id="cursoce" style="font-size: 40px; font-family:Calibri; color:midnightblue;">Conocimiento de Productos - Referidos</p>
+        </div>
+        <div id="DivFechaCalif" class="text-left">
+            <label id="fechace" style="font-size:20px; font-family:Calibri;"><strong>Fecha: 21/12/2021</strong></label><br />
+            <label id="scorece" style="font-size:20px;font-family:Calibri;">Score: 100</label><br />
+        </div>
+        <div id="DivLeyenda">
+            <h3 id="Tit_Leyenda"></h3>
+        </div>
+    </div>*@
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        Datos();
+    });
+    function Datos() {
+
+        var data = localStorage.getItem("object_name");
+        localStorage.clear(); //clean the localstorage
+        var n = JSON.parse(data).key1;
+        var curso = JSON.parse(data).key2;
+        var fecha = JSON.parse(data).key3;
+        var s = JSON.parse(data).key4;
+        var l = JSON.parse(data).key5;
+        console.log(l);
+        document.getElementById('nombrece').innerHTML =   n;
+        document.getElementById('cursoce').innerHTML =  curso;
+        document.getElementById('fechace').innerHTML = "Fecha: " +fecha;
+        document.getElementById('scorece').innerHTML = "Calificación: "+ s + "pts.";
+        document.getElementById('Leyendace').innerHTML = l;
+
+    }
+
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+            // You do not need to check if i is larger than splitStr length, as your for does that for you
+            // Assign it back to the array
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+        }
+        // Directly return the joined string
+        return splitStr.join(' ');
+    }
+</script>
+
+

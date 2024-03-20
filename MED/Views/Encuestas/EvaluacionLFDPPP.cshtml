@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "EvaluacionLFDPPP";
+}
+
+<div class="container">
+    <div class="row text-center ">
+        <div class="col-sm-12">
+            <div class="row align-items-center justify-content-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-sm-9 " style="color: white;">
+                    <h5 id="tituloFDPPP">EVALUACIÓN LEY FEDERAL DE PROTECCIÓN DE DATOS EN POSESIÓN DE PARTICULARES</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+  
+    <input id="Id_Examen" value="16" hidden />
+    <div class="row align-items-center justify-content-center" id="btnIniciarEva">
+        <div class="col-md-4" style="top:150Px;">
+            <button type="button" class="btn btn-info" onclick="IniciarEvaluacion()">Iniciar</button>
+        </div>
+    </div>
+
+    <div id="DivEvaluacion" hidden>
+        <div id="tablaEvaluacion">
+            <!--Se crea la tabla dinamica-->
+        </div>
+        <div class="row align-items-center justify-content-center ">
+            <div class="col-md-4">
+                <input id="Id_cuestionario" hidden />
+                <button id="btnEvaluacion" type="button" class="btn btn-success" onclick="ValidaRespuestasEvaluacion(20)" hidden>Guardar Respuestas</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        Session();
+        //Cargar_TerceraEnc();
+    })
+
+
+</script>

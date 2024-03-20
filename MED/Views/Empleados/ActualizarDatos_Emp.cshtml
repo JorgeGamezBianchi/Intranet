@@ -1,0 +1,344 @@
+﻿
+@{
+    ViewBag.Title = "RegistrarEmpleado";
+}
+
+
+<div class="container">
+    <div class="row text-center ">
+        <div class="col-sm-12">
+            <div class="row align-items-center justify-content-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-sm-9 " style="color: white;">
+                    <h1 id="tituloEmpleado">Actualizar datos</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <form>
+        <br />
+        <!--Datos personales-->
+        <div class="row text-center justify-content-center">
+            <div class="col-md-11">
+                <div class="panel-info">
+
+                    <div class="row align-items-center justify-content-center" style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                        <div class="col-md-11" style="color: white">
+                            Datos personales
+                        </div>
+                        @*<div class="col-md-1" style="color:white;">
+                                <span data-toggle="collapse" class="col-md-1" href="#collapse" style="cursor: pointer;color: white; padding-right: 5px">&#9776;</span>
+                            </div>*@
+                    </div>
+
+                    <div id="collapse" name="datosp" class="collapse show panel-collapse in">
+                        <div class="panel-body">
+
+                            <div class="row align-items-center">
+                                <div class="col-md-4 form-group">
+                                    <label>Nombre Completo </label>
+                                    <input type="text" class="form-control" id="NombreCompleto" disabled onkeypress="return letras(event)" maxlength="30">
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Fecha de nacimiento </label>
+                                    <input type="text" class="form-control" id="FNacimiento" disabled onchange="CalcularEdad()" />
+                                </div>
+                                <div class="col-md-2 form-group" id="divEdad">
+                                    <label>Edad</label>
+                                    <input type="text" class="form-control" id="Edad" onkeypress="return numeros(event)" maxlength="2" disabled />
+                                </div>
+                                <div class=" col-md-3 form-group">
+                                    <label for="Genero">Genero </label>
+                                    <select class="form-control" id="Sexo" disabled>
+                                        <!--Catalogo sexo-->
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="row align-items-center">
+
+                                <div class="col-md-3 form-group">
+                                    <label>Teléfono de casa </label>
+                                    <input type="tel" class="form-control" id="TelefonoFijo" maxlength="10" min="10" onkeypress="return numeros(event)" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Télefono celular 1 <strong style="color:red">*</strong></label>
+                                    <input type="tel" class="form-control" id="Celular1" maxlength="10" min="10" onkeypress="return numeros(event)" name="obg" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Télefono celular 2</label>
+                                    <input type="tel" class="form-control" id="Celular2" maxlength="10" min="10" onkeypress="return numeros(event)" />
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label for="EstadoCivil">Estado civil <strong style="color:red">*</strong></label>
+                                    <select class="form-control" id="EstadoCivil" name="obg">
+                                        <!--Catalogo del Estado civil-->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+
+                                <div class="col-md-3 form-group">
+                                    <label>Hijos <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="Hijos" onkeypress="return numeros(event)" maxlength="1" name="obg" onchange="ModalHijos()"/>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="UltimoGradoDeEstudios">Ultimo grado de estudios <strong style="color:red">*</strong></label>
+                                    <select class="form-control" id="UltimoGradoDeEstudios" name="obg" onchange="OtroEstudio()">
+                                        <!--Catalogo de grado de estudios-->
+                                        <option value="0">Seleccione</option>
+                                        <option value="Primaria">Primaria</option>
+                                        <option value="Secundaria">Secundaria</option>
+                                        <option value="Preparatoria">Preparatoria</option>
+                                        <option value="Tecnico Profecional">Tecnico Profecional</option>
+                                        <option value="Licenciatura">Licenciatura</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 form-group" id="Div_OtroGrado" hidden>
+                                    <label>Otro Grado</label>
+                                    <input type="text" class="form-control" id="OtroGrado" maxlength="50" name="otro" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Titulo Obtenido <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="TituloObtenido" maxlength="50" name="obg" />
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+
+                                <div class="col-md-3 form-group">
+                                    <label>Calle <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="Calle" maxlength="30" name="obg" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Número <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="Numero" maxlength="30" name="obg" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Colonia <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="Colonia" maxlength="30" name="obg" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Delegacion</label>
+                                    <input type="text" class="form-control" id="Delegacion" maxlength="30" />
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+
+                                <div class="col-md-3 form-group">
+                                    <label>Ciudad <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="Ciudad" maxlength="30" name="obg" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>CP <strong style="color:red">*</strong></label>
+                                    <input type="text" class="form-control" id="CP" maxlength="5" onkeypress="return numeros(event)" name="obg" />
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label for="inputsm">Enfermedad <strong style="color:red">*</strong></label>
+                                    <select class="form-control" id="Enfermedad" onchange="Definir_Enfermedad()" name="obg">
+                                        <option value="0" selected>Seleccione</option>
+                                        <option value="Hipertencion Arterial y/o Pulmonar">Hipertencion Arterial y/o Pulmonar</option>
+                                        <option value="Insuficiencia Renal">Insuficiencia Renal</option>
+                                        <option value="Lupus">Lupus</option>
+                                        <option value="Cancer">Cancer</option>
+                                        <option value="Diabetes">Diabetes</option>
+                                        <option value="Mellitus">Mellitus</option>
+                                        <option value="Obesidad">Obesidad</option>
+                                        <option value="Insuficiencia Hepatica o Metabolica">Insuficiencia Hepatica o Metabolica</option>
+                                        <option value="Enfermedad Cardiaca">Enfermedad Cardiaca</option>
+                                        <option value="otra">Otra Cual?</option>
+                                        <option value="Ninguna">Ninguna</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 form-group" id="Div_OtraEnfermedad" hidden>
+                                    <label>Otra enfermedad</label>
+                                    <input class="form-control" id="OtraEnfermedad" onkeypress="return letras(event)" name="otro" />
+                                </div>
+                            </div>
+                            <div class="row align-items-center justify-content-center">
+                                <div class=" col-md-3 form-group">
+                                    <label for="inputsm">Alergia a algún medicamento <strong style="color:red">*</strong></label>
+                                    <select class="form-control input-sm" id="Alergias" name="obg" onchange="Alergia()">
+                                        <option value="0">Seleccione</option>
+                                        <option value="Si">Si ¿Cuál?</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 form-group" id="Div_Alergia" hidden>
+                                    <label>¿Cuál?</label>
+                                    <input class="form-control" id="AlregiaC" name="otro" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Contacto Emergencia 1 <strong style="color:red">*</strong></label>
+                                    <input class="form-control" id="ContactoEmergencia1" name="obg" onkeypress="return letras(event)" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Telefono Emergencia 1 <strong style="color:red">*</strong></label>
+                                    <input class="form-control" id="TelefonoEmergencia1" name="obg" onkeypress="return numeros(event)" maxlength="10" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-3 form-group">
+                                <label>Contacto Emergencia 2 </label>
+                                <input class="form-control" id="ContactoEmergencia2" onkeypress="return letras(event)" />
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Telefono Emergencia 2 </label>
+                                <input class="form-control" id="TelefonoEmergencia2" onkeypress="return numeros(event)" maxlength="10" />
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Pasatiempo favorito <strong style="color:red">*</strong></label>
+                                <input id="PasatiempoFav" class="form-control" name="obg" />
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Deporte Favorito <strong style="color:red">*</strong></label>
+                                <input id="DeporteFav" class="form-control" name="obg" />
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-3 form-group">
+                                <label>Talento <strong style="color:red">*</strong></label>
+                                <select id="Talento" class="form-control" onchange="DefinirTalento()" name="obg">
+                                    <option value="0" selected>Seleccione</option>
+                                    <option value="Bailar">Bailar</option>
+                                    <option value="Dibujar">Dibujar</option>
+                                    <option value="Cantar">Cantar</option>
+                                    <option value="Tocar instrumento">Tocar instrumento ¿Cuál?</option>
+                                    <option value="Rapear">Rapear</option>
+                                    <option value="otro">Otro</option>
+                                    <option value="Ninguno">Ninguno</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group" id="Div_Instrumento" hidden>
+                                <label>¿Qué instrumento saber tocar?</label>
+                                <input id="Instrumento" class="form-control" />
+                            </div>
+                            <div class="col-md-3 form-group" id="Div_OtroTalento" hidden>
+                                <label>Otro talento</label>
+                                <input id="OtroTalento" class="form-control" name="otro" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row align-items-sm-center">
+                            <div class="col-md-3 form-group" id="divNumeroEmpleado">
+                                <label for="inputsm">Numero Empleado </label>
+                                <input id="Id_Empleado" hidden />
+                                <input class="form-control input-sm" id="NumeroEmpleado" onkeypress="return numeros(event)" type="text" disabled>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="inputsm">Site </label>
+                                <select class="form-control" id="Site" disabled>
+                                    <!--Catalogo Sites-->
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label for="inputsm">Turno </label>
+                                <Select class="form-control" id="Turno" disabled>
+                                    <!--Catalogo Turno-->
+                                </Select>
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label for="inputsm">Puesto </label>
+                                <Select class="form-control" id="Puesto" disabled>
+                                    <!--Catalogo Puestos-->
+                                </Select>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-sm-center justify-content-center">
+                            <div class="col-md-3 form-group">
+                                <label>Campaña</label>
+                                <select id="IdCampana" class="form-control" disabled>
+                                    <!--Se cargan las campañas directo de la base-->
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Fecha de Ingreso</label>
+                                <input id="FIngreso" class="form-control" disabled />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--Termina datos personales-->
+
+        <br />
+        <!--Botonoes-->
+        @*<div class="row align-items-center justify-content-center">
+                <div id="InsEmp" class="col-md-4">
+                    <button type="button" id="btn_InsEmp" class="btn btn-info" onclick="()"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 8px"></i>Agregar</button>
+                </div>
+                <div id="cancelarEmp" class="col-md-4">
+                    <button type="button" class="btn btn-danger fas fa-times-circle" onclick="LimpiarCampos()"><i style="color:#dc3545; padding-right: 8px"></i>Cancelar</button>
+                </div>
+            </div>*@
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-success" style="width:100%" onclick="ValidarDatos_Emp_UPD()">Actualizar</button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-danger" style="width:100%">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<button type="button" id="btn_ModalHijos" hidden class="btn btn-primary" data-toggle="modal" data-target="#ModalHijos">Open modal</button>
+
+<div class="modal fade" id="ModalHijos">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Ingresar las fechas de nacimiento de sus hijos</h4>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="body_ModalHijos">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Empleados/Empleados.js"></script>
+<script>
+    $(function () {
+        Session();
+        cargarGeneros_UPD();
+        cargarEstadosCiviles_UPD();
+        CargarCamapanas_Emp();
+        //cargarEstudios();
+        cargarSite();
+        cargarPuesto();
+        cargarTurnos();
+        // document.getElementById('NumeroEmpleado').disabled = false;
+        //LlenarCampos();
+        $('#FNacimiento').datepicker(dataCalendar);
+        $('#FIngreso').datepicker(dataCalendar);
+        $('#FInsercion').datepicker(dataCalendar);
+        CargarDatos_Emp();
+    })
+
+  
+
+
+    
+</script>

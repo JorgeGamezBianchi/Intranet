@@ -1,0 +1,66 @@
+﻿@using MED.Models;
+@{
+    ViewBag.Title = "AdminSolicitudes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var solicitudes = ViewData["Solicitudes"] as ListaSolicitudes;
+}
+<div class="container" id="container">
+    <div class="row text-center">
+        <div class="col-md-12" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+            <div class="col-md-12 text-center" style="color: white;">
+                <h1 id="tituloSolicitudes">Solicitudes de Compra</h1>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row justify-content-center align-items-center">
+
+        <div class="col-md-10" style="width:100% !important">
+            @{ if (solicitudes.Solicitud.Count > 0)
+                {
+                    <table class=" table table:hover table-striped text-center" style="margin-left:10px; margin-top:10px;">
+                        <thead class="tblHead">
+                            <tr>
+                                <td>Folio</td>
+                                <td>Solicitante</td>
+                                <td>Fecha de solicitud</td>
+                                <td>Descripción</td>
+                                <td>Prioridad</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < solicitudes.Solicitud.Count; i++)
+                            {
+                                <tr>
+                                    <td>@solicitudes.Solicitud[i].Folio</td>
+                                    <td>@solicitudes.Solicitud[i].Solicitante</td>
+                                    <td>@solicitudes.Solicitud[i].FechaSolicitud</td>
+                                    <td>@solicitudes.Solicitud[i].Descripcion</td>
+                                    <td>@solicitudes.Solicitud[i].Prioridad</td>
+                                    <td><button style="padding:8px;" title="Aceptar Solicitud" class="btn btn-info" onclick="GuardarSolicitud(@solicitudes.Solicitud[i].Folio, 'APROBADA')"><i class="fas fa-thumbs-up"></i></button></td>
+                                    <td><button style="padding:8px;" title="Rechazar Solicitud" onclick="ValidarSolicitud(@solicitudes.Solicitud[i].Folio,'RECHAZADA')" class="btn btn-danger"><i class="fas fa-thumbs-down"></i></button></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div style="text-align:center;">
+                        <h3 style="align-content:center">No hay ninguna solicitud pendiente</h3>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        Session();
+    })
+</script>
+

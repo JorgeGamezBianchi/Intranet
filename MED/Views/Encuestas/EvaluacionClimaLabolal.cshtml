@@ -1,0 +1,237 @@
+﻿
+<div class="container">
+    <div class="row text-center ">
+        <div class="col-sm-12">
+            <div class="row align-items-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-sm-12" style="color: white;">
+                    <h1>Ecuesta de clima laboral 2020</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="container text-center" style="background-color:aqua">
+        <h4>Informacón de empleado</h4>
+        <div class="row align-items-center text-center">
+            <div class="col-3">
+                <label>Nombre de empleado</label>
+                <input id="NomEmpleado" class="form-control" disabled />
+            </div>
+            <div class="col-3">
+                <label>Número empleado</label>
+                <input id="NumeroEmpleado" class="form-control" disabled />
+                <input id="id_Empleado" hidden />
+            </div>
+            <div class="col-3">
+                <label for="Genero">Genero <strong style="color:red">*</strong></label>
+                <select class="form-control" id="Genero" name="obg">
+                    <option value="0">Seleccione</option>
+                    <option value="M">M</option>
+                    <option value="H">H</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label>Edad</label>
+                <select class="form-control" id="Edad">
+                    <option value="0">Seleccione</option>
+                    <option value="Menores de 19 años">Menores de 19 años</option>
+                    <option value="De 20 a 29 años">De 20 a 29 años</option>
+                    <option value="De 30 a 39 años">De 30 a 39 años</option>
+                    <option value="De 40 a 49 años">De 40 a 49 años</option>
+                    <option value="De 50 a 59 años">De 50 a 59 años</option>
+                    <option value="De 60 años o más">De 60 años o más</option>
+                </select>
+            </div>
+        </div>
+        <div class="row align-items-center text-center">
+
+            <div class="col-3">
+                <label>Nivel de estudios </label>
+                <select class="form-control" id="Nivel_Estudios">
+                    <option value="0">Seleccione</option>
+                    <option value="Secundaria terminada">Secundaria terminada</option>
+                    <option value="Preparatoria o educación técnica trunca">Preparatoria o educación técnica trunca</option>
+                    <option value="Preparatoria/ educación técnica completa">Preparatoria/ educación técnica completa</option>
+                    <option value="Carrera universitaria trunca">Carrera universitaria trunca</option>
+                    <option value="Carrera universitaria">Carrera universitaria </option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label>Centro </label>
+                <select class="form-control" id="Centro">
+                    <option value="0">Seleccione</option>
+                    <option value="SA">SA</option>
+                    <option value="SJ">SJ</option>
+                    <option value="SEG">SEG</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label>Turno</label>
+                <select class="form-control" id="Turno_clima">
+                    <option value="0">Seleccione</option>
+                    <option value="Mat">Mat</option>
+                    <option value="Vesp">Vesp</option>
+                    <option value="Comp">Comp</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label>Antigüedad</label>
+                <select class="form-control" id="Antiguedad">
+                    <option value="0">Seleccione</option>
+                    <option value="De 1 a 3 meses">De 1 a 3 meses</option>
+                    <option value="De 4 a 6 meses">De 4 a 6 meses</option>
+                    <option value="De 7 meses a 1 año">De 7 meses a 1 año</option>
+                    <option value="De 1 año - 1 año y 6 meses">De 1 año - 1 año y 6 meses</option>
+                    <option value="De 1 año 7 meses - 2 años">De 1 año 7 meses - 2 años</option>
+                    <option value="Más de 2 años">Más de 2 años</option>
+                </select>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center text-center">
+            <div class="col-3">
+                <label>STAFF </label>
+                <select class="form-control" id="Staff">
+                    <option value="0">Seleccione</option>
+                    <option value="Administración y Finanzas">Administración y Finanzas</option>
+                    <option value="Servicios Generales">Servicios Generales</option>
+                    <option value="Calidad Operativa">Calidad Operativa</option>
+                    <option value="Response">Response</option>
+                    <option value="Validacion online">Validacion online</option>
+                    <option value="Validacion piso">Validacion piso</option>
+                    <option value="Atraccion de Talento">Atraccion de Talento</option>
+                    <option value="Capacitacion">Capacitacion</option>
+                    <option value="Capital Humano">Capital Humano</option>
+                    <option value="Alianza Estratégica">Alianza Estratégica</option>
+                    <option value="TI">TI</option>
+                    <option value="Operaciones Admon">Operaciones Admon</option>
+                    <option value="Seguridad de la Informacion">Seguridad de la Informacion</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label>RVT </label>
+                <select class="form-control" id="RVT">
+                    <option value="0">Seleccione</option>
+                    <option value="Referidos">Referidos</option>
+                    <option value="Vinculacion">Vinculación</option>
+                    <option value="ECS">ECS</option>
+                    <option value="Invex">Invex</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label>Jefe Inmediato </label>
+                <select class="form-control" id="Jefe_Inmediato">
+                    <option value="0">Seleccione</option>
+                    <optgroup label="ECS">
+                        <option value="Jorge Navarro">Jorge Navarro</option>
+                        <option value="Edna Sanchez">Edna Sanchez</option>
+                        <option value="Fabian Rioja">Fabian Rioja</option>
+                        <option value="Rosalia Niño">Rosalia Niño</option>
+                        <option value="Jose Antonio Cerde">Jose Antonio Cerde</option>
+                        <option value="Miguel Angel Cortes">Miguel Angel Cortes</option>
+                        <option value="Gabriel Murillo">Gabriel Murillo</option>
+                        <option value="Misael Valverde">Misael Valverde</option>
+                        <option value="Fernada Guzman">Fernada Guzman</option>
+                        <option value="Yoali Santiago">Yoali Santiago</option>
+                        <option value="Gustavo Espejel">Gustavo Espejel</option>
+                    </optgroup>
+                    <optgroup label="VINC">
+                        <option value="Jorge Amezcua">Jorge Amezcua</option>
+                        <option value="Karen Dominguez">Karen Dominguez</option>
+                        <option value="Jonathan Navarrete">Jonathan Navarrete</option>
+                        <option value="Zaira Rendon">Zaira Rendon</option>
+                        <option value="Ramssel Eduardo Zaldivar">Ramssel Eduardo Zaldivar</option>
+                        <option value="Enrique Ramirez">Enrique Ramirez</option>
+                    </optgroup>
+                    <optgroup label="REFERIDOS">
+                        <option value="Kevin Flores">Kevin Flores</option>
+                        <option value="Elias Ake">Elias Ake</option>
+                        <option value="Carolina Perez">Carolina Perez</option>
+                        <option value="Marcos Grada">Marcos Grada</option>
+                        <option value="Fernanda Guadarrama">Fernanda Guadarrama</option>
+                        <option value="Arlet Gutierrez">Arlet Gutierrez</option>
+                        <option value="Fernando Reyes">Fernando Reyes</option>
+                        <option value="Andres Alpide">Andres Alpide</option>
+                        <option value="Ramiro Rivera">Ramiro Rivera</option>
+                        <option value="Fabian Palacios">Fabian Palacios</option>
+                        <option value="Margarita Guadalupe Coyac">Margarita Guadalupe Coyac</option>
+                    </optgroup>
+                    <optgroup label="INVEX">
+                        <option value="Alejandra Leyva">Alejandra Leyva</option>
+                    </optgroup>
+                    <optgroup label="STAFF">
+                        <option value="Adriana de la Torre">Adriana de la Torre</option>
+                        <option value="Alberto González">Alberto González</option>
+                        <option value="Ana Laura García">Ana Laura García</option>
+                        <option value="Anahi Perez">Anahi Perez</option>
+                        <option value="Antonio Guardado">Antonio Guardado</option>
+                        <option value="Beatriz Barajas">Beatriz Barajas</option>
+                        <option value="Carlos Mendez">Carlos Mendez</option>
+                        <option value="Carmen Ortiz">Carmen Ortiz</option>
+                        <option value="Celina Hernández">Celina Hernández</option>
+                        <option value="Cinthya Dominguez">Cinthya Dominguez</option>
+                        <option value="Daniel Puga">Daniel Puga</option>
+                        <option value="Gabriela Arriaga">Gabriela Arriaga</option>
+                        <option value="Gabriela Ramos">Gabriela Ramos</option>
+                        <option value="Guadalupe Rodríguez">Guadalupe Rodríguez</option>
+                        <option value="Hugo de la Rosa">Hugo de la Rosa</option>
+                        <option value="Ivan Jara">Ivan Jara</option>
+                        <option value="Jessica Meza">Jessica Meza</option>
+                        <option value="Jorge Zaragoza">Jorge Zaragoza</option>
+                        <option value="Juan Carlos Guzmán">Juan Antonio Ocampo</option>
+                        <option value="Karla Hernández">Karla Hernández</option>
+                        <option value="Luis Fernando González">Luis Fernando González</option>
+                        <option value="Luis García">Luis García</option>
+                        <option value="Luis Torres">Luis Torres</option>
+                        <option value="Marco Antonio González">Marco Antonio González</option>
+                        <option value="Maria Trejo">Maria Trejo</option>
+                        <option value="Marlen Torres">Marlen Torres</option>
+                        <option value="Maru Dominguez">Maru Dominguez</option>
+                        <option value="Mauricio Lara">Mauricio Lara</option>
+                        <option value="Mayra Rodríguez">Mayra Rodríguez</option>
+                        <option value="Norma Ketz">Norma Ketz</option>
+                        <option value="Ricardo Bravo">Ricardo Bravo</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!--Termina informacion del empleado-->
+    <br />
+    <!--Boton de inicio-->
+    <div class="row align-items-center justify-content-center" id="btnIniciarEnc">
+        <div class="col-md-4">
+            <button type="button" class="btn btn-info" onclick="IniciarEvaluacionClimaLab()">Iniciar</button>
+        </div>
+    </div>
+    <!--Termina boton de incio-->
+    
+    <!--Comienza el area de creacion de encuesta-->
+    <div id="DivEvaluacion" hidden >
+        <div id="tablaEvaluacion">
+            <!--Se crea la tabla dinamica-->
+        </div>
+        <br />
+        <div class="row align-items-center justify-content-center ">
+            <div class="col-md-4">
+                <input id="Id_encuesta" hidden />
+                <button id="btnEvaluacion" type="button" class="btn btn-success" onclick="ValidarRespuestasEvaluacionClima()">Guardar Respuestas</button>
+            </div>
+        </div>
+    </div>
+    <!--Termina el area de la encuesta-->
+</div>
+<script>
+    $(function () {
+        Session();
+        buscarEmpleadoEvaluacion(sessionStorage.getItem('usuario'));
+        document.getElementById('NomEmpleado').value = sessionStorage.getItem('nombreU');
+        document.getElementById('NumeroEmpleado').value = sessionStorage.getItem('usuario');
+        //CargarEvaluacionClimaLaboral();
+        //cargarCampanias()
+        //cargarGeneros();
+        //cargarEstadosCiviles();
+        //cargarDireccion();
+        //cargarDepartamento();
+        //CargarEvaluacionClimaLaboral();
+    })
+</script>

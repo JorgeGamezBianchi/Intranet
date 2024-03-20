@@ -1,0 +1,520 @@
+﻿
+<div class="container">
+    <div id="datEje" class="row align-content-center" style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px; height:80%">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col" style="color: white; font-size: 27px; ">
+                    MONITOREO DE CALIDAD
+                </div>
+                <div class="col">
+                    <label style="font-size: 15px; color: white"><strong>Campaña</strong></label>
+                    <select id="Campana" class="form-select" onchange="CargarCentroAutorizado()">
+                    </select>
+                </div>
+                <div class="col">
+                    <label style="font-size: 15px; color: white" id="lblFolio2"><strong># Centro Autorizado:</strong></label>
+                    <select id="centroAutorizado2" class="form-select" name="obgECS" disabled onchange="ValidaCampañaCentro()">
+                    </select>
+                </div>
+            </div>
+            <div id="moniDos" class="row justify-content-center" hidden>
+                <div class="col">
+                </div>
+                <div class="col">
+                    <label style="font-size: 15px; color: white"><strong>ID/RFC de Ejecutivo</strong></label>
+                    <input class="form-control py-2 text-uppercase font-weight-bold text-center" type="text" id="BuscaRFC2" />
+                </div>
+                <div class="col">
+                    <label></label>
+                    <button type="button" id="btn_buscaEmpleadoMoni" style="width: 100%; border-radius: 17px; height: 50%; margin-top: 5px; display: flex; align-items: center; justify-content: center; " onclick="BuscaEmpleadoIDRFC()"><i style="color: #17a2b8;"></i>BUSCAR</button>
+                </div>
+            </div>
+            <div id="moniDosNom" class="row justify-content-center" hidden>
+                <div class="col">
+                </div>
+                <div class="col">
+                    <label style="font-size: 15px; color: white"><strong>Nombre del Ejecutivo</strong></label>
+                    <input class="form-control py-2 font-weight-bold text-center" type="text" id="BuscaRFC3" />
+                </div>
+                <div class="col">
+                    <label></label>
+                    <button type="button" id="btn_AsignaEmpleadoMoni" style="width: 100%; border-radius: 17px; height: 50%; margin-top: 5px; display: flex; align-items: center; justify-content: center; " onclick="AsignaEje()"><i style="color: #17a2b8;"></i>ASIGNAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form>
+
+        @*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*@
+
+        @*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*@
+
+        <div id="MONITOREOECS" class="m-2">
+            <div id="datEje2" class="row align-content-center" style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px; height:80%" hidden>
+                <div class="container text-center">
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <label style="color: white; font-size: 27px"><strong>MONITOREO DE</strong></label>
+                        </div>
+                        <div class="col">
+                            <label style="color: white; font-size: 17px"><strong>Nombre del Ejecutivo</strong></label>
+                        </div>
+                        <div class="col">
+                            <label style="color: white; font-size: 17px"><strong>Campaña</strong></label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <label style="color: white; font-size: 27px"><strong>CALIDAD</strong></label>
+                        </div>
+                        <div class="col">
+                            <label style="font-size:17px; font-weight :bold" id="BuscaRFC"></label>
+                        </div>
+                        <div class="col">
+                            <label style="font-size:17px" id="Campana2"><strong>ECS_MA</strong></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <fieldset id="moniForm" disabled hidden>
+                <div class="row text-center justify-content-center" style="margin-top:10px;margin-bottom:-30px;" id="DatosMonRVTECS">
+                    <div class="row text-center justify-content-center mt-0 p-1">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="container text-center">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label style="font-size:12px" id="lblSerie"><strong>Estatus de Trámite:</strong></label>
+                                            <select id="statusTramite" class="form-select" name="obgECS" onchange="ValidaEstatusTramite()">
+                                                <option value="0">Seleccione...</option>
+                                                <option value="1">No Venta</option>
+                                                <option value="2">Venta declinada</option>
+                                                <option value="3">Venta precreada</option>
+                                                <option value="4">Sin status / No da respuesta el sistema</option>
+                                                <option value="5">Envío a Sucursal / No Autenticada</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label style="font-size:12px" id="lblFolio"><strong>Monitoreo/Calibración:</strong></label>
+                                            <select id="monitoreoCalibracion" class="form-select" name="obgECS">
+                                                <option value="0">Seleccione...</option>
+                                                <option value="1">Calibración</option>
+                                                <option value="2">Monitoreo</option>
+                                                <option value="3">Solicitud de llamada</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label id="lblsuper" style="font-size:12px"><strong>Nombre de Supervisor:</strong></label>
+                                            <select id="Id_Supervisor" class="form-select" name="obgECS"></select>
+                                        </div>
+                                        <div class="col">
+                                            <label id="lblNombValiECS" style="font-size:12px"><strong>Nombre de Validador:</strong></label>
+                                            <select id="NombValiECS" class="form-select" name="obgECS"></select>
+                                        </div>
+                                        <div class="col">
+                                            <label style="font-size:12px" id="lblFolio"><strong># Centro Autorizado:</strong></label>
+                                            <select id="centroAutorizado" class="form-select" name="obgECS">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label style="font-size:12px" id="lblTelefono"><strong>Nivel de Satisfacción:</strong></label>
+                                            <select id="satisfaccion" class="form-select" name="obgECS">
+                                                <option value="0">Seleccione...</option>
+                                                <option value="1">Satisfecho</option>
+                                                <option value="2">Indiferente</option>
+                                                <option value="3">Insatisfecho</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label style="font-size:12px"><strong>Audio cliente:</strong></label>
+                                            <select id="AudioC" class="form-select" name="obgECS">
+                                                <option value="0">Seleccione...</option>
+                                                <option value="1">Bueno</option>
+                                                <option value="2">Regular</option>
+                                                <option value="3">Malo</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label style="font-size:12px"><strong>Audio ejecutivo:</strong></label>
+                                            <select id="AudioE" class="form-select" name="obgECS">
+                                                <option value="0">Seleccione...</option>
+                                                <option value="1">Bueno</option>
+                                                <option value="2">Regular</option>
+                                                <option value="3">Malo</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label style="font-size:12px" id="lblSerie"><strong>Audio Validador:</strong></label>
+                                            <select id="AudioV" class="form-select" name="obgECS">
+                                                <option value="0">Seleccione...</option>
+                                                <option value="1">Bueno</option>
+                                                <option value="2">Regular</option>
+                                                <option value="3">Malo</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label style="font-size:12px" id="lblFolio"><strong># Llamadas de seg.:</strong></label>
+                                            <input id="llamadaSeg" class="form-control" name="obgECS" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label style="font-size:12px" id="lblTelefono"><strong>Fecha Venta:</strong></label>
+                                            <input id="FechaVentaECS" class="form-control" type="date" name="obgECS" onchange="fechaNoMayorVeEs()" />
+                                        </div>
+                                        <div class="col">
+                                            <label style="font-size:12px"><strong>Fecha Escucha:</strong></label>
+                                            <input id="FechaEscuECS" class="form-control" type="date" name="obgECS" onchange="fechaNoMayorVeEs()" />
+                                            <input id="idVariableECS" hidden />
+                                        </div>
+                                        <div class="col">
+                                            <label style="font-size:12px"><strong>ID (Directo):</strong></label>
+                                            <abbr title="En caso de monitoreo interno, favor de capturar el Call ID de Nuxiba, en caso de Aliados favor de capturar el nombre del aliado">
+                                                <input id="idDirecto" class="form-control" name="obgECS" />
+                                            </abbr>                                            
+                                        </div>
+                                        <div class="col">
+                                            <label style="font-size:12px"><strong>ID Centro:</strong></label>
+                                            <input id="idCentro" class="form-control" name="obgECS" />
+                                        </div>
+                                        <div class="col">
+                                            <label id="lblErrorCV2" style="font-size:10px"><strong>SCRIPT UTILIZADO</strong></label>
+                                            <input id="scriptUsado" class="form-control" style="text-align:center" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+        </div>
+        <br />
+
+        <div id="coments" style="position:sticky;top:20px;z-index: 5;" hidden>
+            <label style="font-size: 12px; display: flex; flex-wrap: wrap; justify-content: center; border: 1px solid lightgray; background-color: white; border-radius: 5px; "><strong>Comentarios:</strong></label>
+            <textarea id="txtComentarios" class="form-control" rows="4" name="obgECS"></textarea>
+        </div>
+
+        <fieldset id="restForm" disabled hidden>
+            <div class="container">
+                <div class="row" id="tabMoni">
+                    <div class="row justify-content-center">
+                        <div class="container mt-3" style="margin-top:50px;">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a id="TabRVT" class="nav-link active" data-bs-toggle="tab" href="#home">RVT</a>
+                                </li>
+                                <li class="nav-item" id="NavValidacion">
+                                    <a id="TabVali" class="nav-link" data-bs-toggle="tab" href="#menu1">VALIDACIÓN</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content container" id="content">
+                                <div id="home" class="container tab-pane active">
+                                    <h3 style=" text-align:center">MONITOREO RVT</h3>
+                                    <div class="panel-body justify-content-center align-content-center" id="Operacion">
+                                    </div>
+                                </div>
+                                <div id="menu1" class="container tab-pane fade ">
+                                    <h3 style="text-align:center">MONITOREO VALIDACIÓN</h3>
+                                    <div class="panel-body justify-content-center align-content-center" id="Validacion">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset id="tipiForm" disabled hidden>
+            <div class="row text-center justify-content-center" style="margin-top: 10px; margin-bottom: -30px" id="tipificaciones">
+                <div class="row text-center justify-content-center mt-0 p-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <label id="lbltipiCen" style="font-size:10px" ame="obgECS"><strong>TIPIFICACIÓN CENTRO</strong></label>
+                                    <select id="TipiCentro" class="form-select" name="obgECS" onchange="SeleccionaTipificacion()"></select>
+                                </div>
+                                <div class="col">
+                                    <label id="lblEstrVta" style="font-size:10px"><strong>ESTRUCTURA DE VENTA</strong></label>
+                                    <input readonly id="estructuraVta" value="0" class="form-control" style="text-align:center" />
+                                </div>
+                                <div class="col" style="display: flex;flex-direction: column;align-items: center;">
+                                    <label style="font-size:15px"><strong>TOTAL LLAMADA</strong></label>
+                                    <div id="Semaforo_Calidad" style="background-color: white; display: flex; justify-content: center; align-items: center; font-size: 35px; color: white; "><label id="totalLlamada"></label></div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <label id="lbltipiCor" style="font-size:10px" ame="obgECS"><strong>TIPIFICACIÓN CORRECTA</strong></label>
+                                    <select id="TipiCorrecta" class="form-select" name="obgECS" onchange="SeleccionaTipificacion()"></select>
+                                </div>
+                                <div class="col">
+                                    <label style="font-size:10px"><strong>TOTAL CALIDAD</strong></label>
+                                    <input readonly id="totalCalidad" value="0" class="form-control" style="text-align:center" />
+                                </div>
+                                <div class="col" style="display: inline-grid; align-items: center;">
+                                    <label id="califLlamada"></label>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <label id="lbltipiECS" style="font-size:10px" ame="obgECS"><strong>TIPIFICACIÓN</strong></label>
+                                    <input id="TipiECS" class="form-control" style="text-align: center;" name="obgECS" disabled />
+                                </div>
+                                <div class="col">
+                                    <label id="lbltotalECS" style="font-size:10px"><strong>TOTAL VENTA</strong></label>
+                                    <input readonly id="TotalVenta" value="0" class="form-control" style="text-align:center" />
+                                </div>
+                                <div class="col" id="caliTotVali">
+                                    <label id="lblErrorCV2" style="font-size:10px"><strong>TOTAL VALIDACION</strong></label>
+                                    <input readonly id="totalValidacion" value="0" class="form-control" style="text-align:center" />
+                                </div>
+                                <div class="col" id="caliTotVali2" hidden>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <label></label>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div id="ecVe1" class="col" hidden>
+                                    <label style="font-size:10px"><strong>ERROR CRÍTICO VENTA</strong></label>
+                                    <textarea id="ErrorCriticoVenta" class="form-control" rows="1" name="obgECS" disabled></textarea>
+                                </div>
+                                <div id="ecVe2" class="col" hidden>
+                                </div>
+                                <div id="ecVa1" class="col" hidden>
+                                    <label style="font-size:10px"><strong>ERROR CRÍTICO VALIDACION</strong></label>
+                                    <textarea id="ErrorCriticoValidacion" class="form-control" rows="1" name="obgECS" disabled></textarea>
+                                </div>
+                                <div id="ecVa2" class="col" hidden>
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div id="leVe1" class="col">
+                                    <label style="font-size:10px"><strong>LEGALES NO CUMPLIDOS VENTA</strong></label>
+                                    <textarea id="LegalesVenta" class="form-control" rows="1" name="obgECS" disabled></textarea>
+                                </div>
+                                <div id="leVe2" class="col" hidden>
+                                </div>
+                                <div id="leVa1" class="col">
+                                    <label style="font-size:10px"><strong>LEGALES NO CUMPLIDOS VALIDACION</strong></label>
+                                    <textarea id="LegalesValidacion" class="form-control" rows="1" name="obgECS" disabled></textarea>
+                                </div>
+                                <div id="leVa2" class="col" hidden>
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div id="" class=" btn-group m-auto">
+                            <button type="button" id="btn_GuardaMC" class="btn btn-success" onclick="pruebasGuardadoPablo()" style="width:100%"><i style="color:#17a2b8; padding-right: 10px"></i>Guardar</button>
+                            <span class="mx-5"></span>
+                            <button type="button" id="btn_Exportar" class="btn btn-primary" onclick="" style="width:100%" disabled><i style="color:#17a2b8; padding-right: 10px"></i>Retro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </fieldset>        
+    </form>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div class="container" hidden>
+    <!--Concliciones de monitoreo-->
+    <div class="campos" id="ConRVT">
+        <div class="panel-body">
+            @*<h4 id="TituloConRVT">CONCLUSIONES RVT</h4>
+                <h4 id="TituloConVali" style="display:none">CONCLUSIONES VALIDACIÓN</h4>*@
+            <div class="row justify-content-center align-content-center">
+
+                <div class="col-sm-3 form-group">
+                    <label id="lblTipificacionRVT" style="font-size:12px"><strong>TIPIFICACIÓN RVT</strong></label>
+                    <textarea id="TipificacionRVT" class="form-control" name="obg"></textarea>
+                </div>
+
+                <div class="col-sm-3 form-group">
+                    <label id="lblTipificacionCorrecta" style="font-size:12px"><strong>TIPIFICACIÓN CORRECTA</strong></label>
+                    <textarea id="TipificacionCorrecta" class="form-control" name="obg"></textarea>
+                </div>
+
+                <div class="col-sm-3" style="">
+                    <label id="lblRVTTipiCorrect" style="font-size:12px">¿RVT TIPIFICO CORRECTAMENTE?</label>
+                    <select id="RVTTipiCorrect" class="form-control" name="obg">
+                        <option value="0" selected>SELECCIONA</option>
+                        <option value="1">SI</option>
+                        <option value="2">NO</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row justify-content-center align-content-center">
+                <div class="col-md-3" form-group>
+                    <label id="lblDescripcionLlamadaRVT" style="font-size:12px"><strong>DESCRIPCIÓN DE LA LLAMADA</strong></label>
+                    <textarea id="DescripcionLlamadaRVT" class="form-control" name="obg"></textarea>
+                    <textarea id="DescripcionLlamadaValidador" class="form-control" name="venta" style="display:none"></textarea>
+                </div>
+
+                <div class="col-md-3" form-group>
+                    <label id="lblFeedbak" style="font-size:12px"><strong>FEEDBACK</strong></label>
+                    <textarea id="FeedbakRVT" class="form-control" name="obg"></textarea>
+                    <textarea id="FeedbakValidador" class="form-control" name="venta" style="display:none"></textarea>
+                    <label id="lblComentarios" style="font-size:12px;display:none"><strong>COMENTARIOS</strong></label>
+                    <textarea id="Comentarios" class="form-control" style="display:none"></textarea>
+                </div>
+
+                <div id="" class="col-sm-3" form-group>
+                    <button type="button" id="btn_GuardaMC" class="btn btn-success  fas fa-check-square" onclick="InsertarTablasMonitoreo()" style="width:100%"><i style="color:#17a2b8; padding-right: 8px"></i>Guardar</button>
+                    <button hidden type="button" id="btn_GuardaMC" class="btn btn-success  fas fa-check-square" onclick="GuardarValoresRVT()" style="width:100%"><i style="color:#17a2b8; padding-right: 8px"></i>Guardar</button>
+                </div>
+            </div>
+
+            @*<div class="col-md-4 form-group">
+                    <label id="CompromisoRVT">COMPROMISO DEL RVT</label>
+                    <label id="CompromisoVali" style="display:none">COMPROMISO DEL VALIDADOR</label>
+                    <textarea id="RvtCompromiso" class="form-control"></textarea>
+                    <textarea id="ValidadorCompromiso" class="form-control" style="display:none"></textarea>
+                </div>*@
+        </div>
+        <!--Botonoes-->
+        @*<div class="row align-items-center justify-content-center">
+                <div id="" class="col-sm-3">
+                    <button type="button" id="btn_GuardaMC" class="btn btn-success  fas fa-check-square" onclick="InsertarTablasMonitoreo()" style="width:100%"><i style="color:#17a2b8; padding-right: 8px"></i>Guardar</button>
+                    <button hidden type="button" id="btn_GuardaMC" class="btn btn-success  fas fa-check-square" onclick="GuardarValoresRVT()" style="width:100%"><i style="color:#17a2b8; padding-right: 8px"></i>Guardar</button>
+                </div>
+            </div>*@
+    </div>
+</div>
+
+<div class="container">
+    <div class="modal fade" id="semaforo" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style=" justify-content: center">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="mySmallModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover table-bordered align-items-center" style="margin-left: -1px;">
+                        <tbody>
+                            <tr style="background-color:#50914e;color:white">
+                                <td>100</td>
+                                <td>FELICITACIÓN Y LLAMADA EJEMPLO</td>
+                            </tr>
+
+                            <tr class="table-success">
+                                <td>90-99</td>
+                                <td>CUMPLE CON PARÁMETROS DE CALIDAD</td>
+                            </tr>
+                            <tr class="table-warning">
+                                <td>80-89</td>
+                                <td>COACHING</td>
+                            </tr>
+
+                            <tr class="table-danger">
+                                <td>< 79</td>
+                                <td>APLICA MALA VENTA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        Session();
+        CargarValidadoresECS();
+        CargarSuper();
+        CargarCamapanas();
+        CargarTipificacionesCen();
+        CargarTipificacionesCor();
+        LimpiarCamposMonitoreoCali();
+        
+        function numeros(e) {
+            var tecla = e.keyCode;
+
+            if (tecla == 8 || tecla == 9 || tecla == 13) {
+                return true;
+            }
+
+            var patron = /[0-9]/;
+            var tecla_final = String.fromCharCode(tecla);
+            return patron.test(tecla_final);
+        }
+    });
+</script>
+
+
+<style>
+    .boton {
+        width: 60px;
+        height: 60px;
+        background-color: #f2ef5a;
+        margin: 5px;
+        padding: 10px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+        font-size: 11px;
+        line-height: 32px;
+        text-transform: uppercase;
+        float: left;
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+        .boton:hover {
+            opacity: 0.50;
+        }
+
+        .boton a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 5px 5px 0;
+        }
+
+    #Semaforo_Calidad {
+        background-color:red;
+        width:70px;
+        height:70px;
+        display:inline-flex;
+        border-radius:50%;
+    }
+    .ajs-header {
+        background: steelblue !important;
+    }
+    .ajs-footer .ajs-buttons.ajs-primary {
+        height: 4rem !important;
+        display: flex !important;
+    }
+</style>

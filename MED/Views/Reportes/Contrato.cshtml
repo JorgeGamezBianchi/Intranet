@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Contrato";
+}
+
+<div class="container">
+    <div class="row" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+        <div class="col-md-12" style="color: white">
+            <h1 class="text-center">Extraer documento Excel para contrato</h1>
+        </div>
+    </div>
+    <br />
+    <form>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h2 class="text-center">Elija un filtro de busqueda</h2>
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-3 form-group">
+                <label for="inputsm">Fecha inicial</label>
+                <input class="form-control " id="Fechainicio" type="text" maxlength="20">
+            </div>
+            <div class="col-md-3 form-group">
+                <label for="inputsm">Fecha final</label>
+                <input class="form-control " id="Fechafin" type="text">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Número de empleado</label>
+                <input class="form-control" id="NumEmpleado" />
+            </div>
+            <div class="input-group col-md-3">
+                <button class="btn btn-info" id="Buscar2" type="button" onclick="Contrato()">
+                    <i class="fas fa-search" style="color:whitesmoke"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-3 form-group">
+                <label>Apellido Paterno </label>
+                <input type="text" class="form-control" id="APaterno" onkeypress="return letras(event)" maxlength="30">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Apellido Materno </label>
+                <input type="text" class="form-control" id="AMaterno" onkeypress="return letras(event)" maxlength="30">
+            </div>
+            <div class="col-md-3 form-group">
+                <label> Primer Nombre </label>
+                <input type="text" class="form-control" id="Nombre_1" onkeypress="return letras(event)" maxlength="30">
+            </div>
+            <div class="col-md-3 form-group">
+                <label>Segundo Nombre</label>
+                <input type="text" class="form-control" id="Nombre_2" onkeypress="return letras(event)" maxlength="30">
+                <input id="id_Empleado" hidden />
+            </div>
+        </div>
+        <div class="row align-items-center justify-content-center text-center">
+            
+        </div>
+        <br />
+
+        <div class="row  text-justify justify-content-center ">
+            <div id="tabla" class="row  justify-content-center col-md-11">
+
+            </div>
+        </div>
+        <br />
+
+    </form>
+</div>
+
+<script>
+    $(function () {
+        Session();
+    })
+</script>

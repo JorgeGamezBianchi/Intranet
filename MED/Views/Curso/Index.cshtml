@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<style>
+    .form-control-lg {
+        
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 1200px;
+        width: 900px;
+        margin: 0px;
+        padding: 0px;
+    }
+</style>
+<div class="row text-center" style="justify-content: center;">
+
+    <div class="form-control-lg justify-content-center" style="background-image: url(../Media/Img/Imagen1.png);">
+        <label id="nombrece" style="position: absolute; top:890px; left:680px;"></label>
+        <label id="cursoce" style="position: absolute; top:935px; left:680px;"> </label>
+        <label id="fechace" style="position: absolute; top:980px; left:680px;"> </label>
+        <lavel id="scorece" style="position: absolute; top:1020px; left:680px;"> </lavel>
+    </div>
+
+</div>
+
+
+<script>
+
+
+    $(function () {
+
+        Datos();
+
+    })
+    function Datos() {
+
+        var data = localStorage.getItem("object_name");
+        localStorage.clear(); //clean the localstorage
+        var n = JSON.parse(data).key1;
+        var curso = JSON.parse(data).key2;
+        var fecha = JSON.parse(data).key3;
+        var s = JSON.parse(data).key4;
+
+
+       document.getElementById('nombrece').innerHTML = n;
+       document.getElementById('cursoce').innerHTML = curso;
+       document.getElementById('fechace').innerHTML = fecha;
+       document.getElementById('scorece').innerHTML = s;
+
+    }
+
+</script>

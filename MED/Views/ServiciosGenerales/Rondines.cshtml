@@ -1,0 +1,107 @@
+﻿
+<div class="container">
+    <div class="row text-center ">
+        <div class="col-lg-12">
+            <div class="row align-items-center" style="background-color: #17A2B8; border-radius:25px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-md-9 " style="color: white; margin-left:90px">
+                    <h1>Registro de Rondines</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <form>
+        <!--Empieza captura de informacion del rondin-->
+        
+            <div class="row text-center justify-content-center">
+                <div class="col-md-11">
+                    <div class="row justify-content-center">
+                        <div class="col-md-3 form-group">
+                            <label>MOTIVO DE CAPTURA <strong style="color:red">*</strong></label>
+                            <select id="MotivoCaptura" onchange="HabilitaCampoReporta()" class="form-control" name="obg">
+                                <option value="0" selected>Seleccione</option>
+                                <option value="Rondin">Rondin</option>
+                                <option value="Incidencia">Incidencia</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>REPORTA</label>
+                            <select id="Reporta" class="form-control" disabled>
+                                <option value="0">Seleccione</option>
+                                <!--Select que se llena con los guardias-->
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>ACTIVIDAD / INCIDENCIA <strong style="color:red">*</strong></label>
+                            <input type="text" class="form-control" id="Actividad_Incidencia" name="obg"/>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>PERSONA <strong style="color:red">*</strong></label>
+                            <input type="text" class="form-control" id="Persona" name="obg"/>
+                        </div>
+                        
+                    </div>
+                    <div class="row text-center align-items-center justify-content-center">
+                        <div class="col-md-3 form-group">
+                            <label>DIRECCIÓN <strong style="color:red">*</strong></label>
+                            <select class="form-control" id="Direccion" name="obg" onchange="SelectDinamicoDireccion()">
+                                <!--catalogo de direccion-->
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>DEPARTAMENTO <strong style="color:red">*</strong></label>
+                            <select class="form-control" id="Departamento" onchange="ActDesacCampania()" name="obg">
+                                <option value="0">Seleccione</option>
+                                <!--select dinamico dependiente de catalogo de direccions-->
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>CAMPAÑA</label>
+                            <select class="form-control" id="Campania" disabled>
+                                <option value="0">Seleccione</option>
+                                <!--select de Campanias-->
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label>FECHA <strong style="color:red">*</strong></label>
+                            <input type="text" id="FechaIncidente" class="form-control" name="obg"/>
+                        </div>
+
+                    </div>
+                    <div class="row text-center align-items-center justify-content-center">
+                        <div class="col-sm-2 form-group">
+                            <label>HORA <strong style="color:red">*</strong></label>
+                            <input class="form-control" type="time" id="Hora" name="obg" />
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>OBSERVACIONES</label>
+                            <textarea id="Observaciones" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row text-center align-items-center justify-content-center">
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-success" style="border-radius:15px" onclick="GuardarRondin()">GUARDAR</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-danger" style="border-radius:15px" onclick="CancelarRondin()">CANCELAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </form>
+</div>
+<script>
+
+    $(function () {
+        Session();
+        document.getElementById('Campania').disabled = true;
+        document.getElementById('Reporta').disabled = true;
+    })
+    $('#FechaIncidente').datepicker(dataCalendar).datepicker("setDate", new Date());
+    cargarDireccion();
+    cargarCampanias();
+    cargarDepartamento();
+    CargarGuardias();
+</script>

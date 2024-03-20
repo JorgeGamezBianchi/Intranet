@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Encriptar_Pass";
+}
+
+<h2>Encriptar_Pass</h2>
+
+<div class="row justify-content-center align-items-center">
+     <div class="col-md-4 form-group">
+         <button class="btn btn-success" onclick="Select_Encrypt()"><i class=""></i>Consultar</button>
+     </div>
+</div>
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-12" id="tabla_encrypt">
+
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-info" onclick="Traer_Pass()">Encryptar</button>
+    </div>
+</div>
+
+<script>
+    //Trae todos los id´s y los pass de los usuarios que se encuentran en la tabla de Logueo
+    function Select_Encrypt() {
+        var xml = new XMLHttpRequest();
+        var url = hostInit + "/Logueo/Select_Encrypt_Pass";
+
+        xml.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var result = JSON.parse(this.responseText);
+                var html = "<table class='table'>";
+                html += "<thead>";
+                html += "<tr>";
+                html += "<th>Id_Empleado</th>";
+                //html += "<th>CLABE</th>";
+                html += "<th>Numero Empleado</th>";
+                html += "</tr>";
+                html += "</thead>";
+                html += "<tbody>";
+                for (var i = 0; i < result.length; i++) {
+                    //html += "<tr><td><input id='Id_Empleado' value" + result[i].Id_usuario + "</td><td><label id='Pass'>" + result[i].Id_usuario+"</label></td>";
+                    //html += '<tr><td><input id="Id_Empleado" value="' + result[i].Id_Empleado + '" /></td><td><input id="CLABE" value="' + result[i].CLABE + '" /></td><td><input id="NumeroCuenta" value="' + result[i].NumeroCuenta + '" /></td></tr>';
+                    html += '<tr><td><input id="Id_Empleado" value="' + result[i].id_Empleado + '" /></td><td><input id="NumEmpleado" value="' + result[i].NumeroEmpleado + '"/></td></tr>';
+                }
+                html += "</tbody>";
+                html += "</table>";
+
+                document.getElementById('tabla_encrypt').innerHTML = html;
+                alertify.success(result.length);
+            }
+        };
+
+        xml.open("GET", url, true);
+        xml.send();
+    }
+
+    //Trae todos los datos para poder mandar a llamar el metodo que encriptara el pass
+    function Traer_Pass() {
+        var id = document.querySelectorAll('input[id="Id_Empleado"]');
+        //var clabe = document.querySelectorAll('input[id="CLABE"]');
+        var numEmp = document.querySelectorAll('input[id="NumEmpleado"]');
+        for (var i = 0; i < id.length; i++) {
+            setTimeout(
+                //Encriptar_Pass(id[i].value, clabe[i].value, numcu[i].value), 1000
+                Encriptar_Pass(id[i].value, numEmp[i].value), 1000
+            );
+            //console.log(id[i].value,clabe[i].value, numcu[i].value);
+           // console.log(id[i].value, numEmp[i].value);
+        }
+    }
+
+    //Mandadara los datos para poder ser encriptados
+    function Encriptar_Pass(Id_Empleado,numEmp) {
+        var xml = new XMLHttpRequest();
+        var url = hostInit + "/Logueo/Encriptar_Pass_DB";
+        var json = {
+            id_Empleado: Id_Empleado,
+            //CLABE: Clabe,
+            NumeroEmpleado: numEmp
+        }
+        xml.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var result = JSON.parse(this.responseText);
+                if (result == 1) {
+                    
+                }
+            }
+        };
+
+        xml.open("POST", url, true);
+        xml.setRequestHeader("Content-Type", "application/json")
+        xml.send(JSON.stringify(json));
+        document.getElementById('tabla_encrypt').innerHTML = "";
+        alertify.success("Proceso correcto");
+    }
+</script>

@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "CursosAsignados";
+}
+
+<style>
+    #agregar:hover {
+        opacity: 0.8;
+    }
+    canvas {
+        border: 1px solid #455d71;
+        width: 80%;
+        height: 50%;
+    }
+    video {
+        width: 80%;
+        height: 50%;
+    }
+    .button-pill {
+        border-radius: 50px;
+    }
+    .button-primary {
+        background: linear-gradient(top, #00b5e5, #008db2);
+        background-color: #17a2b8;
+        border-color: #007998;
+        color: white;
+        text-shadow: 0 -1px 1px rgba(0, 40, 50, 0.35);
+    }
+        .button-primary:hover {
+            background-color: #00a1cb;
+            background: linear-gradient(top, #00c9fe, #008db2);
+        }
+        .button-primary:active {
+            background: #1495b7;
+            color: #005065;
+        }
+</style>
+
+
+
+<div class="container" id="container">
+    <div class="row text-center">
+        <div class="col-sm-12" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+            <div class="col-sm-12 text-center" style="color: white;">
+                <h1 id="tituloC">Cursos</h1>
+            </div>
+        </div>
+    </div>
+    <br />
+
+
+    <div id="cursos">
+        <h3 style="color: steelblue; font: bold; text-align: center;">CURSOS POR APLICAR</h3><br />
+        <div id="cursosNR" class="row text-center justify-content-center">
+        </div>
+        <hr />
+        
+        <h3 style="color: steelblue; font: bold; text-align: center;">CURSOS APLICADOS</h3><br />
+        <div id="cursosR" class="row text-center justify-content-center">
+        </div>
+    </div>
+
+
+
+    @*Modal Certificado*@
+
+    <div class="modal fade" id="modalCertificado">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header align-items-center" style="background: #4682b4; color: white; justify-content:center;">
+                    <h4 class="modal-title" id="title">CERTIFICADO</h4>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="frmCrearPrograma">
+                        <div class="row text-center">
+                            <div class="form-group col-md-12">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <label id="error" style="color:red" class="col-md-8 text-left"></label>
+
+                    <button type="button" class="col-md-2 btn btn-danger" data-dismiss="modal" style="height: 40px; padding: 0px !important;border-radius:10px;">Cerrar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="CursoA" hidden>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-4 align-items-center justify-content-center" id="container">
+                <div id="inputArea">
+                </div>
+                @*<div id="clockdiv"></div>*@
+                <h1 id="time">0:00</h1>
+
+            </div>
+            <div class="col-md-4 align-items-center justify-content-center">
+                <button title='Anterior' class="button-pill button-primary col-md-2" id="prev" style="width:10%;margin-left:200px"><i class="fas fa-chevron-circle-left"></i></button>
+                <button title='Siguiente' class="button-pill button-primary col-md-2" id="next" style="width:10%;margin-left:10px"><i class="fas fa-chevron-circle-right"></i></button>
+                <label id="npages" style="margin-left:10px">Sin cargar</label><label id="pages"></label>
+
+            </div>
+
+            <div class="col-md-4 align-items-center justify-content-center col-md-3">
+                <button onclick="ValidaFinalPdf(fp)" id="Regresar" title='Regresar' class="button-pill button-primary col-md-3" style="width:10%;margin-left:110px"><i class="fas fa-arrow-alt-circle-left"></i></button>
+
+            </div>
+        </div>
+        <br />
+
+
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-12">
+
+                <canvas id="cnv" style="width:100%"></canvas>
+
+                <input id="Id_archivoP" hidden />
+                <input id="Id_estatusP" hidden />
+                <input id="Tiempo" hidden />
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="CursoV" style="text-align:center" hidden>
+
+    </div>
+
+
+
+    <div id="Actividad" hidden>
+        <input id="Id_Examen" hidden />
+        <input id="Id_Curso" hidden />
+        <div class="row align-items-center justify-content-center" id="btnIniciarEva">
+            <div class="col-md-4" style="top:150Px;">
+                <button type="button" class="btn btn-info" onclick="IniciarEvaluacionC()">Iniciar</button>
+            </div>
+        </div>
+
+        <div id="DivEvaluacion" hidden>
+            <div class="row align-items-center justify-content-center col-md-2" id="container">
+                <div id="inputArea">
+                </div>
+                @*<div id="clockdiv"></div>*@
+                <h1 id="timeA">0:00</h1>
+
+            </div>
+            <div id="tablaEvaluacion">
+                <!--Se crea la tabla dinamica-->
+            </div>
+            <div class="row align-items-center justify-content-center ">
+                <div class="col-md-4">
+                    <input id="Id_cuestionario" hidden />
+                    @*<button id="btnEvaluacion" type="button" class="btn btn-success" onclick="CargarGrupo()" hidden>Guardar Respuestas</button>*@
+                    <button id="btnEvaluacion" type="button" class="btn btn-success" onclick="CargarGrupo()" hidden>Guardar Respuestas</button>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center ">
+                <div class="col-md-4" id="btnFinalizar" hidden>
+                    <button class="btn btn-primary" onclick="Regresar()">Finalizar</button>
+                </div>
+            </div>
+        </div>
+        <input id="Id_archivoE" hidden />
+        <input id="Id_estatusE" hidden />
+        <input id="IdActividad" hidden />
+        <input id="TiempoA" hidden />
+    </div>
+
+</div>
+<script>
+    $(function () {
+
+        Session();
+        CargarCursosAsignados();
+
+    })
+</script>

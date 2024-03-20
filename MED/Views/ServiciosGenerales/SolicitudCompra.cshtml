@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "SolicitudCompra";
+}
+
+    <div class="container">
+        <div class="row text-center ">
+            <div class="col-sm-12">
+                <div class="row align-items-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                    <div class="col-sm-12 " style="color: white;">
+                        <h1>Solicitud de Copmpra</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <!--Datos del solicitante-->
+        <div class="row text-center justify-content-center">
+            <div class="col-md-11">
+                <div class="panel panel-info">
+
+                    <div class="row align-items-center" style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                        <div class="col-md-11" style="color: white">
+                            Datos del solicitante
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-md-3 form-group">
+                            <label>Fecha de la requsición </label>
+                            <input type="text" id="FechaRequesicion" class="form-control" value="@DateTime.Now"  />
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Nombre del solicitante </label>
+                            <input type="text" id="Nom_solicitante" class="form-control" disabled/>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="inputsm">Puesto </label>
+                            <Select class="form-control" id="Puesto" disabled>
+                                <!--Catalogo Puestos-->
+                            </Select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Dirección </label>
+                            <select class="form-control" id="Direccion" disabled>
+                                <!--catalogo de direccion-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-3 form-group">
+                            <label>Departamento/Campaña </label>
+                            <select class="form-control" id="Departamento" disabled>
+                                <option value="0">Seleccione</option>
+                                <!--select dinamico dependiente de catalogo de direccions-->
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label> Tipo de compra </label>
+                            <select class="form-control" id="Tipo" onchange="CargarProductos()">
+                                <option value="0">Seleccione</option>
+                                <!--select de catalogo de Tipo de compras-->
+                            </select>
+                        </div> 
+                        <div class="col-md-3 form-group">
+                            <label>Producto </label>
+                            <select class="form-control" id="subtipo">
+                                <option value="0">Seleccione</option>
+                                <!--select dinamico dependiente de catalogo de tipo de compras-->
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Razón de la Requesición</label>
+                            <textarea id="Razon" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-3 form-group">
+                            <label>Prioridad </label>
+                            <select class="form-control" id="Prioridad" >
+                                <option value="0">Seleccione</option>
+                                <option value="Baja">Baja</option>
+                                <option value="Media">Media</option>
+                                <option value="Alta">Alta</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-4">
+                <button class=" btn btn-success" onclick="GuardarSolicitud()"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 8px"></i>Guardar</button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-danger"><i class="fas fa-times-circle" style="color:#dc3545; padding-right: 8px"></i>Cancelar</button>
+            </div>
+        </div>
+        <!--Termina datos del solicitante-->
+    </div>
+    <input id="id_Empleado" hidden />
+    <script>
+        $(function () {
+            Session();
+            var f = new Date();
+            document.getElementById("FechaRequesicion").value = f.getFullYear() + "/" + (f.getMonth() + 1) + "/" + f.getDate();
+            document.getElementById("Nom_solicitante").value = sessionStorage.getItem('nombreU');
+            cargarPuesto();
+            cargarDireccion();
+            cargarDepartamento();
+            CargarTipoCompra();
+            document.getElementById('Razon').value = "";
+            document.getElementById('Prioridad').value = 0;
+            BuscarDatos_Empleado();
+        })
+
+        function revisarCombosCompra() {
+
+        }
+    </script>

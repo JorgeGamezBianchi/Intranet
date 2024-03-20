@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "HorariosEmp";
+}
+
+
+
+<div class="container">
+    <div class="row" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+        <div class="col-md-12" style="color: white">
+            <h1 class="text-center">Horario de entrada y salida de empleados</h1>
+        </div>
+    </div>
+    <br />
+    <form>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h2 class="text-center">Ingrese el número de empleado para registrar horario</h2>
+            </div>
+        </div>
+        <br />
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="row">
+                <div class="input-group col-md-12">
+                    <input class="form-control py-2" type="search" placeholder="Buscar empleado" id="numEmp" pattern="[0-9]">
+                    <span class="input-group-append">
+                        <button class="btn btn-outline-secondary" id="Buscar" type="button" style="background-color: aliceblue;" onclick="buscarEmpleadoHorario()">
+                            <i class="fas fa-search" style="color:cornflowerblue"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="datos" hidden>
+            <div class="row align-items-center">
+                <div class="col-md-3 form-group">
+                    <label>Apellido Paterno </label>
+                    <input class="form-control" id="APaterno" disabled>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Apellido Materno </label>
+                    <input class="form-control" id="AMaterno" disabled>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label> Primer Nombre </label>
+                    <input class="form-control" id="Nombre_1" disabled>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Segundo Nombre</label>
+                    <input class="form-control" id="Nombre_2" disabled>
+                    <input id="id_Empleado" hidden />
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-3 form-group">
+                    <label>Puesto</label>
+                    <Select class="form-control" id="Puesto" disabled>
+                        <!--Catalogo Puestos-->
+                    </Select>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Área</label>
+                    <select class="form-control" id="Departamento" disabled>
+                        <!--Catalogo camapañas-->
+                    </select>
+                </div>
+            </div>
+            <hr />
+            <!--Registro de horario-->
+            <div >
+                <h2>Días que labora</h2>
+                <div>
+                    <input type="radio" value="0" name="radio2" checked hidden />
+                    <label>
+                        <input type="radio" id="r1" value="Lunes-Viernes" name="radio2">
+                        <span class="checkmark"></span>
+                        Lunes a Viernes
+                    </label>
+                    <br />
+                    <label>
+                        <input type="radio" id="r2" value="Lunes-Sabado" name="radio2">
+                        <span class="checkmark"></span>
+                        Lunes a Sábado
+                    </label>
+                </div>
+                <hr />
+                <h2>Horario</h2>
+                <div name="pregunta" class="row">
+                    <div class="col-md-3">
+                        <input type="radio" value="0" name="radio1" checked hidden />
+                        <label><strong>Turno Matutino</strong></label>
+                        <label>
+                            <input type="radio" id="r3" value="TM" name="radio1">
+                            <span class="checkmark"></span>
+                            9:00 am - 3:00 pm
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <label><strong>Turno Vespertino</strong></label>
+                        <label>
+                            <input type="radio" id="r4" value="TV" name="radio1">
+                            <span class="checkmark"></span>
+                            3:00 pm - 9:00 pm
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <label><strong>Turno Completo</strong></label>
+                        <label>
+                            <input type="radio" id="r5" value="TC-1" name="radio1">
+                            <span class="checkmark"></span>
+                            9:00 am - 7:00 pm
+                        </label>
+                        <label>
+                            <input type="radio" id="r6" value="TC-2" name="radio1">
+                            <span class="checkmark"></span>
+                            11:00 am - 9:00 pm
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <label><strong>Intermedio</strong></label><br />
+                        <label>
+                            <input type="radio" id="r7" value="TI-1" name="radio1">
+                            <span class="checkmark"></span>
+                            11:00 am - 5:00 pm
+                        </label>
+                        <label>
+                            <input type="radio" id="r8" value="TI-2" name="radio1">
+                            <span class="checkmark"></span>
+                            12:00 pm - 6:00 pm
+                        </label>
+                        <label>
+                            <input type="radio" id="r9" value="TI-3" name="radio1">
+                            <span class="checkmark"></span>
+                            1:00 pm - 7:00 pm
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!--Termina registro de horarios-->
+            <hr />
+            <br />
+            <!--Botonoes-->
+            <div class="row align-items-center justify-content-center">
+                <div id="InsEmp" class="col-md-4">
+                    <button type="button" id="btn_InsEmp" class="btn btn-success" onclick="ValidarHorario()"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 8px"></i>Agregar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(function () {
+        Session();
+        cargarPuesto();
+        cargarDepartamento();
+    })
+</script>

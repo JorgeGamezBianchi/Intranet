@@ -1,0 +1,282 @@
+--------------Logueo--------------------------
+USE [db_IntranetMEDC]
+GO
+/****** Object:  StoredProcedure [dbo].[usp_LogAdmin]    Script Date: 01/12/2021 05:49:14 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[usp_LogAdmin]
+@usuario varchar (25),
+@Pass nvarchar(255)
+As
+declare @salida int
+
+Begin
+if not exists (select  e.NumEmpleado, l.Pass from tbl_Empleados e 
+inner join tbl_Logueo l on e.id_Empleado=l.Id_Empleado 
+where @usuario = NumEmpleado   and l.Pass =@Pass )
+if not exists
+(	SELECT 
+	--A.Id_Usuario,
+	--A.Id_Tipo,
+	A.Usuario,
+	CONVERT(varchar(MAX),DECRYPTBYPASSPHRASE('LLAVE',A.Pass)),
+	ISNULL(B.Nombre,'')+' '+ISNULL(B.ApPaterno,'')+' '+ISNULL(B.ApMaterno,'') [Nombre]
+	FROM Med_Marketing.dbo.tbl_LogIn A
+	INNER JOIN Med_Marketing.DBO.tbl_Usuarios B ON A.Id_Usuario=B.Id_Usuario
+	INNER JOIN Med_Marketing.DBO.tbl_Tipos C ON B.Id_Tipo=C.Id_Tipo
+	where A.Usuario collate latin1_general_cs_as =@usuario 
+	and CONVERT(VARCHAR(MAX),DECRYPTBYPASSPHRASE('LLAVE',A.Pass)) collate latin1_general_cs_as =@Pass)
+Begin
+select 1 as Opcion---- Datos erroneos
+end;
+--if exists (select e.NumEmpleado , Pass from tbl_Empleados e 
+--inner join tbl_Logueo l on e.id_Empleado=l.Id_Empleado
+--where @usuario = e.NumEmpleado and Pass =@Pass  AND l.Pass <> CAST( e.NumEmpleado as varchar)) 
+--and exists (select u.NumEmpleado
+--from tbl_Logueo l 
+--inner join  tbl_Empleados u on u.id_Empleado = l.Id_Empleado 
+--where 
+--cast(Fecha_caducar as date) = cast (getdate() as date) and
+-- u.NumEmpleado=@usuario ) 
+-- Begin
+--select 2 as Opcion  ---Cambiar contraseña
+--end;
+--if exists (select e.NumEmpleado , l.Pass , l.Id_status from tbl_Empleados e 
+--inner join  tbl_Logueo l on e.id_Empleado=l.Id_Empleado
+--where @usuario = e.NumEmpleado and l.Pass =@Pass
+-- and cast(l.Fecha_caducar as date) <> cast (getdate() as date) 
+--and exists (select u.id_Empleado from 
+--tbl_Empleados u inner join
+--tbl_Logueo l on u.id_Empleado = l.Id_Empleado
+--where @usuario = u.NumEmpleado  and l.Pass =@Pass))
+
+--if exists (select l.Pass from 
+--tbl_Empleados u 
+--inner join tbl_Logueo l on u.id_Empleado = l.Id_Empleado
+--where  @Pass = cast(u.NumEmpleado as varchar)) 
+-- Begin
+--select 5 as Opcion --- Cambio de contraseña (1° de sesion)
+--end;
+
+Begin
+if  exists (select  e.NumEmpleado, l.Pass 
+from tbl_Empleados e 
+inner join tbl_Logueo l on e.id_Empleado=l.Id_Empleado
+where (cast(e.NumEmpleado as varchar)  = @usuario) AND (l.Pass = @Pass)  
+AND (l.Pass <> cast(e.NumEmpleado as varchar)))
+select 3 as Opcion, cast (l.Fecha_caducar as date) as FechaCaducar, 
+e.Nombre_1, e.Nombre_2, e.AMaterno, e.APaterno,e.id_Empleado,e.Site,e.Puesto, l.Pass
+	FROM            tbl_Empleados e 
+inner join tbl_Logueo l on e.id_Empleado=l.Id_Empleado
+WHERE  cast(e.NumEmpleado as varchar)  = @usuario AND l.Pass = @Pass AND l.Pass <> cast(e.NumEmpleado as varchar)   --- Dtos correctos
+end;
+if exists (	SELECT 
+	--A.Id_Usuario,
+	--A.Id_Tipo,
+	A.Usuario,
+	CONVERT(varchar(MAX),DECRYPTBYPASSPHRASE('LLAVE',A.Pass)),
+	ISNULL(B.Nombre,'')+' '+ISNULL(B.ApPaterno,'')+' '+ISNULL(B.ApMaterno,'') [Nombre]
+	FROM Med_Marketing.dbo.tbl_LogIn A
+	INNER JOIN Med_Marketing.DBO.tbl_Usuarios B ON A.Id_Usuario=B.Id_Usuario
+	INNER JOIN Med_Marketing.DBO.tbl_Tipos C ON B.Id_Tipo=C.Id_Tipo
+	where A.Usuario collate latin1_general_cs_as =@usuario 
+	and CONVERT(VARCHAR(MAX),DECRYPTBYPASSPHRASE('LLAVE',A.Pass)) collate latin1_general_cs_as =@Pass)
+	Begin
+	if not exists  (SELECT 
+	
+	A.Usuario
+	FROM Med_Marketing.dbo.tbl_LogIn A
+	INNER JOIN tbl_Empleados e on a.Usuario  collate latin1_general_cs_as =cast(NumEmpleado as varchar)
+	where  @usuario= cast(e.NumEmpleado as varchar))
+	Begin
+	insert into db_IntranetMEDC.dbo.tbl_Empleados (NumEmpleado,Nombre_1,APaterno,AMaterno,Puesto,IdDireccion,IdDepartamento)  SELECT 
+	--A.Id_Usuario,
+	--A.Id_Tipo,
+	A.Usuario,B.Nombre,B.ApPaterno,B.ApMaterno,33 as Puesto,10 IdDireccion,28 as IdDepartamento
+	FROM Med_Marketing.dbo.tbl_LogIn A
+	INNER JOIN Med_Marketing.DBO.tbl_Usuarios B ON A.Id_Usuario=B.Id_Usuario
+	INNER JOIN Med_Marketing.DBO.tbl_Tipos C ON B.Id_Tipo=C.Id_Tipo	
+	where A.Usuario collate latin1_general_cs_as =@usuario
+	and CONVERT(VARCHAR(MAX),DECRYPTBYPASSPHRASE('LLAVE',A.Pass)) collate latin1_general_cs_as =@Pass
+	end
+select 3 as Opcion, 'NULL' as FechaCaducar,B.Nombre[Nombre_1],[Nombre_2], B.ApPaterno[AMaterno],B.ApMaterno [APaterno],e.id_Empleado,e.Puesto,'NULL' as[Site],CONVERT(VARCHAR(MAX),DECRYPTBYPASSPHRASE('LLAVE',A.Pass) )as Pass
+FROM Med_Marketing.dbo.tbl_LogIn A
+   INNER JOIN tbl_Empleados e on a.Usuario  collate latin1_general_cs_as =cast(NumEmpleado as varchar)
+	INNER JOIN Med_Marketing.DBO.tbl_Usuarios B ON A.Id_Usuario=B.Id_Usuario
+	INNER JOIN Med_Marketing.DBO.tbl_Tipos C ON B.Id_Tipo=C.Id_Tipo
+	where A.Usuario collate latin1_general_cs_as =@usuario 
+	and CONVERT(VARCHAR(MAX),DECRYPTBYPASSPHRASE('LLAVE',A.Pass)) collate latin1_general_cs_as =@Pass   --- Dtos correctos
+	end;
+	
+if exists (select u.Id_Empleado from 
+tbl_Empleados u  
+inner join tbl_Logueo l on u.id_Empleado = l.Id_Empleado
+where l.Id_status= 1 and @usuario = cast(u.NumEmpleado as varchar)  and Pass =@Pass) 
+ Begin
+select 4 as result ,@salida as Estatus ---Estatus bloqueado
+end;
+end;
+-----------------------------------------
+
+SP VALIDAR CONTRASEÑA
+
+
+ALTER procedure [dbo].[usp_ValiCambioContra]
+@usuario varchar (25),
+@newpass varchar (20)
+As
+DECLARE 
+@fecha_actualizada datetime = GETDATE(),
+@fecha_caducar datetime= DATEADD(month, 1, SYSDATETIME()),
+@us varchar(25) ,
+@fecha_hoy date = GETDATE()
+if exists (select u.Usuario , Pass
+ from tbl_Usuarios u , tbl_Logueo  l
+where @usuario = u.Usuario 
+ and datepart( day,l.Fecha_caducar) >= datepart( day,@fecha_hoy)
+ and datepart( MONTH,l.Fecha_caducar) = datepart( MONTH,@fecha_hoy)
+ or datepart( MONTH,l.Fecha_caducar) <= datepart( MONTH,@fecha_hoy))
+ Begin
+select 1
+end
+update tbl_Logueo 
+  set 
+ Pass =@newpass,
+ Fecha_actualizada =  @fecha_actualizada ,
+ Fecha_caducar = @fecha_caducar 
+ from tbl_Logueo l, tbl_Usuarios u
+ where    @usuario = u.Usuario
+  and l.Id_usuario= u.Id_usuario and datepart( MONTH,l.Fecha_caducar) = datepart( MONTH,@fecha_hoy)
+  if not exists (select u.Usuario , Pass
+ from tbl_Usuarios u , tbl_Logueo  l
+where @usuario = u.Usuario 
+ and datepart( day,l.Fecha_caducar) >= datepart( day,@fecha_hoy)
+ and datepart( MONTH,l.Fecha_caducar) = datepart( MONTH,@fecha_hoy)
+ or datepart( MONTH,l.Fecha_caducar) <= datepart( MONTH,@fecha_hoy))
+ Begin
+select 2
+end
+
+-------------------------Reporte 05-------------------------------------
+ALTER procedure [dbo].[usp_Reporte05]
+@Tipo int ,
+@FechaInicio DATE,
+@FechaFin  DATE ,
+@Puesto int,
+@Campaña int
+as
+declare @T int
+set @T=@Tipo;
+
+if (@T=1)
+begin
+--- alta por usuario
+select distinct e.NumEmpleado,Nombre_1,Nombre_2,APaterno,AMaterno,cast(Fingreso as date) as Fingreso, c.Campania, p.Puesto,@T as Tipo
+from tbl_Empleados e , cat_Campanias c ,cat_Puestos p
+where cast (e.FBaja as date) between @FechaInicio and @FechaFin
+and 
+e.Campania= @Campaña and e.Puesto=@Puesto and e.Campania= c.Id_Campania and p.id_Puesto=e.Puesto
+order by NumEmpleado desc
+end
+
+else
+---baja por usuario
+begin
+select distinct NumEmpleado,Nombre_1,Nombre_2,APaterno,AMaterno,tb.TipoBaja,Motivo, cast(e.FBaja as date) as FechaBaja, c.Campania, p.Puesto,@T as Tipo
+from tbl_Empleados e , cat_Motivo m , cat_TipoBaja tb, cat_Campanias c ,cat_Puestos p
+where cast (e.FBaja as date) between @FechaInicio and @FechaFin
+and e.TipoBaja= tb.Id_TipoBaja and e.MotivoBaja = m.Id_Motivo and 
+e.Campania= @Campaña and e.Puesto=@Puesto and e.Campania= c.Id_Campania and p.id_Puesto=e.Puesto
+order by NumEmpleado desc
+end
+
+----------------------------------------------Insertar Horarios-----------------------------------------------------
+ALTER procedure [dbo].[usp_Horarios]
+
+@IdEmp int,
+@EntL time = null,
+@SaL time= null,
+@EntM time=null,
+@SalM time=null,
+@EntMi time=null,
+@SalMi time=null,
+@EntJ time=null,
+@SalJ time=null,
+@EntV time=null,
+@SalV time=null,
+@EntS time=null,
+@SalS time=null,
+@EntD time=null,
+@SalD time=null
+
+as
+
+begin
+if not exists (select id_Empleado from tbl_Horarios where @IdEmp=id_Empleado)
+begin
+if exists ( select e.id_Empleado  from tbl_Empleados e , tbl_Horarios h where e.id_Empleado= @IdEmp  ) 
+begin
+insert into tbl_Horarios (id_Empleado,Lunes_E,Lunes_S,Martes_E,Martes_S,Miercoles_E,Miercoles_S,Jueves_E,Jueves_S,Viernes_E,Viernes_S,Sabado_E,Sabado_S,Domingo_E,Domingo_S)
+values (@IdEmp,@EntL,@SaL,@EntM, @SalM,@EntMi,@SalMi,@EntJ,@SalJ,@EntV,@SalV,@EntS,@SalS,@EntD,@SalD)
+Select 1
+end
+END
+else
+select 3
+end
+
+----------------------------------------Reporte de horarios------------------------------------------------------------
+ALTER procedure [dbo].[usp_RHorarios]
+@NumEmp int = null,
+@area  int = null,
+@status int = null
+as
+--FORMAT(cast(h.Lunes as time), N'hh\.mm')
+declare @ID int,
+@estado int 
+---Por numero de empleado---
+if (@NumEmp is not null and @area is null and @status is null)
+begin
+select distinct e.NumEmpleado, concat (e.Nombre_1 ,' ',e.Nombre_2,' ',e.APaterno,' ',e.AMaterno)as Nombre ,
+p.Puesto, FORMAT(cast(h.Lunes_E as time), N'hh\:mm') as Lunes_E, FORMAT(cast(h.Lunes_S as time), N'hh\:mm') as Lunes_S,
+FORMAT (CAST(h.Martes_E AS time),N'hh\:mm') AS Martes_E, FORMAT (CAST(h.Martes_S AS time),N'hh\:mm') AS Martes_S,
+FORMAT(CAST(h.Miercoles_E AS time), N'hh\:mm') AS Miercoles_E , FORMAT(CAST(h.Miercoles_S AS time), N'hh\:mm') AS Miercoles_S,
+FORMAT(CAST(h.Jueves_E AS time), N'hh\:mm')AS Jueves_E 	, FORMAT(CAST(h.Jueves_S AS time), N'hh\:mm')AS Jueves_S,
+FORMAT(CAST(h.Viernes_E AS time) ,N'hh\:mm') AS Viernes_E, FORMAT(CAST(h.Viernes_S AS time) ,N'hh\:mm') AS Viernes_S,
+FORMAT(CAST(h.Sabado_E AS time),N'hh\:mm') AS Sabado_E,FORMAT(CAST(h.Sabado_S AS time),N'hh\:mm') AS Sabado_S,
+FORMAT(CAST(h.Domingo_E AS time),N'hh\:mm') AS Domingo_E,FORMAT(CAST(h.Domingo_S AS time),N'hh\:mm') AS Domingo_S
+from tbl_Empleados e , cat_Puestos p, tbl_Empleados , tbl_Horarios h
+where @NumEmp = e.NumEmpleado and h.id_Empleado = e.id_Empleado and e.Puesto= p.id_Puesto
+end
+---Por area---
+if (@NumEmp is null and @area is not null and @status is null)
+begin
+select distinct e.NumEmpleado,concat (e.Nombre_1 ,' ',e.Nombre_2,' ',e.APaterno,' ',e.AMaterno)as Nombre ,
+p.Puesto,FORMAT(cast(h.Lunes_E as time), N'hh\:mm') as Lunes_E, FORMAT(cast(h.Lunes_S as time), N'hh\:mm') as Lunes_S,
+FORMAT (CAST(h.Martes_E AS time),N'hh\:mm') AS Martes_E, FORMAT (CAST(h.Martes_S AS time),N'hh\:mm') AS Martes_S,
+FORMAT(CAST(h.Miercoles_E AS time), N'hh\:mm') AS Miercoles_E , FORMAT(CAST(h.Miercoles_S AS time), N'hh\:mm') AS Miercoles_S,
+FORMAT(CAST(h.Jueves_E AS time), N'hh\:mm')AS Jueves_E 	, FORMAT(CAST(h.Jueves_S AS time), N'hh\:mm')AS Jueves_S,
+FORMAT(CAST(h.Viernes_E AS time) ,N'hh\:mm') AS Viernes_E, FORMAT(CAST(h.Viernes_S AS time) ,N'hh\:mm') AS Viernes_S,
+FORMAT(CAST(h.Sabado_E AS time),N'hh\:mm') AS Sabado_E,FORMAT(CAST(h.Sabado_S AS time),N'hh\:mm') AS Sabado_S,
+FORMAT(CAST(h.Domingo_E AS time),N'hh\:mm') AS Domingo_E,FORMAT(CAST(h.Domingo_S AS time),N'hh\:mm') AS Domingo_S
+from tbl_Empleados e , cat_Puestos p, tbl_Empleados , tbl_Horarios h
+where @area = e.IdDepartamento
+ and h.id_Empleado = e.id_Empleado and e.Puesto= p.id_Puesto
+end
+---Por Estatus---
+if (@NumEmp is  null and @area is  null and @status is not null)
+begin
+select distinct e.NumEmpleado,concat (e.Nombre_1 ,' ',e.Nombre_2,' ',e.APaterno,' ',e.AMaterno)as Nombre ,
+p.Puesto,FORMAT(cast(h.Lunes_E as time), N'hh\:mm') as Lunes_E, FORMAT(cast(h.Lunes_S as time), N'hh\:mm') as Lunes_S,
+FORMAT (CAST(h.Martes_E AS time),N'hh\:mm') AS Martes_E, FORMAT (CAST(h.Martes_S AS time),N'hh\:mm') AS Martes_S,
+FORMAT(CAST(h.Miercoles_E AS time), N'hh\:mm') AS Miercoles_E , FORMAT(CAST(h.Miercoles_S AS time), N'hh\:mm') AS Miercoles_S,
+FORMAT(CAST(h.Jueves_E AS time), N'hh\:mm')AS Jueves_E 	, FORMAT(CAST(h.Jueves_S AS time), N'hh\:mm')AS Jueves_S,
+FORMAT(CAST(h.Viernes_E AS time) ,N'hh\:mm') AS Viernes_E, FORMAT(CAST(h.Viernes_S AS time) ,N'hh\:mm') AS Viernes_S,
+FORMAT(CAST(h.Sabado_E AS time),N'hh\:mm') AS Sabado_E,FORMAT(CAST(h.Sabado_S AS time),N'hh\:mm') AS Sabado_S,
+FORMAT(CAST(h.Domingo_E AS time),N'hh\:mm') AS Domingo_E,FORMAT(CAST(h.Domingo_S AS time),N'hh\:mm') AS Domingo_S
+from tbl_Empleados e , cat_Puestos p, tbl_Empleados , tbl_Horarios h
+where @status = e.Estatus
+ and e.Puesto= p.id_Puesto and h.id_Empleado = e.id_Empleado
+ end

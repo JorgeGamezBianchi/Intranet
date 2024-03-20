@@ -1,0 +1,190 @@
+﻿
+    <div class="container">
+        <div class="row text-center ">
+            <div class="col-sm-12">
+                <div class="row align-items-center justify-content-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                    <div class="col-sm-9 " style="color: white;">
+                        <h1>Actualizar Fechas</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <!--Datos buscar empleado-->
+        <div id="datosBuscarEmp" class="row text-center justify-content-center">
+            <div class="col-md-11">
+                <div class="panel panel-info">
+
+                    <div class="row align-items-center " style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                        <div class="col-md-11" style="color:white">
+                            Busqueda de empleado
+                        </div>
+                    </div>
+                    <div class="collapse panel-collapse in show" id="collapse5">
+                        <div class="panel-body">
+                            <div class="row align-items-center justify-content-center">
+
+                                <div class="col-md-4 form-group">
+                                    <label>No. de empleado </label>
+                                    <input type="text" class="form-control" id="NumeroEmpleadob" onkeypress="return numeros(event)" maxlength="30">
+                                </div>
+                                <div class="col-md-1 form-group">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-outline-secondary" id="Buscar" type="button" style="background-color: aliceblue; margin-top:30px" onclick="BusquedaCursoxNumEmp()">
+                                            <i class="fas fa-search" style="color:cornflowerblue"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Termina Datos buscar empleado -->
+        <!--Datos del curso a modificar-->
+        <div class="row text-center justify-content-center" id="Div_DatosEmp" >
+            <div class="col-11">
+                <div class="panel-info">
+                    <div class="row align-items-center" style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                        <div class="col-md-11" style="color: white">
+                            Información de curso
+                        </div>
+                    </div>
+                    <div id="collapse" name="datosp" class="collapse show panel-collapse in">
+                        <div class="panel-body">
+                            <input hidden id="id_Empleado" />
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-md-3 form-group" hidden>
+                                    <label>Id</label>
+                                    <input type="text" class="form-control" id="Id_cursoAc" disabled>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Nombre de curso </label>
+                                    <input type="text" class="form-control" id="NomCurso" disabled>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label> Fecha Inicio </label>
+                                    <input type="text" class="form-control" id="FechaInicio" >
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Fecha Fin</label>
+                                    <input type="text" class="form-control" id="FechaFin" >
+                                </div>
+                            </div>
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-sm-4">
+                                    <button class="btn btn-success" onclick="ActualizarFechasCursos()"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 8px"></i>Actualizar</button>
+                                </div>
+                                @*<div class="col-sm-4">
+                                    <button class="btn btn-danger" onclick="Limpiar_RestarurarPass()"><i class="fas fa-times-circle" style="color:#fff; padding-right: 8px"></i>Cancelar</button>
+                                </div>*@
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Termina Datos del curso a modificar-->
+    </div>
+ 
+<script>
+    $(function () {
+        Session();
+    })
+    function BusquedaCursoxNumEmp() {
+        let numEmp = document.getElementById('NumeroEmpleadob').value;
+
+        json = {
+            NumEmp: numEmp 
+        }
+
+        if (document.getElementById('NumeroEmpleadob').value != "") {
+
+         
+ 
+            var xml = new XMLHttpRequest();
+            var url = hostInit + "/Curso/BuscarCursoxEmpleado";
+            xml.onreadystatechange = function () {
+                if (xml.readyState == 4 && xml.status == 200) {
+                    var resp = JSON.parse(this.response);
+                    if (resp != "") {
+                        document.getElementById('Id_cursoAc').value = resp.IdCurso;
+                        document.getElementById('NomCurso').value = resp.Nom_curso;
+                        document.getElementById('FechaInicio').value = resp.FechaInicio;
+                        document.getElementById('FechaFin').value = resp.FechaFin;
+                    } else {
+
+                    }
+                }
+            };
+            xml.open("POST", url, true);
+            xml.setRequestHeader("Content-Type", "application/json");
+            xml.send(JSON.stringify(json));
+        } else {
+            alertify.error("Llene el campo para buscar");
+        }
+
+       
+    }
+
+    function ActualizarFechasCursos() {
+        let Id = document.getElementById('Id_cursoAc').value;
+        let FechaInicio = document.getElementById('FechaInicio').value;
+        let FechaFin = document.getElementById('FechaFin').value;
+
+        var json = {
+            IdCurso: Id,
+            FechaInicio: FechaInicio,
+            FechaFin: FechaFin
+        }
+    
+        if (FechaInicio == "" || FechaFin == "") {
+
+            alertify.error("Los campos deben estar llenos");
+          
+        }
+
+        else if (FechaInicio.length < 23 || FechaFin.length < 23){
+
+            alertify.error("Error en Fecha");
+
+        }
+        else {
+            let xml = new XMLHttpRequest();
+            let url = hostInit + "/Curso/ActualizarFechasCursos";
+            xml.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let resp = JSON.parse(this.response);
+                    if (resp == 1) {
+                        console.log(resp);
+                        alertify.success("Fecha actualizada");
+
+                        console.log(FechaInicio.length);
+                        Limpiar();
+                     
+
+                    }
+                }
+            };
+
+            xml.open("POST", url, true);
+            xml.setRequestHeader("Content-Type", "application/json");
+            xml.send(JSON.stringify(json));
+
+    
+        }
+
+     
+    }
+
+    function Limpiar() {
+        document.getElementById('NumeroEmpleadob').value = "";
+        document.getElementById('Id_cursoAc').value = "";
+        document.getElementById('NomCurso').value = "";
+        document.getElementById('FechaInicio').value = "";
+        document.getElementById('FechaFin').value = "";
+    }
+</script>

@@ -1,0 +1,208 @@
+﻿<div class="container">
+    <div class="row text-center align-items-center" style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+        <div class="col-sm-12 " style="color: white; ">
+            <h3 id="Titulo">RESULTADOS DE MONITOREO DE CALIDAD </h3>
+        </div>
+    </div>
+    <br />
+    
+    
+    <form id="moniOper">
+        <div class="row text-center justify-content-center">
+            <div class="col-md-11">
+
+                <div class="row justify-content-center text-center align-items-center" style="background-color: lightseagreen; border-radius: 5px; padding-bottom:7px; font-size:20px;">
+                    <div class="col-md-11">
+                        <label for="Campana"><strong>Seleccione su monitoreo para visualizar</strong></label>
+                    </div>
+                    @*<div class="input-group col-sm-4" style=" ">
+
+                            <input class="form-control py-2 text-uppercase font-weight-bold text-center" type="search" placeholder="Buscar RFC" id="RFCRetro" maxlength="10" />
+
+                            <span class="input-group-append">
+                                <button class="btn btn-outline-secondary" id="Buscar" type="button" style="background-color: aliceblue;" onclick="CampanasMonitoreo()">
+                                    <i class="fas fa-search" style="color:cornflowerblue"></i>
+                                </button>
+                            </span>
+                        </div>*@
+                    <input class="form-control" type="text" id="IdDepartamentoO" hidden />
+                    <input class="form-control" type="text" id="IdEmpleadoO" hidden />
+                    <div class="col-sm-7 " style=" ">
+
+                        <select id="CampanaO" class="form-control" onchange="MonitoreoFeedback()">
+                            <!--SELECT DE TODAS LAS CAMPAÑAS DE LAS QUE SE TIENE MONITOREO-->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        
+        
+        <div class="container text-center align-content-center justify-content-center">
+            @*<div class="col-sm-4 form-group">
+            <label>¿Estás de acuerdo con tu monitoreo?</label>
+            <select id="AcuerdoRVT" class="form-control" onchange="Agree()">
+                <option value="SI" selected>SI</option>
+                <option value="NO">NO</option>
+            </select>
+            <select id="AcuerdoValidador" hidden class="form-control" onchange="Agree()">
+                <option value="SI" selected>SI</option>
+                <option value="NO">NO</option>
+            </select>
+        </div>*@
+
+            <div id="ResultadosRVTO" class="align-content-center justify-content-center">
+                <!--Se crea la tabla de resultados-->
+            </div>
+            <hr />
+
+
+            <div id="DivFeedO" class="row justify-content-center" hidden>
+                <div class="col-sm-4 form-group">
+                    <label id="DescLlamadaRVTO" style="display:block">DESCRIPCIÓN LLAMADA RVT</label>
+                    <textarea id="DescripcionLlamadaRVTO" class="form-control" style="display:block" disabled></textarea>
+                    <label id="DescLlamadaValiO" style="display:none">DESCRIPCIÓN LLAMADA VALIDADOR</label>
+                    <textarea id="DescripcionLlamadaValiO" class="form-control" style="display:none" disabled></textarea>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label id="FeedB_RVTO" style="display:block">FEEDBACK RVT</label>
+                    <textarea id="FeedBackRVTO" class="form-control" style="display:block" disabled></textarea>
+                    <label id="FeedB_ValiO" style="display:none">FEEDBACK VALIDADOR</label>
+                    <textarea id="FeedBackValiO" class="form-control" style="display:none" disabled></textarea>
+                </div>
+            </div>
+            
+            
+            <div id="DivcomeO" class="row justify-content-center" hidden>    
+                <div class="col-sm-4 form-group">
+                    <label id="lblComeO" > COMENTARIOS</label>
+                    <textarea id="ComenO" class="form-control" disabled></textarea>
+                </div>
+            </div>
+            <br />
+
+
+            <div class="row align-items-center justify-content-center">
+                <div class="col-sm-4 form-group">
+                    <label id="CompromisoRVTO" style="display:block">COMPROMISO RVT</label>
+                    <textarea id="RvtCompromisoO" class="form-control" style="display:block"></textarea>
+                    <label id="CompromisoValidadorO" style="display:none">COMPROMISO VALIDADOR</label>
+                    <textarea id="ValidadorCompromisoO" class="form-control" style="display:none"></textarea>
+                </div>
+                <div id="" class="col-sm-3">
+                    <button type="button" id="btn_GuardaMC" class="btn btn-success  fas fa-check-square" onclick="GuardarCompromiso()" style="width:100%"><i style="color:#17a2b8; padding-right: 8px"></i>Guardar</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+
+
+    <form id="moni" hidden>
+        <div class="row text-center justify-content-center">
+            <div class="col-md-11">
+                <div class="row justify-content-center text-center align-items-center" style="background-color: lightseagreen; border-radius: 5px; padding-bottom:7px; font-size:20px;">
+                    <div class="col-md-11">
+                        <label for="Campana"><strong>Realice la busqueda y seleccione su monitoreo para visualizar</strong></label>
+                    </div>
+                    <div class="input-group col-sm-4" style=" ">
+                            <input class="form-control py-2 text-uppercase font-weight-bold text-center" type="search" placeholder="Buscar RFC" id="RFCRetro" maxlength="10" />
+                            <span class="input-group-append">
+                                <button class="btn btn-outline-secondary" id="Buscar" type="button" style="background-color: aliceblue;" onclick="CampanasMonitoreo()">
+                                    <i class="fas fa-search" style="color:cornflowerblue"></i>
+                                </button>
+                            </span>
+                        </div>
+                    <input class="form-control" type="text" id="IdDepartamento" hidden />
+                    <input class="form-control" type="text" id="IdEmpleado" hidden />
+                    <div class="col-sm-7 " style=" ">
+                        <select id="Campana" class="form-control" onchange="MonitoreoFeedback()">
+                            <!--SELECT DE TODAS LAS CAMPAÑAS DE LAS QUE SE TIENE MONITOREO-->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        
+        
+        <div class="container text-center align-content-center justify-content-center">
+            @*<div class="col-sm-4 form-group">
+            <label>¿Estás de acuerdo con tu monitoreo?</label>
+            <select id="AcuerdoRVT" class="form-control" onchange="Agree()">
+                <option value="SI" selected>SI</option>
+                <option value="NO">NO</option>
+            </select>
+            <select id="AcuerdoValidador" hidden class="form-control" onchange="Agree()">
+                <option value="SI" selected>SI</option>
+                <option value="NO">NO</option>
+            </select>
+        </div>*@
+            <div id="ResultadosRVT" class="align-content-center justify-content-center">
+                <!--Se crea la tabla de resultados-->
+            </div>
+            <hr />
+
+            <div id="DivFeed" class="row justify-content-center" hidden>
+                <div class="col-sm-4 form-group">
+                    <label id="DescLlamadaRVT" style="display:block">DESCRIPCIÓN LLAMADA RVT</label>
+                    <textarea id="DescripcionLlamadaRVT" class="form-control" style="display:block" disabled></textarea>
+                    <label id="DescLlamadaVali" style="display:none">DESCRIPCIÓN LLAMADA VALIDADOR</label>
+                    <textarea id="DescripcionLlamadaVali" class="form-control" style="display:none" disabled></textarea>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label id="FeedB_RVT" style="display:block">FEEDBACK RVT</label>
+                    <textarea id="FeedBackRVT" class="form-control" style="display:block" disabled></textarea>
+                    <label id="FeedB_Vali" style="display:none">FEEDBACK VALIDADOR</label>
+                    <textarea id="FeedBackVali" class="form-control" style="display:none" disabled></textarea>
+                </div>
+            </div>
+            
+            <div id="Divcome" class="row justify-content-center" hidden>
+
+                <div class="col-sm-4 form-group">
+                    <label id="lblCome" > COMENTARIOS</label>
+                    <textarea id="Comen" class="form-control" disabled></textarea>
+                </div>
+            </div>
+            <br />
+
+
+            <div class="row align-items-center justify-content-center">
+                <div class="col-sm-4 form-group">
+                    <label id="CompromisoRVT" style="display:block">COMPROMISO RVT</label>
+                    <textarea id="RvtCompromiso" class="form-control" style="display:block"></textarea>
+                    <label id="CompromisoValidador" style="display:none">COMPROMISO VALIDADOR</label>
+                    <textarea id="ValidadorCompromiso" class="form-control" style="display:none"></textarea>
+                </div>
+                <div id="" class="col-sm-3">
+                    <button type="button" id="btn_GuardaMC" class="btn btn-success  fas fa-check-square" onclick="GuardarCompromiso()" style="width:100%"><i style="color:#17a2b8; padding-right: 8px"></i>Guardar</button>
+                </div>
+            </div>
+
+        </div>
+</form>
+    
+    
+    <script>
+        $(function () {
+            Session();
+            LimpiarCompromiso();
+            if (sessionStorage.getItem('puesto') == 25 || sessionStorage.getItem('puesto') == 28) {
+
+                CampanasMonitoreoOper();
+                document.getElementById('moniOper').hidden = false;
+                document.getElementById('moni').hidden = true;
+            }
+            else {
+                document.getElementById('moniOper').hidden = true;
+                document.getElementById('moni').hidden = false;
+              }
+        });
+
+    </script>
+</div>
+

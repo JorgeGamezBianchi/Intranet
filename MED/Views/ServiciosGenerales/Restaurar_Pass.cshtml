@@ -1,0 +1,217 @@
+﻿<div class="container">
+    <div class="row text-center ">
+        <div class="col-sm-12">
+            <div class="row align-items-center justify-content-center" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+                <div class="col-sm-9 " style="color: white;">
+                    <h1>Restauración de Password</h1>
+                </div>
+                @*<div class="col-sm-2">
+                        <button type="button" id="Buscar" class="btn btn-dark" onclick="BuscarCampos()"> <i class="fas fa-search" style="color:#fff;padding-right: 6px"></i>Buscar</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <!--Datos buscar empleado-->
+    <div id="datosBuscarEmp" class="row text-center justify-content-center">
+        <div class="col-md-11">
+            <div class="panel panel-info">
+
+                <div class="row align-items-center " style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                    <div class="col-md-11" style="color:white">
+                        Busqueda de empleado
+                    </div>
+                    @*<div class="col-md-1" style="color: white;">
+                            <span data-toggle="collapse" class="col-md-1" href="#collapse5" style="cursor: pointer;color: white; padding-right: 5px">&#9776;</span>
+                        </div>*@
+                </div>
+                <div class="collapse panel-collapse in show" id="collapse5">
+                    <div class="panel-body">
+                        <div class="row align-items-center justify-content-center">
+
+                            <div class="col-md-4 form-group">
+                                <label>No. de empleado </label>
+                                <input type="text" class="form-control" id="NumeroEmpleadob" onkeypress="return numeros(event)" maxlength="30">
+                            </div>
+
+                            @*<div class="col-md-2 form-group">
+                                <label>Apellido Paterno</label>
+                                <input type="text" class="form-control" id="APaternob" onkeypress="return letras(event)" maxlength="30">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label>Apellido Materno </label>
+                                <input type="text" class="form-control" id="AMaternob" onkeypress="return letras(event)" maxlength="30">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label> Primer Nombre </label>
+                                <input type="text" class="form-control" id="Nombre_1b" onkeypress="return letras(event)" maxlength="30">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label>Segundo Nombre</label>
+                                <input type="text" class="form-control" id="Nombre_2b" onkeypress="return letras(event)" maxlength="30">
+                                <input id="id_Empleadob" hidden />
+                            </div>*@
+
+                            <div class="col-md-1 form-group">
+                                <span class="input-group-append">
+                                    <button class="btn btn-outline-secondary" id="Buscar" type="button" style="background-color: aliceblue; margin-top:30px" onclick="Validar_RestauraPass()">
+                                        <i class="fas fa-search" style="color:cornflowerblue"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Termina Datos buscar empleado -->
+    
+    <!--Datos del empleado-->
+    <div class="row text-center justify-content-center" id="Div_DatosEmp" hidden>
+        <div class="col-11">
+            <div class="panel-info">
+                <div class="row align-items-center" style="background-color: steelblue; border-radius: 5px; padding: 3px; font-size:20px;">
+                    <div class="col-md-11" style="color: white">
+                        Información del empleado
+                    </div>
+                </div>
+                <div id="collapse" name="datosp" class="collapse show panel-collapse in">
+                    <div class="panel-body">
+                        <input hidden id="id_Empleado" />
+                        <div class="row align-items-center">
+                            <div class="col-md-3 form-group">
+                                <label>Apellido Paterno</label>
+                                <input type="text" class="form-control" id="APaterno" disabled>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Apellido Materno </label>
+                                <input type="text" class="form-control" id="AMaterno" disabled>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label> Primer Nombre </label>
+                                <input type="text" class="form-control" id="Nombre_1" disabled>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <label>Segundo Nombre</label>
+                                <input type="text" class="form-control" id="Nombre_2" disabled>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-md-3 form-group">
+                                <label>Número de empleado</label>
+                                <input type="text" class="form-control" id="NumeroEmpleado" disabled>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-sm-4">
+                                <button class="btn btn-success" onclick="Validar_Restaurar_Pass()"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 8px"></i>Restaurar</button>
+                            </div>
+                            <div class="col-sm-4">
+                                <button class="btn btn-danger" onclick="Limpiar_RestarurarPass()"><i class="fas fa-times-circle" style="color:#fff; padding-right: 8px"></i>Cancelar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Termina datos del empleado-->
+</div>
+
+<script>
+    $(function () {
+        Session();
+        Limpiar_RestarurarPass();
+    })
+    //Funcion que valida que la caja de texto no este vacia
+    function Validar_RestauraPass() {
+        var num = document.getElementById('NumeroEmpleadob').value;
+        if (num != "") {
+            buscarEmpleado_RestaruarPass(num);
+        } else {
+            alertify.alert("Favor de ingresar el criterio solicitado para realizar la busqueda");
+        }
+    }
+
+    //Funcion para realizar la busqueda del empleado y regrese los datos para realizar la restauración del Password
+    function buscarEmpleado_RestaruarPass(emple) {
+        var json = { NumeroEmpleado: emple }
+
+        var xml = new XMLHttpRequest();
+        var url = hostInit + "/Empleados/BuscarEmpleado/";
+
+        xml.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var result = JSON.parse(this.responseText);
+                console.log(result);
+                if (result.id_Empleado == 0) {
+                    document.getElementById('myModal1').style.display = 'block';
+                    document.getElementById('modalEmp').className = "modal-header alert-warning justify-content-center";
+                    document.getElementById('myModalLabel').innerHTML = "Advertencia";
+                    document.getElementById('infoModal').innerHTML = "Numero de empleado no existe en la base";
+                } else {
+                    document.getElementById('Div_DatosEmp').hidden = false;
+                    document.getElementById('id_Empleado').value = result.id_Empleado;
+                    document.getElementById('NumeroEmpleado').value = result.NumeroEmpleado;
+                    document.getElementById('APaterno').value = result.APaterno;
+                    document.getElementById('AMaterno').value = result.AMaterno;
+                    document.getElementById('Nombre_1').value = result.Nombre_1;
+                    document.getElementById('Nombre_2').value = result.Nombre_2;
+                    document.getElementById('datosBuscarEmp').hidden = true;
+                }
+            }
+        };
+
+        xml.open("POST", url, true);
+        xml.setRequestHeader("Content-Type", "application/json");
+        xml.send(JSON.stringify(json));
+    }
+
+    //Función para validar que se restaurará el Password
+    function Validar_Restaurar_Pass() {
+        alertify.confirm('Confirmación de Restauración', 'Se restaurará la contraseña del empleado seleccionado ¿Desea continuar?', function () {
+            
+            var xml = new XMLHttpRequest();
+            var url = hostInit + "/Logueo/Restaurar_Pass";
+            var json = {
+                NumeroEmpleado: document.getElementById('NumeroEmpleado').value,
+                id_Empleado: document.getElementById('id_Empleado').value
+            }
+            xml.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var result = JSON.parse(this.responseText);
+                    if (result == 1) {
+                        alertify.alert("Contraseña restaurada");
+                        Limpiar_RestarurarPass();
+                    } else {
+                        alertify.error("Error al restaurar contraseña");
+                    }
+                }
+            };
+
+            xml.open("POST", url, true);
+            xml.setRequestHeader("Content-Type", "application/json");
+            xml.send(JSON.stringify(json));
+        }, function () {
+            alertify.error('Restauración cancelada')
+        });
+    }
+
+    //Funcion para limpiar los campos
+    function Limpiar_RestarurarPass() {
+        document.getElementById('datosBuscarEmp').hidden = false;
+        document.getElementById('NumeroEmpleadob').value = "";
+        
+        document.getElementById('id_Empleado').value = "";
+        document.getElementById('NumeroEmpleado').value = "";
+        document.getElementById('APaterno').value = "";
+        document.getElementById('AMaterno').value = "";
+        document.getElementById('Nombre_1').value = "";
+        document.getElementById('Nombre_2').value = "";
+        document.getElementById('Div_DatosEmp').hidden = true;
+    }
+</script>

@@ -1,0 +1,37 @@
+﻿
+
+<head>
+
+    <META HTTP-EQUIV="Access-Control-Allow-Origin" CONTENT="https://cwmed248.nuxiba.com/agentkolob/?softphone=WebRTC">
+
+</head>
+
+
+<div class="row align-items-center justify-content-center">
+    <div class="col-sm-4">
+        <button class="btn btn-success" onclick="recuperar()"><i class="fas fa-plus-circle" style="color:#fff; padding-right: 8px"></i>Actualizar</button>
+    </div>
+</div>
+
+
+<script>
+    //document.domain = "https://cwmed248.nuxiba.com";
+
+    var windowRef = window.open("https://cwmed248.nuxiba.com/agentkolob/?softphone=WebRTC");
+
+    windowRef.document.getElementsByClassName("txtIdCall");
+
+    function recuperar() {
+        console.log(windowRef.document.getElementsByClassName("txtIdCall").value);
+    }
+                //var win = open("/Home/About.cshtml");
+                //win.document.write("About.cshtml");
+
+                // attach to button in target window, and use a handler in this one:
+                //var button = win.document.getElementById('button');
+
+                //button.onclick = function () {
+                //    alert("I'm in the first frame!");
+                //}
+</script>
+

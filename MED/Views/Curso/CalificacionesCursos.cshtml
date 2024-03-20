@@ -1,0 +1,68 @@
+﻿@using MED.Models;
+@{
+    var cursos = ViewData["Cursos"] as ListCursos;
+}
+@{
+    ViewBag.Title = "CalificacionesCursos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #tableCalifica_filter{
+        float:right;
+    }
+</style>
+<div class="container">
+    <div class="row text-center">
+        <div class="col-sm-12" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+            <div class="col-sm-12 text-center" style="color: white;">
+                <h1>Calificaciones de Cursos</h1>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row align-items-center justify-content-center text-center">
+
+        <div class="col-md-3 form-group">
+            <label>Selecciona el curso</label>
+            <select id="idCurso" class="form-control">
+                <option value="0">Seleccione</option>
+                @for (int i = 0; i < cursos.Cursos.Count; i++)
+                {
+                    <option value="@cursos.Cursos[i].Id_curso">@cursos.Cursos[i].Nombre_Curso</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-3 form-group">
+            <label for="inputsm">Fecha inicial</label>
+            <input class="form-control " id="Fechainicio" type="text" maxlength="20">
+        </div>
+
+        <div class="col-md-3 form-group">
+            <label for="inputsm">Fecha final</label>
+            <input class="form-control " id="Fechafin" type="text">
+        </div>
+
+        <div class="col-md-1 form-group">
+            <span class="input-group-append">
+                <button class="btn btn-outline-secondary" id="BuscarCalificaciones" type="button" style="background-color: aliceblue;" onclick="CargarCalificacionesCurso()">
+                    BUSCAR
+                    <i class="fas fa-search" style="color:cornflowerblue"></i>
+                </button>
+            </span>
+        </div>
+        
+    </div>
+
+    <div id="tablaCalificaciones">
+
+    </div>
+
+</div>
+<script>
+    $(function () {
+        Session();
+    })
+
+</script>
+

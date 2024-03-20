@@ -1,0 +1,538 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MEDMarketing | IntraNet</title>
+
+    <link href="~/Assets/fontawesome/css/all.css" rel="stylesheet" />
+    <link href="~/Assets/CssMed.css" rel="stylesheet" />
+    <link href="~/Assets/datatables.min.css" rel="stylesheet" />
+    <link href="~/Assets/alertify/alertify.min.css" rel="stylesheet" />
+    <link href="~/Assets/alertify/themes/default.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/chart.min.js"></script>
+    <script src="~/Scripts/alertify.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/pdf.js"></script>
+
+    <script src="~/Scripts/Logueo.js"></script>
+    <script src="~/Scripts/Empleados/RegistrarEmpleado.js"></script>
+    <script src="~/Scripts/Capacitacion/Capacitacion.js"></script>
+    <script src="~/Scripts/Reportes/Reportes.js"></script>
+    <script src="~/Scripts/Horarios/Horarios.js"></script>
+    <script src="~/Scripts/Operacion/ControlPlantillaOpe.js"></script>
+    <script src="~/Scripts/Operacion/BajaOperacional.js"></script>
+    <script src="~/Scripts/ServiciosGenerales/BitacoraRondines.js"></script>
+    <script src="~/Scripts/MonitoreoCalidad/MonitoreoCalidad.js"></script>
+    <script src="~/Scripts/Encuestas/PrimerEnc.js"></script>
+    <script src="~/Scripts/Encuestas/EvaluacionFDPPP.js"></script>
+    <script src="~/Scripts/Empleados/Actualizar_DatosEmp.js"></script>
+    <script src="~/Scripts/Curso/Curso.js"></script>
+    <script src="~/Scripts/Sistemas/BuscarFolio.js"></script>
+    <script src="~/Scripts/Curso/CursoUser.js"></script>
+    <script src="~/Scripts/Boveda/Boveda.js"></script>
+    <script src="~/Scripts/ServiciosGenerales/SolicitudCompras.js"></script>
+    <script src="~/Scripts/Encuestas/ClimaLaboral.js"></script>
+</head>
+<body>
+
+    <nav class='flexContainer blueBackground'>
+        <ul class='nav flexItem flexStart'>
+            <li><a><span id="spanHeader" style="display:none;" onclick="openNav()">&#9776; </span></a></li>
+            <label class="mx-2" style="color:white; font-size:18px"> MENÚ </label>
+            @*<li><img src="~/Media/Img/med1.png" class="img-fluid" style="margin-left:170%; margin-top: -14px;border-radius:10px;"/></li>*@
+        </ul>
+        <ul class='nav flexContainer flexEnd'>
+            <li><label id="nomUsuario" style="display: none; margin-right:10px"></label></li>
+            <li><button type="button" id="btnCerrarS" class="btn btn-dark" style="display:none; width:100px; margin-top:-5px" onclick="location.href='@Url.Action("Login", "Logueo")'" onmouseup="cerrarSesion()" data-bs-toggle="tooltip" title="Cerrar sesión"><i class="fas fa-sign-out-alt"></i></button></li>
+        </ul>
+    </nav>
+
+    <div id="main">
+        <!--Article-->
+        <article onclick="closeNav()">
+            <!--Modal de cambio de contraseña-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel1">Cambio de contraseña</h4>
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label id="Error_Upd_Pass" style="color:red"></label>
+                                    <label>Ingresa nueva contraseña.</label>
+                                    <input type="password" class="form-control" id="newPass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Ingresa tu contraseña" />
+                                    <input id="username1" name="username1" hidden>
+                                    <input id="old_pass" name="" hidden>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ingresa de nuevo tu contraseña.</label>
+                                    <input type="password" class="form-control" id="newPass1" placeholder="Ingresa de nuevo tu contraseña" />
+                                    <div id="Mensaje">
+                                        <label>La contraseña debe contener:</label>
+                                        <p id="min" class="invalido">Al menos una letra<b> minuscula</b></p>
+                                        <p id="mayus" class="invalido">Al menos una letra<b> mayuscula</b> </p>
+                                        <p id="num" class="invalido">Al menos un <b>Número</b></p>
+                                        <p id="length" class="invalido">Minimo<b> 8 caracteres</b></p>
+                                        <p id="mismaContra" class="invalido"><b>Contraseñas no coinciden</b></p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" id="updPass" onclick="vCambioContra()">Actualizar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Termina modal de cambio de contraseña-->
+            <!--Modal de notificaciones-->
+            <div class="modal" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div id="modalEmp" class="modal-header alert-warning justify-content-center">
+                            <h4 class=" col-md-10 modal-title text-center" id="myModalLabel">Advertencia</h4>
+                            <button type="button" class="col-md-2 close text-right" data-dismiss="modal" onclick="document.getElementById('myModal1').style.display = 'none'">×</button>
+                        </div>
+                        <div class="modal-body text-md-center">
+                            <label id="infoModal"></label>
+                        </div>
+                        <div id="modalFooter" class="modal-footer justify-content-center" hidden>
+                            <div class="col-md-4">
+                                <button class="btn btn-info" onclick="Retro()">Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Termina modal de notificaciones-->
+            @RenderBody()
+        </article>
+        <!--Termina article-->
+
+
+        <!--Nav-->
+        <div style="width: 100%;" onclick="closeNav()" hidden></div>
+        <div id="mySidenav" class="sidenav overflow-auto h-100 py-5" style="display:none">
+            <a href="javascript:void(0)" id="closeSideNav" class="closebtn" onclick="closeNav()">&#10006; </a>
+            <div id="body1">
+                <div id="accordion">
+
+                    <div class="card" id="OptMenuInicio">
+                        <div class="card-header">
+                            <i class="fa fa-home"></i>
+                            <a href="@Url.Action("Index","Home")">INICIO</a>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <div class="card" id="OptMenu_RH" hidden>
+                        <div class="card-header">
+                            <i class="fas fa-user icon"></i>
+                            <a class="collapsed card-link" data-bs-toggle="collapse" href="#collapseThree">Capital Humano</a>
+                        </div>
+                        <div id="collapseThree" class="collapse" data-parent="#accordion">
+                            <div class="card-body" style="background-color:gray">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-user icon"></i>Atracción de Talento
+                                    <i class="fa fa-caret-down" style="margin-right:10px"></i>
+                                </button>
+                                <div class="dropdown-container">
+                                    <ul>
+                                        <li><i class="fas fa-user-plus mx-3"></i>@Html.ActionLink("Registro de Candidatos", "RegistrarCandidato", "Empleados")</li>
+                                    </ul>
+                                </div>
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-user icon"></i>Nomina
+                                    <i class="fa fa-caret-down" style="margin-right:10px"></i>
+                                </button>
+                                <div class="dropdown-container">
+                                    <ul>
+                                        <li><i class="fas fa-user-plus mx-3"></i>@Html.ActionLink("Registro de Empleados", "RegistrarEmpleado", "Empleados")</li>
+                                        <li><i class="far fa-calendar-alt mx-3"></i>@Html.ActionLink("Registro de horarios", "HorariosEmp", "Horarios")</li>
+                                        <li><i class="fas fa-dollar-sign mx-3"></i>@Html.ActionLink("Registro de Sueldo", "Registro_Sueldo", "Empleados")</li>
+                                    </ul>
+                                </div>
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-file-alt icon"></i> Reportes
+                                    <i class="fa fa-caret-down" style="margin-right:10px"></i>
+                                </button>
+                                <div class="dropdown-container">
+                                    <ul>
+                                        <li><i class="fas fa-file-alt mx-3"></i>@Html.ActionLink("Contrato", "Contrato", "Reportes")</li>
+                                        <li><i class="fas fa-file-signature mx-3"></i>@Html.ActionLink("Altas", "ReportesAltas", "Reportes")</li>
+                                        <li><i class="fas fa-file-signature mx-3"></i>@Html.ActionLink("Bajas", "Reportes", "Reportes")</li>
+                                        <li><i class="fas fa-file-signature mx-3"></i>@Html.ActionLink("Bajas con tiempo de duración", "ReportesPermanencia", "Reportes")</li>
+                                        <li><i class="fas fa-file-signature mx-3"></i>@Html.ActionLink("Altas / Bajas por usuario", "ReportesUsuario", "Reportes")</li>
+                                        <li><i class="fas fa-file-signature mx-3"></i>@Html.ActionLink("Altas / Bajas por campaña y cargo", "ReportesCampaniasCargos", "Reportes")</li>
+                                        <li><i class="fas fa-file-signature mx-3"></i>@Html.ActionLink("Bajas por motivo y campaña", "ReportesMCF", "Reportes")</li>
+                                        <li><i class="fas fa-file-signature mx-3"></i>@Html.ActionLink("Horarios", "ReporteHorarios", "Reportes")</li>
+                                        <li><i class="fas fa-file-signature mx-3"></i>@Html.ActionLink("Encuestas de Salida", "ReporteEncuestaSalida", "Reportes")</li>
+                                    </ul>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <i class="fas fa-user-minus icon mx-2"></i>
+                                        <a style="font-size:16px">@Html.ActionLink("Baja de Empleado", "BajaEmpleados", "Empleados")</a>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <i class="fas fa-search icon mx-2"></i>
+                                        <a style="font-size:16px">@Html.ActionLink("Detalle de Empleado", "DetalleEmpleado", "Empleados")</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card" id="OptMenu_Capa" hidden>
+                        <div class="card-header">
+                            <i class="fas fa-user-graduate" style="color:white"></i>
+                            <a class="collapsed card-link" data-bs-toggle="collapse" href="#collapseOne">Capacitación</a>
+                        </div>
+                        <div id="collapseOne" class="collapse" data-parent="#accordion">
+                            <div class="card-body" style="background-color:gray">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-headphones icon" style="color:white;"></i>Simulador de tipificación
+                                    <i class="fa fa-caret-down" style="margin-right:10px"></i>
+                                </button>
+                                <div class="dropdown-container">
+                                    <ul>
+                                        <li>@Html.ActionLink("ECS", "ECS", "Capacitacion")</li>
+                                    </ul>
+                                    <button class="dropdown-btn">
+                                        PVAS
+                                        <i class="fa fa-caret-down" style="margin-right:35px"></i>
+                                    </button>
+                                    <div class="dropdown-container">
+                                        <ul class="mx-1">
+                                            <li>- @Html.ActionLink("ADICIONALES", "ADICIONALES", "Capacitacion")</li>
+                                            <li>- @Html.ActionLink("BALCOM ECM", "BALCOMECM", "Capacitacion")</li>
+                                            <li>- @Html.ActionLink("BALCOM+DISP", "BALCOMDISP", "Capacitacion")</li>
+                                            <li>- @Html.ActionLink("DISPONIBLE", "DISPONIBLE", "Capacitacion")</li>
+                                        </ul>
+                                    </div>
+                                    <button class="dropdown-btn">
+                                        REFERIDOS
+                                        <i class="fa fa-caret-down" style="margin-right:35px"></i>
+                                    </button>
+                                    <div class="dropdown-container">
+                                        <ul class="mx-1">
+                                            <li>- @Html.ActionLink("CNC", "CNC", "Capacitacion")</li>
+                                            <li>- @Html.ActionLink("CPC", "CPC", "Capacitacion")</li>
+                                            <li>- @Html.ActionLink("Pagare", "PAGARE", "Capacitacion")</li>
+                                            <li>- @Html.ActionLink("PYME", "PYME", "Capacitacion")</li>
+                                            <li>- @Html.ActionLink("REDIS", "REDIS", "Capacitacion")</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <i class="fas fa-search icon mx-2"></i>
+                                        <a style="font-size:16px">@Html.ActionLink("Enc. Seguridad de Inf.", "QSInfo", "Capacitacion")</a>
+                                    </li>
+                                </ul>
+                                <hr />
+                                <div class="card-group" id="OptMenu_Cursos">
+                                    <button class="dropdown-btn">
+                                        <i class="fas fa-chalkboard-teacher icon" style="color:white"></i>
+                                        <a class="collapsed card-link" data-bs-toggle="collapse" href="#Programas">E-Learning</a>
+                                    </button>
+                                    <div class="dropdown-container" id="Programas">
+                                        <ul id="UlCursos">
+                                            <li><i class="fas fa-graduation-cap mx-2"></i><a href="@Url.Action("CursosAsignados", "Curso")">Mis Cursos</a></li>
+                                            <li><i class="fas fa-chalkboard-teacher mx-2"></i><a href="@Url.Action("AdminProg", "Curso")">Programas</a></li>
+                                            <li><i class="fas fa-diagnoses mx-2"></i>@Html.ActionLink("Asignar cursos", "AsignarCurso", "Curso")</li>
+                                            <li><i class="fas fa-certificate mx-2"></i>@Html.ActionLink("Calificaciones", "CalificacionesCursos", "Curso")</li>
+                                            <li><i class="fas fa-certificate mx-2"></i>@Html.ActionLink("Calificaciones por Empleado", "BuscarCalifxNumEmp", "Curso")</li>
+                                            <li><i class="fas fa-clipboard-check mx-2"></i>@Html.ActionLink("Actualizar Fecha por Empleado", "ActualizarFechas", "Curso")</li>
+                                            <li hidden><i class="fas fa-graduation-cap mx-2"></i><a href="@Url.Action("CANYRET", "Curso")">CANYRET</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card" id="OptMenu_ST" hidden>
+                        <div class="card-header">
+                            <i class="fas fa-tools icon"></i>
+                            <a class="collapsed card-link" data-bs-toggle="collapse" href="#collapseSoporte">Soporte Técnico</a>
+                        </div>
+                        <div id="collapseSoporte" class="collapse" data-parent="#accordion">
+                            <div class="card-body" style="background-color:gray;">
+                                <ul id="ULSopo">
+                                    <li><i class="fas fa-user-minus mx-2" style="color:white"></i>@Html.ActionLink("Baja de usuarios", "BajaOperacionalView", "Operacion")</li>
+                                    <li><i class="fas fa-key mx-2" style="color:white"></i>@Html.ActionLink("Restaurar Contraseña", "Restaurar_Pass", "ServiciosGenerales")</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card" id="OptMenu_Ope" hidden>
+                        <div class="card-header">
+                            <i class="fas fa-headset icon"></i>
+                            <a class="collapsed card-link" data-bs-toggle="collapse" href="#collapseOperacion">Operación</a>
+                        </div>
+                        <div id="collapseOperacion" class="collapse" data-parent="#accordion">
+                            <div class="card-body" style="background-color:gray;">
+                                <ul>
+                                    <li><i class="fas fa-users-cog mx-2" style="color:white"></i>@Html.ActionLink("Control Operación", "ControlPlantillaOpe", "Operacion")</li>
+                                    <li><i class="fas fa-users-cog mx-2" style="color:white"></i>@Html.ActionLink("Autorización Cambio", "AutorizacionCambio", "Operacion")</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card" id="OptMenu_SG" hidden>
+                        <div class="card-header">
+                            <i class="fas fa-diagnoses icon"></i>
+                            <a class="collapsed card-link" data-bs-toggle="collapse" href="#collapseSG">Servicios Generales</a>
+                        </div>
+                        <div id="collapseSG" class="collapse" data-parent="#accordion">
+                            <div class="card-body" style="background-color:gray">
+                                <button class="dropdown-btn">
+                                    <i class="fas fa-book-reader icon"></i>Bitacoras
+                                    <i class="fa fa-caret-down" style="margin-right:10px"></i>
+                                </button>
+                                <div class="dropdown-container">
+                                    <ul>
+                                        <li id="SG_Rondines"><i class="fas fa-street-view mx-2"></i>@Html.ActionLink("Rondines", "Rondines", "ServiciosGenerales")</li>
+                                        <li id="SG_Rep_Rondines"><i class="fas fa-file-signature mx-2"></i>@Html.ActionLink("Reporte de Rondines", "ReporteRondines", "Reportes")</li>
+                                        <li id="SG_Rev_Rondines"><i class="fas fa-file-signature mx-2"></i>@Html.ActionLink("Revisión de Rondines", "RevisionRondines", "ServiciosGenerales")</li>
+                                    </ul>
+                                </div>
+                                <ul>
+                                    <li><i class="fas fa-file-invoice-dollar mx-2"></i>@Html.ActionLink("Solicitud de compra", "SolicitudCompra", "ServiciosGenerales")</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card" id="OptMenu_Enc" hidden>
+                        <div class="card-header">
+                            <i class="fas fa-book-open icon" style="color:white"></i>
+                            <a class="collapsed card-link" data-bs-toggle="collapse" href="#collapsesEmp">Encuestas</a>
+                        </div>
+                        <div id="collapsesEmp" class="collapse" data-parent="#accordion">
+                            <div class="card-body" style="background-color:gray">
+                                <ul id="UlEncuestas">
+                                    <li><i class="fas fa-desktop mx-2"></i>@Html.ActionLink("Enc. Home Office", "HommeOffice", "Empleados")</li>
+                                    <li><i class="fas fa-clipboard-list mx-2"></i>@Html.ActionLink("Cuestionario NOM035", "PrimerEnc", "Encuestas")</li>
+                                    <li><i class="fas fa-user-cog mx-2" style="color:white"></i>@Html.ActionLink("Actualizar Datos", "ActualizarDatos_Emp", "Empleados")</li>
+                                    <li><i class="fas fa-user-shield mx-2"></i>@Html.ActionLink("Evaluacion LFDPPP", "EvaluacionLFDPPP", "Encuestas")</li>
+                                    <li><i class="fas fa-user-shield mx-2"></i>@Html.ActionLink("Evaluacion clima laboral", "EvaluacionClimaLabolal", "Encuestas")</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card" id="OptMenuPass" hidden>
+                        <div class="card-header">
+                            <i class="fas fa-user-lock icon"></i>
+                            <a href="@Url.Action("AdminBoveda","Boveda")">Bóveda de Contraseñas</a>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card" id="MenuCalidad" hidden>
+                        <div class="card-header">
+                            <i class="far fa-clipboard icon" style="color:white"></i>
+                            <a class="collapsed card-link" data-bs-toggle="collapse" href="#collapseCalidad">Calidad</a>
+                        </div>
+                        <div id="collapseCalidad" class="collapse" data-parent="#accordion">
+                            <div class="card-body" style="background-color:gray">
+                                <ul id="UlCalidad">
+                                    <li><i class="far fa-clipboard mx-2" style="color:white"></i>@Html.ActionLink("Monitoreo de Calidad", "MonitoreoCalidad", "MonitoreoCalidad")</li>
+
+                                    <li><i class="fas fa-clipboard-list mx-2" style="color:white"></i>@Html.ActionLink("Layout de Monitoreo", "ReportesMonitoreo", "MonitoreoCalidad")</li>
+                                    <li><i class="fas fa-clipboard-list mx-2" style="color:white"></i>@Html.ActionLink("Layout General", "ReporteGeneralMonitoreo", "MonitoreoCalidad")</li>
+                                    <li><i class="fas fa-clipboard-list mx-2" style="color:white"></i>@Html.ActionLink("Retroalimentación de Calidad", "MonitoreoRVT", "MonitoreoCalidad")</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card" id="OptMenuFolo" hidden>
+                        <div class="card-header">
+                            <i class="fa fa-search icon"></i>
+                            <a href="@Url.Action("BuscarFolio","Sistemas")">Buscar folio</a>
+                        </div>
+                    </div>
+
+
+
+                    <div class="card" id="OptMenu" hidden>
+                        <div class="card-header">
+                            <i class="fas fa-lock icon"></i>
+                            <a href="@Url.Action("Login", "Logueo")" onclick="cerrarSesion()">Cerrar sesion</a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+        @*<img src="~/Media/Img/trabajando.gif" id="working" width="600" height="350" style="display:none">*@
+
+    </div>
+    <!--Termina Nav-->
+
+
+
+
+
+    <!--Scripts-->
+    <script>
+
+        $(function () {
+            deshabilitaRetroceso();
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+
+        //Sidenav
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "300px";
+            document.getElementById("main").style.marginLeft = "300px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+
+        //valida caracteres de contra
+        var contra = document.getElementById("newPass");
+        var min = document.getElementById("min");
+        var mayus = document.getElementById("mayus");
+        var num = document.getElementById("num");
+        var length = document.getElementById("length");
+
+        contra.onkeyup = function () {
+
+            var mayuscula = /[A-Z]/g;
+            if (contra.value.match(mayuscula)) {
+                mayus.classList.remove("invalido");
+                mayus.classList.add("valido");
+            }
+            else {
+                mayus.classList.remove("valido");
+                mayus.classList.add("invalido");
+            }
+
+            var minus = /[a-z]/g;
+            if (contra.value.match(minus)) {
+                min.classList.remove("invalido");
+                min.classList.add("valido");
+            }
+            else {
+                min.classList.remove("valido");
+                min.classList.add("invalido");
+            }
+
+            var nume = /[0-9]/g;
+            if (contra.value.match(nume)) {
+                num.classList.remove("invalido");
+                num.classList.add("valido");
+            }
+            else {
+                num.classList.remove("valido");
+                num.classList.add("invalido");
+            }
+
+            if (contra.value.length >= 8) {
+                length.classList.remove("invalido");
+                length.classList.add("valido");
+            }
+            else {
+                length.classList.remove("valido");
+                length.classList.add("invalido");
+            }
+        }
+
+        ////Compara contraeñas
+        var newPass1 = document.getElementById("newPass1");
+        var mContra = document.getElementById("mismaContra");
+
+        newPass1.onkeyup = function () {
+            if (newPass1.value.match(contra.value)) {
+                mContra.innerHTML = "Contraseña correcta.";
+                mContra.classList.remove("invalido");
+                mContra.classList.add("valido");
+            }
+            else {
+                mContra.classList.remove("valido");
+                mContra.classList.add("invalido");
+            }
+        }
+
+        function deshabilitaRetroceso() {
+            window.location.hash = "";
+            window.location.hash = "Again-No-back-button" //chrome
+            window.onhashchange = function () { window.location.hash = ""; }
+        }
+
+        //Dropdown
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+
+        function pruebaUno() {
+            alert();
+        }
+    </script>
+
+
+    <div class="footer mb-0">
+        MEDMarketing 2023
+    </div>
+
+    
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Capacitacion";
+}
+
+<div class="container">
+    <div class="row" style="background-color: #17A2B8; border-radius: 5px; padding: 3px; font-size:20px; height: 60px;">
+        <div class="col-md-12" style="color: white">
+            <h1 class="text-center">Capacitación</h1>
+        </div>
+    </div>
+    <br />
+    <div class="contenedor">
+        <div class="row text-center justify-content-center">
+            <h3 style="color: black">Audio 1</h3>
+            <div class="col-md-11 ">
+                <audio controls style="margin-left:70px; width: 60%">
+                    <source src="~/Media/Audio/O_30340062.wav" type="video/mp4">
+                    <!-- fallback content here -->
+                </audio>
+                <input id="audio" hidden value="1" />
+                <br />
+                <form>
+                    <div class="form-group">
+                        <h4>
+                            Con base en el audio <br />
+                            ¿Cómo tipificas la llamada?
+                        </h4>
+                        <div class="row justify-content-center">
+                            <div id="respuestaC" class="col-lg-4" hidden>
+                                <select id="respuesta1" class="form-control" disabled ></select>
+                            </div>
+                            <div id="respuestaU" class="col-lg-6">
+                                <select id="respuestaUser" class="form-control">
+                                    <!--Select de respuestas-->
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row justify-content-center">
+                            <div class="col-md-3">
+                                <button id="insertarResp" class="btn btn-info" onclick="InsertarRespuesta();"><span class="valido" style="margin-left: 70px"></span></button>
+                            </div>
+                            <div class="col-md-3">
+                                <button id="continuar" class="btn btn-secondary" disabled onclick="Siguiente();"><i class="fas fa-arrow-circle-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        Session();
+        cargarRespuestas();
+    })
+</script>
